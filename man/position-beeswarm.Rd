@@ -14,7 +14,7 @@ resolution of the data.}
 
 \item{nbins}{the number of divisions of the y-axis to use (default: \code{length(y)/5})}
 
-\item{spacing}{the spacing between adjacent dots (generally between 0 and 1)}
+\item{spacing}{the spacing between adjacent dots (default: 1/20)}
 }
 \description{
 Beeswarm-style plots to show overlapping points. x must be discrete.

@@ -84,12 +84,10 @@ PositionBeeswarm <- proto(ggplot2:::Position, {
           y_auc <- cumsum((((1+max(dens$y))-dens$y)^(1/3))*diff(dens$x)[1])
           y_cuts <- cut(y_auc, .$nbins)
           y_bins <- sapply(split(dens$x, y_cuts), min)
-          print(y_bins)
   
           cuts <- cut(x_class, y_bins)
           shifts <- c(-1, 0)
           xy_bins <- split(x_class, cuts)
-          print(xy_bins)
 #           even_bins <- sapply(xy_bins, function(i) {
 #             if (length(i) == 0) {
 #               return(NULL)
