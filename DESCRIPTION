@@ -1,0 +1,17 @@
+Package: ggbeeswarm
+Type: Package
+Title: Provides position_beeswarm() for ggplot2
+Version: 0.1
+Date: 2015-01-13
+Author: Erik Clarke
+Maintainer: Erik Clarke <ecl@mail.med.upenn.edu>
+Description: Allows the creation of beeswarm-style plots with ggplot
+License: GPL-2
+Depends:
+    R (>= 3.0.0),
+    ggplot2 (>= 1.0.0)
+Imports:
+    proto
+Collate:
+    'ggbeeswarm-package.R'
+    'position-beeswarm.r'
