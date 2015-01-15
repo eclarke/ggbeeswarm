@@ -6,7 +6,7 @@
 #' @param width degree of jitter in x direction. Defaults to 90\% of the
 #'   resolution of the data.
 #' @param nbins the number of divisions of the y-axis to use (default: \code{length(y)/5})
-#' @param spacing the spacing between adjacent dots (generally between 0 and 1)
+#' @param spacing the spacing between adjacent dots (default: 1/20)
 #' @export
 #' @examples
 #'
@@ -59,6 +59,7 @@ PositionBeeswarm <- proto(ggplot2:::Position, {
       .$nbins <- as.integer(length(data$y)/5)
       message("Default number of y-bins used (", .$nbins, ").")
     }
+    if (is.null(.$spacing)) .$spacing <- 1/20
     trans_x <- NULL
     trans_y <- NULL
 
@@ -79,28 +80,30 @@ PositionBeeswarm <- proto(ggplot2:::Position, {
         max_len <- NULL #max(sapply(split_y, function(i) max(table(cut(i, y_bins)))))
 
         x_offsets <- lapply(split_y, function(x_class) {
-          dens <- density(x_class, adjust=.$sesh)
-          y_auc <- cumsum((((.$sesh2+max(dens$y))-dens$y)^(1/3))*diff(dens$x)[1])
+          dens <- density(x_class, adjust=1/10)
+          y_auc <- cumsum((((1+max(dens$y))-dens$y)^(1/3))*diff(dens$x)[1])
           y_cuts <- cut(y_auc, .$nbins)
           y_bins <- sapply(split(dens$x, y_cuts), min)
-
+          print(y_bins)
+  
           cuts <- cut(x_class, y_bins)
           shifts <- c(-1, 0)
           xy_bins <- split(x_class, cuts)
-          even_bins <- sapply(xy_bins, function(i) {
-            if (length(i) == 0) {
-              return(NULL)
-            } else {
-              length(i)%%2 == 0
-            }
-          })
-          even_bins <- unlist(even_bins)
-          has_adj <- sapply(seq_along(even_bins), function(i) {
-            if (i == length(even_bins)) return(0)
-            even_bins[i] == even_bins[i+1]
-          })
-
-          if (length(has_adj) == 0) has_adj <- 0
+          print(xy_bins)
+#           even_bins <- sapply(xy_bins, function(i) {
+#             if (length(i) == 0) {
+#               return(NULL)
+#             } else {
+#               length(i)%%2 == 0
+#             }
+#           })
+#           even_bins <- unlist(even_bins)
+#           has_adj <- sapply(seq_along(even_bins), function(i) {
+#             if (i == length(even_bins)) return(0)
+#             even_bins[i] == even_bins[i+1]
+#           })
+  
+#           if (length(has_adj) == 0) has_adj <- 0
           xy_offsets <- suppressWarnings(mapply(function(xy_bin, shift, adj) {
             len <- length(xy_bin)
             if (len == 0) {
@@ -114,7 +117,7 @@ PositionBeeswarm <- proto(ggplot2:::Position, {
 #               if (adj) offsets <- offsets + shift * (w/2)
               return(offsets)
             }
-          }, split(x_class, cuts), shifts, has_adj))
+          }, split(x_class, cuts)))
 
           unsplit(xy_offsets, cuts)
         })
