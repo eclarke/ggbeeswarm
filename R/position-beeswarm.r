@@ -49,7 +49,7 @@ PositionBeeswarm <- proto(ggplot2:::Position, {
     if (empty(data)) return(data.frame())
     check_required_aesthetics(c("x", "y"), names(data), "position_jitter")
 
-#     if (is.null(.$width)) .$width <- resolution(data$x, zero = FALSE) * 0.9
+    if (is.null(.$width)) .$width <- resolution(data$x, zero = FALSE) * 0.9
     if (is.null(.$nbins)) {
       .$nbins <- as.integer(length(data$y)/5)
       message("Default number of y-bins used (", .$nbins, ").")
@@ -58,20 +58,12 @@ PositionBeeswarm <- proto(ggplot2:::Position, {
     if (is.null(.$bandwidth)) .$bandwidth <- 1/10
     trans_x <- NULL
     trans_y <- NULL
-
     if(.$width > 0) {
-
-
-
-
-#       y_bins <- seq(min(data$y), max(data$y), length.out=.$nbins)
-
 
       trans_x <- function(x) {
         split_y <- split(data$y, x)
         ## TODO: re-enable width param
         max_len <- NULL #max(sapply(split_y, function(i) max(table(cut(i, y_bins)))))
-
         x_offsets <- lapply(split_y, function(x_class) {
           dens <- density(x_class, adjust=.$bandwidth)
           y_auc <- cumsum((((1+max(dens$y))-dens$y)^(1/3))*diff(dens$x)[1])
