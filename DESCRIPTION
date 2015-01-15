@@ -1,7 +1,7 @@
 Package: ggbeeswarm
 Type: Package
 Title: Provides position_beeswarm() for ggplot2
-Version: 0.1
+Version: 0.1.01
 Date: 2015-01-13
 Author: Erik Clarke
 Maintainer: Erik Clarke <ecl@mail.med.upenn.edu>

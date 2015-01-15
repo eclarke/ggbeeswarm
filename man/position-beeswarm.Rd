@@ -6,15 +6,18 @@
 \title{Beeswarm-style plots to show overlapping points. x must be discrete.}
 \usage{
 position_beeswarm(width = NULL, nbins = NULL, spacing = NULL,
-  sesh = NULL, sesh2 = NULL)
+  bandwidth = NULL)
 }
 \arguments{
-\item{width}{degree of jitter in x direction. Defaults to 90\% of the
-resolution of the data.}
+\item{width}{(currently a no-op)}
 
-\item{nbins}{the number of divisions of the y-axis to use (default: \code{length(y)/5})}
+\item{nbins}{the number of divisions of the y-axis to use (default:
+\code{length(y)/5})}
 
 \item{spacing}{the spacing between adjacent dots (default: 1/20)}
+
+\item{bandwidth}{the adjustment to the kernel density bandwidth (higher
+values increase the number of points captured in a bin) (default: 1/10)}
 }
 \description{
 Beeswarm-style plots to show overlapping points. x must be discrete.
@@ -24,9 +27,7 @@ qplot(class, hwy, data = mpg, position="beeswarm")
 # Generate fake data
 distro <- melt(data.frame(list(runif=runif(100, min=-3, max=3), rnorm=rnorm(100))))
 qplot(variable, value, data = distro, position = "beeswarm")
-# Spacing and y-bin width can be adjusted
+# Spacing and number of bins can be adjusted
 qplot(variable, value, data = distro, position = position_beeswarm(spacing = 1/20, nbins=35))
-# Alternatively, can specify \\code{width} parameter like \\code{position_jitter}
-qplot(variable, value, data = distro, position = position_beeswarm(width=0.4)
 }
 
