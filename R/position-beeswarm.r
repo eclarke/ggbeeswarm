@@ -3,12 +3,8 @@
 #' @import proto
 #' @name position-beeswarm
 #' @family position adjustments
-#' @param width (currently a no-op)
-#' @param nbins the number of divisions of the y-axis to use (default:
-#'   \code{length(y)/5})
-#' @param spacing the spacing between adjacent dots (default: 1/20)
-#' @param bandwidth the adjustment to the kernel density bandwidth (higher
-#'   values increase the number of points captured in a bin) (default: 1/10)
+#' @param width the maximum amount of spread (default: 0.4)
+#' @param nbins number of points to use to estimate point density (default: 128)
 #' @export
 #' @examples
 #' 
@@ -17,100 +13,93 @@
 #' distro <- melt(data.frame(list(runif=runif(100, min=-3, max=3), rnorm=rnorm(100))))
 #' qplot(variable, value, data = distro, position = "beeswarm")
 #' # Spacing and number of bins can be adjusted
-#' qplot(variable, value, data = distro, position = position_beeswarm(spacing = 1/20, nbins=35))
-
-position_beeswarm <- function (width = NULL, nbins = NULL, spacing = NULL, 
-                               bandwidth = NULL) {
-  PositionBeeswarm$new(width = width, nbins = nbins, spacing = spacing,
-                       bandwidth = bandwidth)
+#' qplot(variable, value, data = distro, position = position_beeswarm(width=0.05, nbins=35))
+position_beeswarm <- function (width = NULL, nbins = NULL) {
+  PositionBeeswarm$new(width = width, nbins = nbins)
 }
 
 PositionBeeswarm <- proto(ggplot2:::Position, {
-  width = NULL
-  nbins = NULL
-  spacing = NULL
-  bandwidth = NULL
-
-  new <- function(.,
-                  width = NULL,
-                  nbins = NULL,
-                  spacing = NULL,
-                  bandwidth = NULL) {
-    .$proto(width=width,
-            nbins=nbins,
-            spacing=spacing,
-            bandwidth=bandwidth)
+  
+  width=NULL
+  nbins=NULL
+  
+  new <- function(., width=NULL, nbins=NULL) {
+    .$proto(width=width, nbins=nbins)
+  }
+  
+  objname <- "beeswarm"
+  
+  # Helper functions
+  # From https://stat.ethz.ch/pipermail/r-help/2008-May/162911.html
+  number2digits <- function(n, base){
+    #first digit in output is the least significant
+    digit <- n%%base
+    if (n < base)
+      return(digit)
+    else
+      return(c(digit, number2digits((n-digit)/base, base)))
+  }
+  
+  digits2number <- function(digits, base){
+    #first digit in input should be the most significant
+    output <- 0
+    for (digit in digits) output <- (base*output) + digit
+    return(output)
+  }
+  
+  vanDerCorput <- function(n, base=2){
+    #generate n first digits of the van der Corput sequence
+    output <- rep(NA,n)
+    for(i in 1:n){
+      digits <- number2digits(i, base)
+      output[i] <- digits2number(digits, base)/base^length(digits)
+    }
+    return(output)
   }
 
-  objname <- "beeswarm"
-
+  # Adjust function is used to calculate new positions (from ggplot2:::Position)
   adjust <- function(., data) {
-
     if (empty(data)) return(data.frame())
-    check_required_aesthetics(c("x", "y"), names(data), "position_jitter")
+    check_required_aesthetics(c("x", "y"), names(data), "position_beeswarm")
 
-    if (is.null(.$width)) .$width <- resolution(data$x, zero = FALSE) * 0.9
-    if (is.null(.$nbins)) {
-      .$nbins <- as.integer(length(data$y)/5)
-      message("Default number of y-bins used (", .$nbins, ").")
-    }
-    if (is.null(.$spacing)) .$spacing <- 1/20
-    if (is.null(.$bandwidth)) .$bandwidth <- 1/10
+    if (is.null(.$width)) .$width <- resolution(data$x, zero = FALSE) * 0.4
+    if (is.null(.$nbins)) .$nbins <- 128
+    
     trans_x <- NULL
     trans_y <- NULL
+    
     if(.$width > 0) {
-
       trans_x <- function(x) {
-        split_y <- split(data$y, x)
-        ## TODO: re-enable width param
-        max_len <- NULL #max(sapply(split_y, function(i) max(table(cut(i, y_bins)))))
-        x_offsets <- lapply(split_y, function(x_class) {
-          dens <- density(x_class, adjust=.$bandwidth)
-          y_auc <- cumsum((((1+max(dens$y))-dens$y)^(1/3))*diff(dens$x)[1])
-          y_cuts <- cut(y_auc, .$nbins)
-          y_bins <- sapply(split(dens$x, y_cuts), min)
-  
-          cuts <- cut(x_class, y_bins)
-          shifts <- c(-1, 0)
-          xy_bins <- split(x_class, cuts)
-#           even_bins <- sapply(xy_bins, function(i) {
-#             if (length(i) == 0) {
-#               return(NULL)
-#             } else {
-#               length(i)%%2 == 0
-#             }
-#           })
-#           even_bins <- unlist(even_bins)
-#           has_adj <- sapply(seq_along(even_bins), function(i) {
-#             if (i == length(even_bins)) return(0)
-#             even_bins[i] == even_bins[i+1]
-#           })
-  
-#           if (length(has_adj) == 0) has_adj <- 0
-          xy_offsets <- suppressWarnings(mapply(function(xy_bin, shift, adj) {
-            len <- length(xy_bin)
-            if (len == 0) {
-              return(xy_bin)
-            } else {
-              w <- ifelse(is.null(.$spacing), .$width/max_len, .$spacing)
-              offsets <- seq((-w)*((len-1)/2), w*((len-1)/2), by=w)
-              # Place higher y values at end of "smile"
-              offsets <- offsets[order(abs(offsets))][rank(xy_bin, ties="first")]
-              # Offset if bin below also has even/odd items
-#               if (adj) offsets <- offsets + shift * (w/2)
-              return(offsets)
-            }
-          }, split(x_class, cuts)))
+        
+        # Split the y-values by discrete values of x
+        y_split <- split(data$y, x)
+        
+        # Apply the van der Corput noise to each x group to create offsets
+        x_offsets <- lapply(y_split, function(y_subgroup) {
+          
+          # If there's only one value in this group, leave it alone
+          if (length(y_split) == 1) return(0) 
 
-          unsplit(xy_offsets, cuts)
+          out <- rep(NA, length(y_subgroup))
+          dens <- density(y_subgroup, n=.$nbins)
+          dens$y <- dens$y / max(dens$y)
+          offset <- vanDerCorput(length(y_subgroup))[rank(y_subgroup, ties.method="first")]
+          for (i in 1:.$nbins) {
+            selector <- y_subgroup <= dens$x[i] & is.na(out)
+            out[selector] <- (offset[selector]*.$width*2-.$width) * dens$y[i]
+          }
+          return(out)
         })
-
-        x_offsets <- unsplit(x_offsets, x)
-        return(x + x_offsets)
+        
+        # Join the x-offsets together, then re-apply the old positions
+        new_x <- unsplit(x_offsets, x)
+        return(new_x + x)
       }
+        
     }
 
     transform_position(data, trans_x, trans_y)
   }
 
 })
+
