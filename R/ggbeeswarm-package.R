@@ -2,6 +2,6 @@
 ##' 
 ##' @name ggbeeswarm-package
 ##' @docType package
-##' @import proto ggplot2
+##' @import proto
 ##' 
 NULL

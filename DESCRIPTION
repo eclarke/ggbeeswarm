@@ -5,13 +5,13 @@ Version: 0.2.0
 Date: 2015-01-13
 Authors: Erik Clarke, Scott Sherrill-Mix
 Maintainer: Erik Clarke <ecl@mail.med.upenn.edu>
-Description: Allows the creation of beeswarm-style plots with ggplot
+Description: Allows the creation of beeswarm-style plots with ggplot2
 License: GPL-2
 Depends:
-    R (>= 3.0.0),
-    ggplot2 (>= 1.0.0)
+    R (>= 3.0.0)
 Imports:
     proto
 Collate:
     'ggbeeswarm-package.R'
     'position-beeswarm.r'
+    'ggbeeswarm.R'
