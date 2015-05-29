@@ -10,7 +10,7 @@ offset_x(y, x, width = 0.4, var_width = FALSE, adjust = 0.5,
 \arguments{
 \item{y}{vector of data points}
 
-\item{x}{a grouping factor for y (i.e. what will be the x axis)}
+\item{x}{a grouping factor for y (optional)}
 
 \item{width}{the maximum x-width of each group (0 = no width, 1 = max; default = 0.4)}
 
@@ -21,6 +21,27 @@ offset_x(y, x, width = 0.4, var_width = FALSE, adjust = 0.5,
 \item{nbins}{the number of points used to calculate density}
 }
 \description{
-Offset data to avoid overplotting.
+Arranges data points using a van der Corput sequence to form "beeswarm" style
+plots. Returns a vector of x-offsets of the same length that
+}
+\examples{
+## Generate fake data
+dat <- list(rnorm(50), rnorm(500), c(rnorm(100), rnorm(100,5)), rcauchy(100))
+labels <- c("Normal", "Dense Norm.", "Bimodal", "Extremes")
+
+## Plot each distribution with a variety of parameters
+par(mfrow=c(4,1), mar=c(2,4, 0.5, 0.5))
+mapply(function(y, label) {
+  ids <- rep(1:4, each=length(y))
+
+  offsets <- c(
+    offset_x(y),  # Default
+    offset_x(y, adjust=2),    # More smoothing
+    offset_x(y, adjust=0.1),  # Tighter fit
+    offset_x(y, width=0.1))   # Less wide
+
+  plot(offsets + ids, rep(y, 4), ylab=label, xlab='', xaxt='n', pch=21, las=1)
+  axis(1, 1:4, c("Default", "Adjust=2", "Adjust=0.1", "Width=10\%"))
+}, dat, labels)
 }
 
