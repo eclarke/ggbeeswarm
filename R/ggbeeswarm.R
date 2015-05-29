@@ -1,6 +1,3 @@
-# Helper functions
-# From https://stat.ethz.ch/pipermail/r-help/2008-May/162911.html
-
 #' Offset data to avoid overplotting. 
 #' 
 #' Arranges data points using a van der Corput sequence to form "beeswarm" style
@@ -67,6 +64,8 @@ offset_x <- function(y, x, width=0.4, var_width=FALSE, adjust=0.5, nbins=1000) {
   new_x <- unsplit(x_offsets, x)
   return(new_x)
 }
+
+# Helper functions from https://stat.ethz.ch/pipermail/r-help/2008-May/162911.html
 
 #' Generate van der Corput sequences
 #' 

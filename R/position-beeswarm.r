@@ -3,7 +3,7 @@
 #' @import proto 
 #' @family position adjustments
 #' @param width the maximum amount of spread (default: 0.4)
-#' @param var_width vary the width by the size of the data
+#' @param var_width vary the width by the relative size of each group
 #' @param bandwidth the bandwidth adjustment to use when calculating density 
 #' Smaller numbers (< 1) produce a tighter "fit". (default: 0.5)
 #' @export

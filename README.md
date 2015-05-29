@@ -1,6 +1,10 @@
 # Beeswarm-style plots with base graphics and ggplot2
 
+## Introduction
+
 `ggbeeswarm` provides a way to generate beeswarm-style plots using both R's default plotting system as well as [ggplot2](http://ggplot2.org). It uses a [van der Corput sequence](http://en.wikipedia.org/wiki/Van_der_Corput_sequence) to space the dots to avoid overplotting. See the examples below.
+
+Beeswarm plots (aka column scatter plots or violin scatter plots) are a way of plotting points that would ordinarily overlap so that they fall next to each other instead. In addition to reducing overplotting, it helps visualize the density of the data at each point (similar to a violin plot), while still showing each data point individually.
 
 ## Installation
 
@@ -61,3 +65,11 @@ qplot(class, hwy, data=mpg, position=position_beeswarm(var_width = TRUE))
 ```
 
 ![](README_files/figure-html/ggplot2-examples-3.png) 
+
+------
+Authors:
+
+- Erik Clarke
+- Scott Sherrill-Mix
+
+Van der Corput sequence generator and helper functions from [https://stat.ethz.ch/pipermail/r-help/2008-May/162911.html](https://stat.ethz.ch/pipermail/r-help/2008-May/162911.html).
