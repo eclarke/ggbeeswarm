@@ -87,9 +87,10 @@ number2digits <- function(n, base){
     return(c(digit, number2digits((n-digit)/base, base)))
 }
 
-digits2number <- function(digits, base){
-  #first digit in input should be the most significant
-  output <- 0
-  for (digit in digits) output <- (base*output) + digit
-  return(output)
+#first digit in input should be the most significant
+digits2number<-function(digits,base){
+  if(length(digits)==0)return(0)
+  powers<-(length(digits)-1):0
+  out<-sum(digits*base^powers)
+  return(out)
 }
