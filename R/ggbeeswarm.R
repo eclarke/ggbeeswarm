@@ -5,7 +5,7 @@
 #' 
 #' @param y vector of data points 
 #' @param x a grouping factor for y (optional)
-#' @param width the maximum x-width of each group (0 = no width, 1 = max; default = 0.4)
+#' @param width the maximum spacing away from center for each group of points. Since points are spaced to left and right, the maximum width of the cluster will be approximately width*2 (0 = no offset, default = 0.4)
 #' @param var_width adjust the width of each group based on the number of points in the group
 #' @param adjust bandwidth used to adjust the density
 #' @param nbins the number of points used to calculate density
@@ -42,8 +42,6 @@ offset_x <- function(y, x, width=0.4, var_width=FALSE, adjust=0.5, nbins=1000) {
     # If there's only one value in this group, leave it alone
     if (length(y_subgroup) == 1) return(0) 
     
-    out <- rep(NA, length(y_subgroup))
-    
     subgroup_width <- 1
     if (var_width) subgroup_width <- length(y_subgroup)/maxLength
     
@@ -51,9 +49,9 @@ offset_x <- function(y, x, width=0.4, var_width=FALSE, adjust=0.5, nbins=1000) {
     dens$y <- dens$y / max(dens$y)
     offset <- vanDerCorput(length(y_subgroup))[rank(y_subgroup, ties.method="first")]
 
-    pointDensities<-approx(dens$x,dens$y,y_subgroup)$y
+    pointDensities<-stats::approx(dens$x,dens$y,y_subgroup)$y
 
-    out<-(offset*width*2-width)*pointDensities*subgroup_width
+    out<-((offset-.5)*2*width)*pointDensities*subgroup_width
     
     return(out)
   })
