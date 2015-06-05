@@ -43,7 +43,8 @@ offset_x <- function(y, x, width=0.4, varwidth=FALSE, adjust=0.5, nbins=1000) {
     if (length(y_subgroup) == 1) return(0) 
     
     subgroup_width <- 1
-    if (varwidth) subgroup_width <- length(y_subgroup)/maxLength
+	 #sqrt to match boxplot (allows comparison of order of magnitude different ns, scale with standard error)
+    if (varwidth) subgroup_width <- sqrt(length(y_subgroup)/maxLength)
     
     dens <- stats::density(y_subgroup, n = nbins, adjust = adjust)
     dens$y <- dens$y / max(dens$y)
