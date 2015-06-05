@@ -6,7 +6,7 @@
 #' @param y vector of data points 
 #' @param x a grouping factor for y (optional)
 #' @param width the maximum spacing away from center for each group of points. Since points are spaced to left and right, the maximum width of the cluster will be approximately width*2 (0 = no offset, default = 0.4)
-#' @param var_width adjust the width of each group based on the number of points in the group
+#' @param varwidth adjust the width of each group based on the number of points in the group
 #' @param adjust bandwidth used to adjust the density
 #' @param nbins the number of points used to calculate density
 #' @export
@@ -30,7 +30,7 @@
 #'   axis(1, 1:4, c("Default", "Adjust=2", "Adjust=0.1", "Width=10%"))
 #' }, dat, labels)
 #' 
-offset_x <- function(y, x, width=0.4, var_width=FALSE, adjust=0.5, nbins=1000) {
+offset_x <- function(y, x, width=0.4, varwidth=FALSE, adjust=0.5, nbins=1000) {
   
   if (missing(x)) x <- rep(1, length(y))
   
@@ -43,7 +43,7 @@ offset_x <- function(y, x, width=0.4, var_width=FALSE, adjust=0.5, nbins=1000) {
     if (length(y_subgroup) == 1) return(0) 
     
     subgroup_width <- 1
-    if (var_width) subgroup_width <- length(y_subgroup)/maxLength
+    if (varwidth) subgroup_width <- length(y_subgroup)/maxLength
     
     dens <- stats::density(y_subgroup, n = nbins, adjust = adjust)
     dens$y <- dens$y / max(dens$y)
