@@ -78,13 +78,12 @@ vanDerCorput <- function(n, base=2){
   return(output)
 }
 
+#first digit in output is the least significant
 number2digits <- function(n, base){
-  #first digit in output is the least significant
-  digit <- n%%base
-  if (n < base)
-    return(digit)
-  else
-    return(c(digit, number2digits((n-digit)/base, base)))
+  nDigits<-ceiling(log(n+1,base))
+  powers<-base^(0:nDigits)
+  out<-diff(n %% powers)/powers[-length(powers)]
+  return(out)
 }
 
 #first digit in input should be the most significant
