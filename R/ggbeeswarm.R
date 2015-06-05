@@ -61,21 +61,15 @@ offset_x <- function(y, x, width=0.4, var_width=FALSE, adjust=0.5, nbins=1000) {
   return(new_x)
 }
 
-# Helper functions from https://stat.ethz.ch/pipermail/r-help/2008-May/162911.html
-
 #' Generate van der Corput sequences
 #' 
-#' @param n the first n digits of the van der Corput sequence
+#' @param n the first n elements of the van der Corput sequence
 #' @param base the base to use for calculating the van der Corput sequence
 #' @export
 vanDerCorput <- function(n, base=2){
   #generate n first digits of the van der Corput sequence
-  output <- rep(NA,n)
-  for(i in 1:n){
-    digits <- number2digits(i, base)
-    output[i] <- digits2number(digits, base)/base^length(digits)
-  }
-  return(output)
+  out<-sapply(1:n,function(ii)digits2number(number2digits(ii,base),base,TRUE))
+  return(out)
 }
 
 #first digit in output is the least significant
@@ -87,9 +81,10 @@ number2digits <- function(n, base){
 }
 
 #first digit in input should be the most significant
-digits2number<-function(digits,base){
+digits2number<-function(digits,base,fractional=FALSE){
   if(length(digits)==0)return(0)
   powers<-(length(digits)-1):0
   out<-sum(digits*base^powers)
+  if(fractional)out<-out/base^(length(digits))
   return(out)
 }
