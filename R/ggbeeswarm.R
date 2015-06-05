@@ -51,7 +51,7 @@ offset_x <- function(y, x, width=0.4, var_width=FALSE, adjust=0.5, nbins=1000) {
 
     pointDensities<-stats::approx(dens$x,dens$y,y_subgroup)$y
 
-    out<-((offset-.5)*2*width)*pointDensities*subgroup_width
+    out<-(offset-.5)*2*width*pointDensities*subgroup_width
     
     return(out)
   })
