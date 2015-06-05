@@ -60,8 +60,8 @@ qplot(class, hwy, data=mpg, position=position_beeswarm())
 ![](README_files/figure-html/ggplot2-examples-2.png) 
 
 ```r
-# Some groups may have only a few points. Use `var_width=TRUE` to adjust width dynamically.
-qplot(class, hwy, data=mpg, position=position_beeswarm(var_width = TRUE))
+# Some groups may have only a few points. Use `varwidth=TRUE` to adjust width dynamically.
+qplot(class, hwy, data=mpg, position=position_beeswarm(varwidth = TRUE))
 ```
 
 ![](README_files/figure-html/ggplot2-examples-3.png) 

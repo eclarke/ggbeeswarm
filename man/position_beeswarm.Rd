@@ -4,12 +4,12 @@
 \alias{position_beeswarm}
 \title{Beeswarm-style plots to show overlapping points. x must be discrete.}
 \usage{
-position_beeswarm(width = NULL, var_width = NULL, bandwidth = NULL)
+position_beeswarm(width = NULL, varwidth = NULL, bandwidth = NULL)
 }
 \arguments{
 \item{width}{the maximum amount of spread (default: 0.4)}
 
-\item{var_width}{vary the width by the size of the data}
+\item{varwidth}{vary the width by the size of the data}
 
 \item{bandwidth}{the bandwidth adjustment to use when calculating density
 Smaller numbers (< 1) produce a tighter "fit". (default: 0.5)}

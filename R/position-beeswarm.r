@@ -3,7 +3,7 @@
 #' @import proto 
 #' @family position adjustments
 #' @param width the maximum amount of spread (default: 0.4)
-#' @param var_width vary the width by the relative size of each group
+#' @param varwidth vary the width by the relative size of each group
 #' @param bandwidth the bandwidth adjustment to use when calculating density 
 #' Smaller numbers (< 1) produce a tighter "fit". (default: 0.5)
 #' @export
@@ -14,18 +14,18 @@
 #' distro <- melt(data.frame(list(runif=runif(100, min=-3, max=3), rnorm=rnorm(100))))
 #' qplot(variable, value, data = distro, position = position_beeswarm())
 #' qplot(variable, value, data = distro, position = position_beeswarm(width=0.1))
-position_beeswarm <- function (width = NULL, var_width = NULL, bandwidth=NULL) {
+position_beeswarm <- function (width = NULL, varwidth = NULL, bandwidth=NULL) {
   if (!require(ggplot2)) {
     stop("position_beeswarm requires ggplot2")
   }
-  PositionBeeswarm$new(width = width, var_width = var_width, bandwidth=bandwidth)
+  PositionBeeswarm$new(width = width, varwidth = varwidth, bandwidth=bandwidth)
 }
 
 PositionBeeswarm <- proto(ggplot2:::Position, {
   objname <- "beeswarm"
   
-  new <- function(., width=NULL, var_width=NULL, bandwidth=NULL) {
-    .$proto(width=width, var_width=var_width, bandwidth=bandwidth)
+  new <- function(., width=NULL, varwidth=NULL, bandwidth=NULL) {
+    .$proto(width=width, varwidth=varwidth, bandwidth=bandwidth)
   }
 
   # Adjust function is used to calculate new positions (from ggplot2:::Position)
@@ -34,7 +34,7 @@ PositionBeeswarm <- proto(ggplot2:::Position, {
     check_required_aesthetics(c("x", "y"), names(data), "position_beeswarm")
 
     if (is.null(.$width)) .$width <- resolution(data$x, zero = FALSE) * 0.4
-    if (is.null(.$var_width)) .$var_width <- FALSE
+    if (is.null(.$varwidth)) .$varwidth <- FALSE
     if (is.null(.$bandwidth)) .$bandwidth <- 0.5
     
     nbins <- 1000
@@ -47,7 +47,7 @@ PositionBeeswarm <- proto(ggplot2:::Position, {
         new_x <- offset_x(
           data$y, x,
           width=.$width, 
-          var_width=.$var_width, 
+          varwidth=.$varwidth, 
           adjust=.$bandwidth)
         
         new_x + x

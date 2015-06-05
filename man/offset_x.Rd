@@ -4,7 +4,7 @@
 \alias{offset_x}
 \title{Offset data to avoid overplotting.}
 \usage{
-offset_x(y, x, width = 0.4, var_width = FALSE, adjust = 0.5,
+offset_x(y, x, width = 0.4, varwidth = FALSE, adjust = 0.5,
   nbins = 1000)
 }
 \arguments{
@@ -14,7 +14,7 @@ offset_x(y, x, width = 0.4, var_width = FALSE, adjust = 0.5,
 
 \item{width}{the maximum x-width of each group (0 = no width, 1 = max; default = 0.4)}
 
-\item{var_width}{adjust the width of each group based on the number of points in the group}
+\item{varwidth}{adjust the width of each group based on the number of points in the group}
 
 \item{adjust}{bandwidth used to adjust the density}
 
