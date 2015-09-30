@@ -9,13 +9,18 @@
 #' @export
 #' @examples
 #' 
-#' qplot(class, hwy, data = mpg, position=position_beeswarm())
-#' # Generate fake data
-#' distro <- melt(data.frame(list(runif=runif(100, min=-3, max=3), rnorm=rnorm(100))))
-#' qplot(variable, value, data = distro, position = position_beeswarm())
-#' qplot(variable, value, data = distro, position = position_beeswarm(width=0.1))
+#' if(requireNamespace("ggplot2")){
+#' #  ggplot2::qplot(class, hwy, data = ggplot2::mpg, position=position_beeswarm())
+#'   # Generate fake data
+#'   distro <- data.frame(
+#'     'variable'=rep(c('runif','rnorm'),each=100),
+#'     'value'=c(runif(100, min=-3, max=3), rnorm(100))
+#'   )
+#' #  ggplot2::qplot(variable, value, data = distro, position = position_beeswarm())
+#' #  ggplot2::qplot(variable, value, data = distro, position = position_beeswarm(width=0.1))
+#' }
 position_beeswarm <- function (width = NULL, varwidth = NULL, bandwidth=NULL) {
-  if (!require(ggplot2)) {
+  if (!requireNamespace("ggplot2")) {
     stop("position_beeswarm requires ggplot2")
   }
   PositionBeeswarm$new(width = width, varwidth = varwidth, bandwidth=bandwidth)
