@@ -4,7 +4,7 @@
 \alias{digits2number}
 \title{Convert a vector of integers representing digits in an arbitrary base to an integer}
 \usage{
-digits2number(digits, base, fractional = FALSE)
+digits2number(digits, base = 2, fractional = FALSE)
 }
 \arguments{
 \item{digits}{a vector of integers representing digits in an arbitrary base}
