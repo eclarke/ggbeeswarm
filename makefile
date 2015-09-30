@@ -2,7 +2,7 @@ VERSION:=$(shell grep Version: DESCRIPTION|sed 's/Version: //')
 NAME:=$(shell grep Package: DESCRIPTION|sed 's/Package: //')
 PACKAGEFILE:=../$(NAME)_$(VERSION).tar.gz
 
-all: ../$(PACKAGEFILE)
+all: $(PACKAGEFILE)
 
 .PHONY: all install
 
@@ -20,5 +20,5 @@ man: R/*.R R/*.r
 
 	
 #inst/doc
-../$(PACKAGEFILE): man R/*.R DESCRIPTION 
+$(PACKAGEFILE): man R/*.R DESCRIPTION 
 	R -e 'devtools::check();devtools::build()'
