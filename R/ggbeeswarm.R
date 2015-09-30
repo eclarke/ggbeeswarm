@@ -1,7 +1,7 @@
 #' Offset data to avoid overplotting. 
 #' 
 #' Arranges data points using a van der Corput sequence to form "beeswarm" style
-#' plots. Returns a vector of x-offsets of the same length that 
+#' plots. Returns a vector of the offsets to be used in plotting.
 #' 
 #' @param y vector of data points 
 #' @param x a grouping factor for y (optional)
@@ -9,6 +9,7 @@
 #' @param varwidth adjust the width of each group based on the number of points in the group
 #' @param adjust bandwidth used to adjust the density
 #' @param nbins the number of points used to calculate density
+#' @return a vector with of x-offsets of the same length as y
 #' @export
 #' @examples 
 #' ## Generate fake data
@@ -33,6 +34,7 @@
 offset_x <- function(y, x, width=0.4, varwidth=FALSE, adjust=0.5, nbins=1000) {
   
   if (missing(x)) x <- rep(1, length(y))
+  if (length(x)!=length(y)) stop(simpleError('x and y not the same length in offset_x'))
   
   maxLength<-max(table(x))
 
@@ -62,27 +64,57 @@ offset_x <- function(y, x, width=0.4, varwidth=FALSE, adjust=0.5, nbins=1000) {
 
 #' Generate van der Corput sequences
 #' 
+#' Generates the first (or an arbitrary offset) n elements of the van der Corput low-discrepancy sequence for a given base
+#' 
 #' @param n the first n elements of the van der Corput sequence
 #' @param base the base to use for calculating the van der Corput sequence
+#' @param start start at this position in the sequence
+#' @return a vector of length n with values ranging between 0 and 1
+#' @references \url{https://en.wikipedia.org/wiki/Van_der_Corput_sequence}
 #' @export
-vanDerCorput <- function(n, base=2){
+#' @examples
+#' vanDerCorput(100)
+vanDerCorput <- function(n, base=2,start=1){
   #generate n first digits of the van der Corput sequence
-  out<-sapply(1:n,function(ii)digits2number(number2digits(ii,base),base,TRUE))
+  out<-sapply(1:n+start-1,function(ii)digits2number(rev(number2digits(ii,base)),base,TRUE))
   return(out)
 }
 
-#first digit in output is the least significant
-number2digits <- function(n, base){
+#' Convert an integer to an arbitrary base
+#' 
+#' Takes an integer and converts it into an arbitrary base e.g. binary or octal. Note that the first digit in the output is the least significant.
+#' 
+#' @param n the integer to be converted
+#' @param base the base for the numeral system (e.g. 2 for binary or 8 for octal)
+#' @return a vector of length ceiling(log(n+1,base)) respresenting each digit for that numeral system
+#' @references \url{https://en.wikipedia.org/wiki/Radix}
+#' @export
+#' @examples
+#' number2digits(100)
+#' number2digits(100,8)
+number2digits <- function(n, base=2){
   nDigits<-ceiling(log(n+1,base))
   powers<-base^(0:nDigits)
   out<-diff(n %% powers)/powers[-length(powers)]
   return(out)
 }
 
-#first digit in input should be the most significant
+#' Convert a vector of integers representing digits in an arbitrary base to an integer
+#' 
+#' Takes a vector of integers representing digits in an arbitrary base e.g. binary or octal and converts it into an integer (or the integer divided by base^length(digits) for the number of digits if fractional is TRUE). Note that the first digit in the input is the least significant.
+#' 
+#' @param digits a vector of integers representing digits in an arbitrary base
+#' @param base the base for the numeral system (e.g. 2 for binary or 8 for octal)
+#' @param fractional divide the 
+#' @return an integer
+#' @references \url{https://en.wikipedia.org/wiki/Radix}
+#' @export
+#' @examples
+#' digits2number(c(4,4,1),8)
+#' digits2number(number2digits(100))
 digits2number<-function(digits,base,fractional=FALSE){
   if(length(digits)==0)return(0)
-  powers<-(length(digits)-1):0
+  powers<-0:(length(digits)-1)
   out<-sum(digits*base^powers)
   if(fractional)out<-out/base^(length(digits))
   return(out)
