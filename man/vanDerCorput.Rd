@@ -4,14 +4,25 @@
 \alias{vanDerCorput}
 \title{Generate van der Corput sequences}
 \usage{
-vanDerCorput(n, base = 2)
+vanDerCorput(n, base = 2, start = 1)
 }
 \arguments{
-\item{n}{the first n digits of the van der Corput sequence}
+\item{n}{the first n elements of the van der Corput sequence}
 
 \item{base}{the base to use for calculating the van der Corput sequence}
+
+\item{start}{start at this position in the sequence}
+}
+\value{
+a vector of length n with values ranging between 0 and 1
 }
 \description{
-Generate van der Corput sequences
+Generates the first (or an arbitrary offset) n elements of the van der Corput low-discrepancy sequence for a given base
+}
+\examples{
+vanDerCorput(100)
+}
+\references{
+\url{https://en.wikipedia.org/wiki/Van_der_Corput_sequence}
 }
 

@@ -12,7 +12,7 @@ offset_x(y, x, width = 0.4, varwidth = FALSE, adjust = 0.5,
 
 \item{x}{a grouping factor for y (optional)}
 
-\item{width}{the maximum x-width of each group (0 = no width, 1 = max; default = 0.4)}
+\item{width}{the maximum spacing away from center for each group of points. Since points are spaced to left and right, the maximum width of the cluster will be approximately width*2 (0 = no offset, default = 0.4)}
 
 \item{varwidth}{adjust the width of each group based on the number of points in the group}
 
@@ -20,9 +20,12 @@ offset_x(y, x, width = 0.4, varwidth = FALSE, adjust = 0.5,
 
 \item{nbins}{the number of points used to calculate density}
 }
+\value{
+a vector with of x-offsets of the same length as y
+}
 \description{
 Arranges data points using a van der Corput sequence to form "beeswarm" style
-plots. Returns a vector of x-offsets of the same length that
+plots. Returns a vector of the offsets to be used in plotting.
 }
 \examples{
 ## Generate fake data
