@@ -3,5 +3,5 @@
 export(digits2number)
 export(number2digits)
 export(offset_x)
-export(position_violinPoint)
+export(position_quasirandom)
 export(vanDerCorput)
