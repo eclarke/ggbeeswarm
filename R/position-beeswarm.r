@@ -1,15 +1,16 @@
 #' Beeswarm-style plots to show overlapping points. x must be discrete.
 #' 
-#' @import proto 
 #' @family position adjustments
+#' @name position_beeswarm
 #' @param width the maximum amount of spread (default: 0.4)
 #' @param varwidth vary the width by the relative size of each group
 #' @param bandwidth the bandwidth adjustment to use when calculating density 
 #' Smaller numbers (< 1) produce a tighter "fit". (default: 0.5)
+#' @usage position_beeswarm(width = NULL, varwidth = NULL, bandwidth = NULL)
 #' @export
 #' @examples
 #' 
-#' if(requireNamespace("ggplot2")){
+#' if(requireNamespace("ggplot2",quietly=TRUE)&requireNamespace("proto",quietly=TRUE)){
 #' #  ggplot2::qplot(class, hwy, data = ggplot2::mpg, position=position_beeswarm())
 #'   # Generate fake data
 #'   distro <- data.frame(
@@ -19,49 +20,50 @@
 #' #  ggplot2::qplot(variable, value, data = distro, position = position_beeswarm())
 #' #  ggplot2::qplot(variable, value, data = distro, position = position_beeswarm(width=0.1))
 #' }
-position_beeswarm <- function (width = NULL, varwidth = NULL, bandwidth=NULL) {
-  if (!requireNamespace("ggplot2")) {
-    stop("position_beeswarm requires ggplot2")
-  }
-  PositionBeeswarm$new(width = width, varwidth = varwidth, bandwidth=bandwidth)
+if(requireNamespace("ggplot2",quietly=TRUE)&requireNamespace("proto",quietly=TRUE)){
+	position_beeswarm <- function (width = NULL, varwidth = NULL, bandwidth=NULL) {
+	  PositionBeeswarm$new(width = width, varwidth = varwidth, bandwidth=bandwidth)
+	}
+
+	PositionBeeswarm <- proto::proto(ggplot2:::Position, {
+	  objname <- "beeswarm"
+	  
+	  new <- function(., width=NULL, varwidth=NULL, bandwidth=NULL) {
+		 .$proto(width=width, varwidth=varwidth, bandwidth=bandwidth)
+	  }
+
+	  # Adjust function is used to calculate new positions (from ggplot2:::Position)
+	  adjust <- function(., data) {
+		 if (empty(data)) return(data.frame())
+		 check_required_aesthetics(c("x", "y"), names(data), "position_beeswarm")
+
+		 if (is.null(.$width)) .$width <- resolution(data$x, zero = FALSE) * 0.4
+		 if (is.null(.$varwidth)) .$varwidth <- FALSE
+		 if (is.null(.$bandwidth)) .$bandwidth <- 0.5
+		 
+		 nbins <- 1000
+		 
+		 trans_x <- NULL
+		 trans_y <- NULL
+		 
+		 if(.$width > 0) {
+			trans_x <- function(x) {
+			  new_x <- offset_x(
+				 data$y, x,
+				 width=.$width, 
+				 varwidth=.$varwidth, 
+				 adjust=.$bandwidth)
+			  
+			  new_x + x
+			}
+			  
+		 }
+
+		 transform_position(data, trans_x, trans_y)
+	  }
+
+	})
+}else{
+	position_beeswarm <- function (width = NULL, varwidth = NULL, bandwidth=NULL)stop(simpleError("position_beeswarm requires ggplot2"))
 }
-
-PositionBeeswarm <- proto(ggplot2:::Position, {
-  objname <- "beeswarm"
-  
-  new <- function(., width=NULL, varwidth=NULL, bandwidth=NULL) {
-    .$proto(width=width, varwidth=varwidth, bandwidth=bandwidth)
-  }
-
-  # Adjust function is used to calculate new positions (from ggplot2:::Position)
-  adjust <- function(., data) {
-    if (empty(data)) return(data.frame())
-    check_required_aesthetics(c("x", "y"), names(data), "position_beeswarm")
-
-    if (is.null(.$width)) .$width <- resolution(data$x, zero = FALSE) * 0.4
-    if (is.null(.$varwidth)) .$varwidth <- FALSE
-    if (is.null(.$bandwidth)) .$bandwidth <- 0.5
-    
-    nbins <- 1000
-    
-    trans_x <- NULL
-    trans_y <- NULL
-    
-    if(.$width > 0) {
-      trans_x <- function(x) {
-        new_x <- offset_x(
-          data$y, x,
-          width=.$width, 
-          varwidth=.$varwidth, 
-          adjust=.$bandwidth)
-        
-        new_x + x
-      }
-        
-    }
-
-    transform_position(data, trans_x, trans_y)
-  }
-
-})
 

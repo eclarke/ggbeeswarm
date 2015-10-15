@@ -18,10 +18,15 @@ Smaller numbers (< 1) produce a tighter "fit". (default: 0.5)}
 Beeswarm-style plots to show overlapping points. x must be discrete.
 }
 \examples{
-qplot(class, hwy, data = mpg, position=position_beeswarm())
-# Generate fake data
-distro <- melt(data.frame(list(runif=runif(100, min=-3, max=3), rnorm=rnorm(100))))
-qplot(variable, value, data = distro, position = position_beeswarm())
-qplot(variable, value, data = distro, position = position_beeswarm(width=0.1))
+if(requireNamespace("ggplot2",quietly=TRUE)&requireNamespace("proto",quietly=TRUE)){
+#  ggplot2::qplot(class, hwy, data = ggplot2::mpg, position=position_beeswarm())
+  # Generate fake data
+  distro <- data.frame(
+    'variable'=rep(c('runif','rnorm'),each=100),
+    'value'=c(runif(100, min=-3, max=3), rnorm(100))
+  )
+#  ggplot2::qplot(variable, value, data = distro, position = position_beeswarm())
+#  ggplot2::qplot(variable, value, data = distro, position = position_beeswarm(width=0.1))
+}
 }
 

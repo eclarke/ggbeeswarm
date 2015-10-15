@@ -9,8 +9,8 @@ Description: This package allows the creation of beeswarm-style plots using quas
 License: GPL-2
 Depends:
     R (>= 3.0.0)
-Imports:
-    proto
+Suggests:
+    proto, ggplot2
 Collate:
     'ggbeeswarm-package.R'
     'position-beeswarm.r'
