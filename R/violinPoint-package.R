@@ -1,6 +1,6 @@
-##' violinPoint
+##' violinpoint
 ##' 
-##' @name violinPoint-package
+##' @name violinpoint-package
 ##' @docType package
 ##' 
 NULL
