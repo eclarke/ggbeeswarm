@@ -1,11 +1,11 @@
-Package: ggbeeswarm
+Package: violinPoint
 Type: Package
-Title: Provides position_beeswarm() for ggplot2
+Title: Plots multiple one-dimensional data in a plot combining the features of violin and scatter points
 Version: 0.2.0
 Date: 2015-01-13
 Author: Erik Clarke, Scott Sherrill-Mix
 Maintainer: Erik Clarke <ecl@mail.med.upenn.edu>
-Description: Allows the creation of beeswarm-style plots with ggplot2
+Description: This package allows the creation of beeswarm-style plots using quasirandom noise with ggplot2 or default R plotting.
 License: GPL-2
 Depends:
     R (>= 3.0.0)
