@@ -1,11 +1,4 @@
----
-title: "Beeswarm-style plots with base graphics and ggplot2"
-
-output: 
-  html_document: 
-    keep_md: yes
-    toc: yes
----
+# Beeswarm-style plots with base graphics and ggplot2
 
 ## Introduction
 

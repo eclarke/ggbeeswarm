@@ -40,7 +40,7 @@ mapply(function(y, label) {
 }, dat, labels)
 ```
 
-![](README_files/figure-html/base-examples-1.png) 
+![plot of chunk base-examples](README_files/base-examples-1.png) 
 
 ### Using ggplot2
 
@@ -51,20 +51,20 @@ library(ggplot2)
 qplot(Species, Sepal.Length, data=iris, position=position_beeswarm())
 ```
 
-![](README_files/figure-html/ggplot2-examples-1.png) 
+![plot of chunk ggplot2-examples](README_files/ggplot2-examples-1.png) 
 
 ```r
 qplot(class, hwy, data=mpg, position=position_beeswarm())
 ```
 
-![](README_files/figure-html/ggplot2-examples-2.png) 
+![plot of chunk ggplot2-examples](README_files/ggplot2-examples-2.png) 
 
 ```r
 # Some groups may have only a few points. Use `varwidth=TRUE` to adjust width dynamically.
 qplot(class, hwy, data=mpg, position=position_beeswarm(varwidth = TRUE))
 ```
 
-![](README_files/figure-html/ggplot2-examples-3.png) 
+![plot of chunk ggplot2-examples](README_files/ggplot2-examples-3.png) 
 
 ------
 Authors: Erik Clarke and Scott Sherrill-Mix
