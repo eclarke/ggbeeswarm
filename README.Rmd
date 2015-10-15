@@ -18,6 +18,8 @@ devtools::install_github("eclarke/ggbeeswarm")
 
 We use the provided function `offset_x` to generate the x-offsets for plotting.
 ```{r base-examples, tidy=FALSE, results='hide'}
+set.seed(12345)
+
 library(ggbeeswarm)
 # Generate data
 dat <- list(rnorm(50), rnorm(500), c(rnorm(100), rnorm(100,5)), rcauchy(100))
