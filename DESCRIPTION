@@ -1,4 +1,4 @@
-Package: violinPoint
+Package: violinpoint
 Type: Package
 Title: Plots multiple one-dimensional data in a plot combining the features of violin and scatter points
 Version: 0.2.0
