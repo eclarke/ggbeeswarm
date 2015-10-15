@@ -9,7 +9,7 @@ all: $(PACKAGEFILE)
 install:
 	R -e 'devtools::install_github("eclarke/violin_point")'
 
-man: R/*.R R/*.r
+man: R/*.R 
 	R -e 'devtools::document()'
 	touch man
 
