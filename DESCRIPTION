@@ -11,7 +11,3 @@ Depends:
     R (>= 3.0.0)
 Suggests:
     proto, ggplot2
-Collate:
-    'ggbeeswarm-package.R'
-    'position-beeswarm.r'
-    'ggbeeswarm.R'
