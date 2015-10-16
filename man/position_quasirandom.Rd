@@ -18,15 +18,13 @@ Smaller numbers (< 1) produce a tighter "fit". (default: 0.5)}
 Violin point-style plots to show overlapping points. x must be discrete.
 }
 \examples{
-if(requireNamespace("ggplot2",quietly=TRUE)&requireNamespace("proto",quietly=TRUE)){
-#  ggplot2::qplot(class, hwy, data = ggplot2::mpg, position=position_quasirandom())
+ggplot2::qplot(class, hwy, data = ggplot2::mpg, position=position_quasirandom())
   # Generate fake data
   distro <- data.frame(
     'variable'=rep(c('runif','rnorm'),each=100),
     'value'=c(runif(100, min=-3, max=3), rnorm(100))
   )
-#  ggplot2::qplot(variable, value, data = distro, position = position_quasirandom())
-#  ggplot2::qplot(variable, value, data = distro, position = position_quasirandom(width=0.1))
-}
+  ggplot2::qplot(variable, value, data = distro, position = position_quasirandom())
+  ggplot2::qplot(variable, value, data = distro, position = position_quasirandom(width=0.1))
 }
 

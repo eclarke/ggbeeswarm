@@ -6,21 +6,20 @@
 #' @param varwidth vary the width by the relative size of each group
 #' @param bandwidth the bandwidth adjustment to use when calculating density 
 #' Smaller numbers (< 1) produce a tighter "fit". (default: 0.5)
-#' @usage position_quasirandom(width = NULL, varwidth = NULL, bandwidth = NULL)
 #' @export
+#' @import proto
+#' @import ggplot2
 #' @examples
 #' 
-#' if(requireNamespace("ggplot2",quietly=TRUE)&requireNamespace("proto",quietly=TRUE)){
-#' #  ggplot2::qplot(class, hwy, data = ggplot2::mpg, position=position_quasirandom())
+#'   ggplot2::qplot(class, hwy, data = ggplot2::mpg, position=position_quasirandom())
 #'   # Generate fake data
 #'   distro <- data.frame(
 #'     'variable'=rep(c('runif','rnorm'),each=100),
 #'     'value'=c(runif(100, min=-3, max=3), rnorm(100))
 #'   )
-#' #  ggplot2::qplot(variable, value, data = distro, position = position_quasirandom())
-#' #  ggplot2::qplot(variable, value, data = distro, position = position_quasirandom(width=0.1))
-#' }
-if(requireNamespace("ggplot2",quietly=TRUE)&requireNamespace("proto",quietly=TRUE)){
+#'   ggplot2::qplot(variable, value, data = distro, position = position_quasirandom())
+#'   ggplot2::qplot(variable, value, data = distro, position = position_quasirandom(width=0.1))
+#'
 	position_quasirandom <- function (width = NULL, varwidth = NULL, bandwidth=NULL) {
 	  PositionQuasirandom$new(width = width, varwidth = varwidth, bandwidth=bandwidth)
 	}
@@ -63,7 +62,4 @@ if(requireNamespace("ggplot2",quietly=TRUE)&requireNamespace("proto",quietly=TRU
 	  }
 
 	})
-}else{
-	position_quasirandom <- function (width = NULL, varwidth = NULL, bandwidth=NULL)stop(simpleError("position_quasirandom requires ggplot2"))
-}
 
