@@ -1,7 +1,6 @@
 #' Violin point-style plots to show overlapping points. x must be discrete.
 #' 
 #' @family position adjustments
-#' @name position_quasirandom
 #' @param width the maximum amount of spread (default: 0.4)
 #' @param varwidth vary the width by the relative size of each group
 #' @param bandwidth the bandwidth adjustment to use when calculating density 
