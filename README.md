@@ -20,7 +20,17 @@ devtools::install_github("eclarke/ggbeeswarm")
 We use the provided function `offset_x` to generate the x-offsets for plotting.
 
 ```r
-library(ggbeeswarm)
+set.seed(12345)
+
+library(violinpoint)
+```
+
+```
+## Loading required package: proto
+## Loading required package: ggplot2
+```
+
+```r
 # Generate data
 dat <- list(rnorm(50), rnorm(500), c(rnorm(100), rnorm(100,5)), rcauchy(100))
 labels <- c("Normal", "Dense Norm.", "Bimodal", "Extremes")
@@ -47,21 +57,22 @@ mapply(function(y, label) {
 `ggbeeswarm` provides a `position_beeswarm` extension to ggplot2:
 
 ```r
+library(violinpoint)
 library(ggplot2)
-qplot(Species, Sepal.Length, data=iris, position=position_beeswarm())
+qplot(Species, Sepal.Length, data=iris, position=position_quasirandom())
 ```
 
 ![plot of chunk ggplot2-examples](README_files/ggplot2-examples-1.png) 
 
 ```r
-qplot(class, hwy, data=mpg, position=position_beeswarm())
+qplot(class, hwy, data=mpg, position=position_quasirandom())
 ```
 
 ![plot of chunk ggplot2-examples](README_files/ggplot2-examples-2.png) 
 
 ```r
 # Some groups may have only a few points. Use `varwidth=TRUE` to adjust width dynamically.
-qplot(class, hwy, data=mpg, position=position_beeswarm(varwidth = TRUE))
+qplot(class, hwy, data=mpg, position=position_quasirandom(varwidth = TRUE))
 ```
 
 ![plot of chunk ggplot2-examples](README_files/ggplot2-examples-3.png) 

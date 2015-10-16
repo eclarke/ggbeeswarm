@@ -20,7 +20,7 @@ We use the provided function `offset_x` to generate the x-offsets for plotting.
 ```{r base-examples, tidy=FALSE, results='hide'}
 set.seed(12345)
 
-library(ggbeeswarm)
+library(violinpoint)
 # Generate data
 dat <- list(rnorm(50), rnorm(500), c(rnorm(100), rnorm(100,5)), rcauchy(100))
 labels <- c("Normal", "Dense Norm.", "Bimodal", "Extremes")
@@ -44,11 +44,12 @@ mapply(function(y, label) {
 
 `ggbeeswarm` provides a `position_beeswarm` extension to ggplot2:
 ```{r ggplot2-examples}
+library(violinpoint)
 library(ggplot2)
-qplot(Species, Sepal.Length, data=iris, position=position_beeswarm())
-qplot(class, hwy, data=mpg, position=position_beeswarm())
+qplot(Species, Sepal.Length, data=iris, position=position_quasirandom())
+qplot(class, hwy, data=mpg, position=position_quasirandom())
 # Some groups may have only a few points. Use `varwidth=TRUE` to adjust width dynamically.
-qplot(class, hwy, data=mpg, position=position_beeswarm(varwidth = TRUE))
+qplot(class, hwy, data=mpg, position=position_quasirandom(varwidth = TRUE))
 
 ```
 
