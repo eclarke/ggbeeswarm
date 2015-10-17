@@ -2,7 +2,7 @@
 
 ## Introduction
 
-`ggbeeswarm` provides a way to generate beeswarm-style plots using both R's default plotting system as well as [ggplot2](http://ggplot2.org). It uses a [van der Corput sequence](http://en.wikipedia.org/wiki/Van_der_Corput_sequence) to space the dots to avoid overplotting. See the examples below.
+`violinpoint` provides a way to generate beeswarm-style plots using both R's default plotting system as well as [ggplot2](http://ggplot2.org). It uses a [van der Corput sequence](http://en.wikipedia.org/wiki/Van_der_Corput_sequence) to space the dots to avoid overplotting. See the examples below.
 
 Beeswarm plots (aka column scatter plots or violin scatter plots) are a way of plotting points that would ordinarily overlap so that they fall next to each other instead. In addition to reducing overplotting, it helps visualize the density of the data at each point (similar to a violin plot), while still showing each data point individually.
 
@@ -10,7 +10,7 @@ Beeswarm plots (aka column scatter plots or violin scatter plots) are a way of p
 
 
 ```r
-devtools::install_github("eclarke/ggbeeswarm")
+devtools::install_github("eclarke/violinpoint")
 ```
 
 ## Examples
