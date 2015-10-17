@@ -23,14 +23,6 @@ We use the provided function `offset_x` to generate the x-offsets for plotting.
 set.seed(12345)
 
 library(violinpoint)
-```
-
-```
-## Loading required package: proto
-## Loading required package: ggplot2
-```
-
-```r
 # Generate data
 dat <- list(rnorm(50), rnorm(500), c(rnorm(100), rnorm(100,5)), rcauchy(100))
 labels <- c("Normal", "Dense Norm.", "Bimodal", "Extremes")
@@ -54,7 +46,7 @@ mapply(function(y, label) {
 
 ### Using ggplot2
 
-`ggbeeswarm` provides a `position_beeswarm` extension to ggplot2:
+`violinpoint` provides a `position_quasirandom` extension to ggplot2:
 
 ```r
 library(violinpoint)
@@ -76,6 +68,31 @@ qplot(class, hwy, data=mpg, position=position_quasirandom(varwidth = TRUE))
 ```
 
 ![plot of chunk ggplot2-examples](README_files/ggplot2-examples-3.png) 
+
+### Using ggplot2 and beeswarm
+
+`violinpoint` provides a `position_beeswarm` extension to ggplot2:
+
+```r
+library(violinpoint)
+library(ggplot2)
+qplot(Species, Sepal.Length, data=iris, position=position_beeswarm())
+```
+
+![plot of chunk ggplot2-beeswarm](README_files/ggplot2-beeswarm-1.png) 
+
+```r
+qplot(class, hwy, data=mpg, position=position_beeswarm())
+```
+
+![plot of chunk ggplot2-beeswarm](README_files/ggplot2-beeswarm-2.png) 
+
+```r
+qplot(class, hwy, data=mpg, position=position_beeswarm(priority = 'density',cex=3))
+```
+
+![plot of chunk ggplot2-beeswarm](README_files/ggplot2-beeswarm-3.png) 
+
 
 ------
 Authors: Erik Clarke and Scott Sherrill-Mix
