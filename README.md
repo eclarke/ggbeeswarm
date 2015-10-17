@@ -97,4 +97,3 @@ qplot(class, hwy, data=mpg, position=position_beeswarm(priority = 'density',cex=
 ------
 Authors: Erik Clarke and Scott Sherrill-Mix
 
-Van der Corput sequence generator and helper functions from [https://stat.ethz.ch/pipermail/r-help/2008-May/162911.html](https://stat.ethz.ch/pipermail/r-help/2008-May/162911.html).
