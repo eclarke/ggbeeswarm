@@ -22,6 +22,7 @@ man: R/*.R
 	#touch inst/doc
 
 README.md: README.Rmd R/*.R
+	make localInstall
 	R -e 'knitr::opts_chunk$$set(fig.path="README_files/");knitr::knit("README.Rmd")'
 	
 #inst/doc
