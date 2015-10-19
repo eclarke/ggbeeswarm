@@ -25,7 +25,7 @@ position_beeswarm <- function (priority = c("ascending", "descending", "density"
 }
 
 PositionBeeswarm <- proto::proto(ggplot2:::Position, {
-	objname <- "quasirandom"
+	objname <- "beeswarm"
 
 	new <- function(., priority=c("ascending", "descending", "density", "random", "none"),cex=2) {
 		.$proto(priority=priority,cex=cex)
