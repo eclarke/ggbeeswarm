@@ -56,6 +56,8 @@ PositionBeeswarm <- proto::proto(ggplot2:::Position, {
 		trans_y <- function(y) {
 			setNewXY()
 			if(any(.$newXY$oldY!=y))stop(simpleError('Mismatch between expected y and y in position'))
+			#beeswarm returns both x and y coordinates but it seems that y should not be changed. Just in case it does, we'll throw an error and investigate
+			if(any(.$newXY$oldY!=.$newXY$y))stop(simpleError('y position moved by beeswarm. Please make sure this is desired'))
 			.$newXY$y
 		}
 
