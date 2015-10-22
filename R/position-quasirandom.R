@@ -10,7 +10,7 @@
 #' @export
 #' @import proto
 #' @import ggplot2
-#' @import violinPointR
+#' @import violinpoint
 #' @examples
 #' 
 #'   ggplot2::qplot(class, hwy, data = ggplot2::mpg, position=position_quasirandom())
@@ -45,7 +45,7 @@ PositionQuasirandom <- proto::proto(ggplot2:::Position, {
 	 
 	 if(.$width > 0) {
 		trans_x <- function(x) {
-		  new_x <- violinPointR::offsetX( #if change the package name then will need to change here
+		  new_x <- violinpoint::offsetX( #if change the package name then will need to change here
 			 data$y,
 			 x,
 			 width=.$width, 
