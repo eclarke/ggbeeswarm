@@ -10,7 +10,7 @@ Beeswarm plots (aka column scatter plots or violin scatter plots) are a way of p
 
 `ggbeeswarm` provides two different methods to create beeswarm-style plots using [ggplot2](http://ggplot2.org). It does this by adding two new ggplot Position objects:
 
-- `position_quasirandom`: Uses a [van der Corput sequence](http://en.wikipedia.org/wiki/Van_der_Corput_sequence) to space the dots to avoid overplotting. This uses [sherrillmix/violinpoint](https://github.com/sherrillmix/violinpoint).
+- `position_quasirandom`: Uses a [van der Corput sequence](http://en.wikipedia.org/wiki/Van_der_Corput_sequence) to space the dots to avoid overplotting. This uses [sherrillmix/vipor](https://github.com/sherrillmix/vipor).
 
 - `position_beeswarm`: Uses the [beeswarm](https://cran.r-project.org/web/packages/beeswarm/index.html) library to do point-size based offset. 
 
@@ -20,8 +20,6 @@ See the examples below.
 ## Installation
 
 ```{r, eval=FALSE}
-# Until Scott's violinpoint code is on CRAN, we need this step first:
-devtools::install_github("sherrillmix/violinpoint")
 # And until this package is on CRAN:
 devtools::install_github("eclarke/ggbeeswarm")
 ```

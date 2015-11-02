@@ -1,3 +1,8 @@
+---
+output: 
+  html_document: 
+    keep_md: yes
+---
 # Beeswarm-style plots with ggplot2
 
 ## Introduction
@@ -5,7 +10,7 @@ Beeswarm plots (aka column scatter plots or violin scatter plots) are a way of p
 
 `ggbeeswarm` provides two different methods to create beeswarm-style plots using [ggplot2](http://ggplot2.org). It does this by adding two new ggplot Position objects:
 
-- `position_quasirandom`: Uses a [van der Corput sequence](http://en.wikipedia.org/wiki/Van_der_Corput_sequence) to space the dots to avoid overplotting. This uses [sherrillmix/violinpoint](https://github.com/sherrillmix/violinpoint).
+- `position_quasirandom`: Uses a [van der Corput sequence](http://en.wikipedia.org/wiki/Van_der_Corput_sequence) to space the dots to avoid overplotting. This uses [sherrillmix/vipor](https://github.com/sherrillmix/vipor).
 
 - `position_beeswarm`: Uses the [beeswarm](https://cran.r-project.org/web/packages/beeswarm/index.html) library to do point-size based offset. 
 
@@ -16,8 +21,6 @@ See the examples below.
 
 
 ```r
-# Until Scott's violinpoint code is on CRAN, we need this step first:
-devtools::install_github("sherrillmix/violinpoint")
 # And until this package is on CRAN:
 devtools::install_github("eclarke/ggbeeswarm")
 ```
@@ -35,20 +38,20 @@ library(ggplot2)
 qplot(Species, Sepal.Length, data=iris, position=position_quasirandom())
 ```
 
-![](README_files/figure-html/ggplot2-examples-1.png) 
+![plot of chunk ggplot2-examples](README_files/ggplot2-examples-1.png) 
 
 ```r
 qplot(class, hwy, data=mpg, position=position_quasirandom())
 ```
 
-![](README_files/figure-html/ggplot2-examples-2.png) 
+![plot of chunk ggplot2-examples](README_files/ggplot2-examples-2.png) 
 
 ```r
 # Some groups may have only a few points. Use `varwidth=TRUE` to adjust width dynamically.
 qplot(class, hwy, data=mpg, position=position_quasirandom(varwidth = TRUE))
 ```
 
-![](README_files/figure-html/ggplot2-examples-3.png) 
+![plot of chunk ggplot2-examples](README_files/ggplot2-examples-3.png) 
 
 ### position_beeswarm()
 
@@ -61,13 +64,13 @@ library(ggplot2)
 qplot(Species, Sepal.Length, data=iris, position=position_beeswarm())
 ```
 
-![](README_files/figure-html/ggplot2-beeswarm-1.png) 
+![plot of chunk ggplot2-beeswarm](README_files/ggplot2-beeswarm-1.png) 
 
 ```r
 qplot(class, hwy, data=mpg, position=position_beeswarm())
 ```
 
-![](README_files/figure-html/ggplot2-beeswarm-2.png) 
+![plot of chunk ggplot2-beeswarm](README_files/ggplot2-beeswarm-2.png) 
 
 ```r
 # ggplot doesn't pass any information about the actual device size of the points
@@ -76,13 +79,13 @@ qplot(class, hwy, data=mpg, position=position_beeswarm())
 qplot(class, hwy, data=mpg, position=position_beeswarm(priority = 'density', cex=5))
 ```
 
-![](README_files/figure-html/ggplot2-beeswarm-3.png) 
+![plot of chunk ggplot2-beeswarm](README_files/ggplot2-beeswarm-3.png) 
 
 ```r
-qplot(Species, jitter(Sepal.Length), data=iris, position=position_beeswarm( cex=4))
+qplot(Species, jitter(Sepal.Length), data=iris, position=position_beeswarm(cex=4))
 ```
 
-![](README_files/figure-html/ggplot2-beeswarm-4.png) 
+![plot of chunk ggplot2-beeswarm](README_files/ggplot2-beeswarm-4.png) 
 
 
 ------
