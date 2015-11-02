@@ -27,7 +27,7 @@ ggplot2::qplot(class, hwy, data = ggplot2::mpg, position=position_beeswarm())
                  position_beeswarm(priority='density'),cex=2.5)
 }
 \seealso{
-\code{\link{swarmx}}
+\code{\link{position_quasirandom}}, \code{\link{swarmx}}
 
 Other position.adjustments: \code{\link{position_quasirandom}}
 }
