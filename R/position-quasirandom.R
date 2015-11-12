@@ -37,26 +37,46 @@ PositionQuasirandom <- proto::proto(ggplot2:::Position, {
   adjust <- function(., data) {
 	 if (empty(data)) return(data.frame())
 	 check_required_aesthetics(c("x", "y"), names(data), "position_quasirandom")
-
-	 if (is.null(.$width)) .$width <- ggplot2::resolution(data$x, zero = FALSE) * 0.4
-	 
+	
 	 trans_x <- NULL
 	 trans_y <- NULL
+
+	 # more unique entries in x than y suggests y (not x) is categorical	
+	 if(length(unique(data$y)) < length(unique(data$x))) {
+		 if (is.null(.$width)) .$width <- ggplot2::resolution(data$y, zero = FALSE) * 0.4
+	 } else {
+		 if (is.null(.$width)) .$width <- ggplot2::resolution(data$x, zero = FALSE) * 0.4
+	 }
 	 
+ 
 	 if(.$width > 0) {
-		trans_x <- function(x) {
-		  new_x <- vipor::offsetX( #if change the package name then will need to change here
-			 data$y,
-			 x,
-			 width=.$width, 
-			 varwidth=.$varwidth, 
-			 adjust=.$bandwidth,
-			 method=.$method
-		  )
+		if(length(unique(data$y)) < length(unique(data$x))) {
+			trans_y <- function(y) {
+		  	  new_y <- vipor::offsetX( #if change the package name then will need to change here
+				 data$x,
+			 	 y,
+			 	 width=.$width, 
+			 	 varwidth=.$varwidth, 
+				 adjust=.$bandwidth,
+				 method=.$method
+		  	  )
 		  
-		  new_x + x
+		  	  new_y + y
+			}
+		} else {
+			trans_x <- function(x) {
+		  	  new_x <- vipor::offsetX( #if change the package name then will need to change here
+				 data$y,
+			 	 x,
+			 	 width=.$width, 
+			 	 varwidth=.$varwidth, 
+				 adjust=.$bandwidth,
+				 method=.$method
+		  	  )
+		  
+		  	  new_x + x
+			}
 		}
-		  
 	 }
 
 	 transform_position(data, trans_x, trans_y)
