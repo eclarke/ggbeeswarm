@@ -35,6 +35,10 @@ library(ggbeeswarm)
 library(ggplot2)
 qplot(Species, Sepal.Length, data=iris, position=position_quasirandom())
 qplot(class, hwy, data=mpg, position=position_quasirandom())
+
+# With categorical y-axis
+qplot(hwy, class, data=mpg, position=position_quasirandom())
+
 # Some groups may have only a few points. Use `varwidth=TRUE` to adjust width dynamically.
 qplot(class, hwy, data=mpg, position=position_quasirandom(varwidth = TRUE))
 
@@ -49,6 +53,9 @@ library(ggplot2)
 
 qplot(Species, Sepal.Length, data=iris, position=position_beeswarm())
 qplot(class, hwy, data=mpg, position=position_beeswarm())
+# With categorical y-axis
+qplot(hwy, class, data=mpg, position=position_quasirandom())
+
 # ggplot doesn't pass any information about the actual device size of the points
 # to the underlying layout code, so it's important to manually adjust the `cex` 
 # parameter for best results
