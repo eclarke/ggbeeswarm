@@ -36,31 +36,49 @@ PositionBeeswarm <- proto::proto(ggplot2:::Position, {
 		if (empty(data)) return(data.frame())
 		check_required_aesthetics(c("x", "y"), names(data), "position_beeswarm")
 
+		# more unique entries in x than y suggests y (not x) is categorical
+		if(length(unique(data$y)) < length(unique(data$x))) {
+			swap_xy<-TRUE
+		} else {
+			swap_xy<-FALSE
+		}
+
 		.$newXY<- NULL
 
 		setNewXY<-function(){
 			if(!is.null(.$newXY))return(NULL)
-			#need to replace cex and xsize and ysize with options from ggplot 
-			.$newXY<-do.call(rbind,ave(data$y,data$x,FUN=function(yy)split(beeswarm::swarmx(0,yy,cex=.$cex,priority=.$priority),1:length(yy))))
-			.$newXY$x<-.$newXY$x+data$x
-			.$newXY$oldX<-data$x
-			.$newXY$oldY<-data$y
+			#need to replace cex and xsize and ysize with options from ggplot
+			if(swap_xy) {
+				.$newXY<-do.call(rbind,ave(data$x,data$y,FUN=function(xx)split(beeswarm::swarmy(xx,0,cex=.$cex,priority=.$priority),1:length(xx)))) 
+				.$newXY$y<-.$newXY$y+data$y
+				.$newXY$oldX<-data$x
+				.$newXY$oldY<-data$y
+			} else {
+				.$newXY<-do.call(rbind,ave(data$y,data$x,FUN=function(yy)split(beeswarm::swarmx(0,yy,cex=.$cex,priority=.$priority),1:length(yy)))) 
+				.$newXY$x<-.$newXY$x+data$x
+				.$newXY$oldX<-data$x
+				.$newXY$oldY<-data$y
+			}
 			return(NULL)
 		}
 
 		trans_x <- function(x) {
 			setNewXY()
-			if(any(.$newXY$oldX!=x))stop(simpleError('Mismatch between expected x and x in position'))
+			if(!swap_xy & any(.$newXY$oldX!=x))stop(simpleError('Mismatch between expected x and x in position'))
+			#beeswarm returns both x and y coordinates but it seems that x should not be changed.
+			#Just in case it does, we'll throw an error and investigate
+			if(swap_xy & any(.$newXY$oldX!=.$newXY$x))stop(simpleError('x position moved by beeswarm. Please make sure this is desired'))
 			.$newXY$x
 		}
 		trans_y <- function(y) {
 			setNewXY()
 			if(any(.$newXY$oldY!=y))stop(simpleError('Mismatch between expected y and y in position'))
-			#beeswarm returns both x and y coordinates but it seems that y should not be changed. Just in case it does, we'll throw an error and investigate
-			if(any(.$newXY$oldY!=.$newXY$y))stop(simpleError('y position moved by beeswarm. Please make sure this is desired'))
+			#beeswarm returns both x and y coordinates but it seems that y should not be changed.
+			#Just in case it does, we'll throw an error and investigate
+			if(!swap_xy & any(.$newXY$oldY!=.$newXY$y))stop(simpleError('y position moved by beeswarm. Please make sure this is desired'))
 			.$newXY$y
 		}
-
+		 
 		transform_position(data, trans_x, trans_y)
 	}
 
