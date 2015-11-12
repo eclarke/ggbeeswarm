@@ -33,20 +33,27 @@ library(ggplot2)
 qplot(Species, Sepal.Length, data=iris, position=position_quasirandom())
 ```
 
-![plot of chunk ggplot2-examples](README_files/figure-html/ggplot2-examples-1.png) 
+![](README_files/figure-html/ggplot2-examples-1.png) 
 
 ```r
 qplot(class, hwy, data=mpg, position=position_quasirandom())
 ```
 
-![plot of chunk ggplot2-examples](README_files/figure-html/ggplot2-examples-2.png) 
+![](README_files/figure-html/ggplot2-examples-2.png) 
+
+```r
+# With categorical y-axis
+qplot(hwy, class, data=mpg, position=position_quasirandom())
+```
+
+![](README_files/figure-html/ggplot2-examples-3.png) 
 
 ```r
 # Some groups may have only a few points. Use `varwidth=TRUE` to adjust width dynamically.
 qplot(class, hwy, data=mpg, position=position_quasirandom(varwidth = TRUE))
 ```
 
-![plot of chunk ggplot2-examples](README_files/figure-html/ggplot2-examples-3.png) 
+![](README_files/figure-html/ggplot2-examples-4.png) 
 
 ### position_beeswarm()
 
@@ -59,13 +66,20 @@ library(ggplot2)
 qplot(Species, Sepal.Length, data=iris, position=position_beeswarm())
 ```
 
-![plot of chunk ggplot2-beeswarm](README_files/figure-html/ggplot2-beeswarm-1.png) 
+![](README_files/figure-html/ggplot2-beeswarm-1.png) 
 
 ```r
 qplot(class, hwy, data=mpg, position=position_beeswarm())
 ```
 
-![plot of chunk ggplot2-beeswarm](README_files/figure-html/ggplot2-beeswarm-2.png) 
+![](README_files/figure-html/ggplot2-beeswarm-2.png) 
+
+```r
+# With categorical y-axis
+qplot(hwy, class, data=mpg, position=position_quasirandom())
+```
+
+![](README_files/figure-html/ggplot2-beeswarm-3.png) 
 
 ```r
 # ggplot doesn't pass any information about the actual device size of the points
@@ -74,13 +88,13 @@ qplot(class, hwy, data=mpg, position=position_beeswarm())
 qplot(class, hwy, data=mpg, position=position_beeswarm(priority = 'density', cex=5))
 ```
 
-![plot of chunk ggplot2-beeswarm](README_files/figure-html/ggplot2-beeswarm-3.png) 
+![](README_files/figure-html/ggplot2-beeswarm-4.png) 
 
 ```r
 qplot(Species, jitter(Sepal.Length), data=iris, position=position_beeswarm(cex=4))
 ```
 
-![plot of chunk ggplot2-beeswarm](README_files/figure-html/ggplot2-beeswarm-4.png) 
+![](README_files/figure-html/ggplot2-beeswarm-5.png) 
 
 
 ------
