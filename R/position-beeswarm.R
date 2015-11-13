@@ -33,9 +33,9 @@ PositionBeeswarm <- proto::proto(ggplot2:::Position, {
 
 	# Adjust function is used to calculate new positions (from ggplot2:::Position)
 	adjust <- function(., data) {
-		data <- data[complete.cases(data[,c('x', 'y')]),]
-		if (empty(data)) return(data.frame())
 		check_required_aesthetics(c("x", "y"), names(data), "position_beeswarm")
+		data <- remove_missing(data, vars = c("x","y"), name = "position_beeswarm")
+		if (empty(data)) return(data.frame())
 
 		# more unique entries in x than y suggests y (not x) is categorical
 		if(length(unique(data$y)) < length(unique(data$x))) {
