@@ -35,9 +35,9 @@ PositionQuasirandom <- proto::proto(ggplot2:::Position, {
 
   # Adjust function is used to calculate new positions (from ggplot2:::Position)
   adjust <- function(., data) {
-	 data <- data[complete.cases(data),]
-	 if (empty(data)) return(data.frame())
 	 check_required_aesthetics(c("x", "y"), names(data), "position_quasirandom")
+	 data <- remove_missing(data, vars = c("x","y"), name = "position_quasirandom")
+	 if (empty(data)) return(data.frame())
 	
 	 trans_x <- NULL
 	 trans_y <- NULL
