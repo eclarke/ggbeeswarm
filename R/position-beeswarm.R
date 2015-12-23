@@ -21,19 +21,15 @@
 #'                  position_beeswarm(priority='density'),cex=2.5)
 #'
 position_beeswarm <- function (priority = c("ascending", "descending", "density", "random", "none"),cex=2) {
-	PositionBeeswarm$new(priority = priority,cex=cex)
+	ggproto(NULL,PositionBeeswarm,priority = priority,cex=cex)
 }
 
-PositionBeeswarm <- proto::proto(ggplot2:::Position, {
-	objname <- "beeswarm"
-
-	new <- function(., priority=c("ascending", "descending", "density", "random", "none"),cex=2) {
-		.$proto(priority=priority,cex=cex)
-	}
-
+PositionBeeswarm <- ggproto("PositionBeeswarm",ggplot2:::Position, required_aes=c('x','y'),
+  setup_params=function(self,data){
+    list(priority=self$priority %||% "ascending",cex=self$cex %||% 2)
+  },
+  compute_layer=function(data,params,panel){
 	# Adjust function is used to calculate new positions (from ggplot2:::Position)
-	adjust <- function(., data) {
-		check_required_aesthetics(c("x", "y"), names(data), "position_beeswarm")
 		data <- remove_missing(data, vars = c("x","y"), name = "position_beeswarm")
 		if (empty(data)) return(data.frame())
 
@@ -82,6 +78,5 @@ PositionBeeswarm <- proto::proto(ggplot2:::Position, {
 		 
 		transform_position(data, trans_x, trans_y)
 	}
-
-})
+)
 
