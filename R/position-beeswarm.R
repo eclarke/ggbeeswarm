@@ -31,7 +31,7 @@ PositionBeeswarm <- ggproto("PositionBeeswarm",ggplot2:::Position, required_aes=
   compute_layer=function(data,params,panel){
 	# Adjust function is used to calculate new positions (from ggplot2:::Position)
 		data <- remove_missing(data, vars = c("x","y"), name = "position_beeswarm")
-		if (empty(data)) return(data.frame())
+		if (nrow(data)==0) return(data.frame())
 
 		# more unique entries in x than y suggests y (not x) is categorical
 		if(length(unique(data$y)) < length(unique(data$x))) {
@@ -40,40 +40,40 @@ PositionBeeswarm <- ggproto("PositionBeeswarm",ggplot2:::Position, required_aes=
 			swap_xy<-FALSE
 		}
 
-		.$newXY<- NULL
+		params$newXY<- NULL
 
 		setNewXY<-function(){
-			if(!is.null(.$newXY))return(NULL)
+			if(!is.null(params$newXY))return(NULL)
 			#need to replace cex and xsize and ysize with options from ggplot
 			if(swap_xy) {
-				.$newXY<-do.call(rbind,ave(data$x,data$y,FUN=function(xx)split(beeswarm::swarmy(xx,0,cex=.$cex,priority=.$priority),1:length(xx)))) 
-				.$newXY$y<-.$newXY$y+data$y
-				.$newXY$oldX<-data$x
-				.$newXY$oldY<-data$y
+				params$newXY<-do.call(rbind,ave(data$x,data$y,FUN=function(xx)split(beeswarm::swarmy(xx,0,cex=params$cex,priority=params$priority),1:length(xx)))) 
+				params$newXY$y<-params$newXY$y+data$y
+				params$newXY$oldX<-data$x
+				params$newXY$oldY<-data$y
 			} else {
-				.$newXY<-do.call(rbind,ave(data$y,data$x,FUN=function(yy)split(beeswarm::swarmx(0,yy,cex=.$cex,priority=.$priority),1:length(yy)))) 
-				.$newXY$x<-.$newXY$x+data$x
-				.$newXY$oldX<-data$x
-				.$newXY$oldY<-data$y
+				params$newXY<-do.call(rbind,ave(data$y,data$x,FUN=function(yy)split(beeswarm::swarmx(0,yy,cex=params$cex,priority=params$priority),1:length(yy)))) 
+				params$newXY$x<-params$newXY$x+data$x
+				params$newXY$oldX<-data$x
+				params$newXY$oldY<-data$y
 			}
 			return(NULL)
 		}
 
 		trans_x <- function(x) {
 			setNewXY()
-			if(!swap_xy & any(.$newXY$oldX!=x))stop(simpleError('Mismatch between expected x and x in position'))
+			if(!swap_xy & any(params$newXY$oldX!=x))stop(simpleError('Mismatch between expected x and x in position'))
 			#beeswarm returns both x and y coordinates but it seems that x should not be changed.
 			#Just in case it does, we'll throw an error and investigate
-			if(swap_xy & any(.$newXY$oldX!=.$newXY$x))stop(simpleError('x position moved by beeswarm. Please make sure this is desired'))
-			.$newXY$x
+			if(swap_xy & any(params$newXY$oldX!=params$newXY$x))stop(simpleError('x position moved by beeswarm. Please make sure this is desired'))
+			params$newXY$x
 		}
 		trans_y <- function(y) {
 			setNewXY()
-			if(any(.$newXY$oldY!=y))stop(simpleError('Mismatch between expected y and y in position'))
+			if(any(params$newXY$oldY!=y))stop(simpleError('Mismatch between expected y and y in position'))
 			#beeswarm returns both x and y coordinates but it seems that y should not be changed.
 			#Just in case it does, we'll throw an error and investigate
-			if(!swap_xy & any(.$newXY$oldY!=.$newXY$y))stop(simpleError('y position moved by beeswarm. Please make sure this is desired'))
-			.$newXY$y
+			if(!swap_xy & any(params$newXY$oldY!=params$newXY$y))stop(simpleError('y position moved by beeswarm. Please make sure this is desired'))
+			params$newXY$y
 		}
 		 
 		transform_position(data, trans_x, trans_y)

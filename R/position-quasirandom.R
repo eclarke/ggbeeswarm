@@ -33,28 +33,28 @@ PositionQuasirandom <- ggproto("PositionQuasirandom",ggplot2:::Position,required
   },
   compute_layer= function(data,params,panel) {
     data <- remove_missing(data, vars = c("x","y"), name = "position_quasirandom")
-    if (empty(data)) return(data.frame())
+    if (nrow(data)==0) return(data.frame())
 
     trans_x <- NULL
     trans_y <- NULL
     
-    if(is.null(.$groupOnX)) .$groupOnX <- length(unique(data$y)) > length(unique(data$x))
-    if (is.null(.$width)) .$width <- ggplot2::resolution(data[,ifelse(groupOnX,'x','y')], zero = FALSE) * 0.4
+    if(is.null(params$groupOnX)) params$groupOnX <- length(unique(data$y)) > length(unique(data$x))
+    if (is.null(params$width)) params$width <- ggplot2::resolution(data[,ifelse(params$groupOnX,'x','y')], zero = FALSE) * 0.4
 
     trans_xy <- function(x) {
       new_x <- vipor::offsetX( 
-        data[,ifelse(groupOnX,'x','y')],
+        data[,ifelse(params$groupOnX,'x','y')],
         x,
-        width=.$width, 
-        varwidth=.$varwidth, 
-        adjust=.$bandwidth,
-        method=.$method
+        width=params$width, 
+        varwidth=params$varwidth, 
+        adjust=params$bandwidth,
+        method=params$method
       )
       new_x + x
     }
 
-    if(.$width > 0) {
-      if(.$groupOnX) trans_x<-trans_xy
+    if(params$width > 0) {
+      if(params$groupOnX) trans_x<-trans_xy
       else trans_y<-trans_xy
     }
 
