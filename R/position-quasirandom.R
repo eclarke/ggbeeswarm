@@ -24,21 +24,14 @@
 #'   ggplot2::qplot(variable, value, data = distro, position = position_quasirandom(width=0.1))
 #'
 position_quasirandom <- function (width = NULL, varwidth = FALSE, bandwidth=.5,nbins=1000,method='quasirandom',groupOnX=NULL) {
-  message("TESTSE")
   ggproto(NULL,PositionQuasirandom,width = width, varwidth = varwidth, bandwidth=bandwidth,nbins=nbins,method=method,groupOnX=groupOnX)
 }
 
 PositionQuasirandom <- ggproto("PositionQuasirandom",ggplot2:::Position,required_aes=c('x','y'),
   setup_params=function(self,data){
-    warning("ATEST")
-    message("ATEST2")
-    print(2:10)
     list(width=self$width,varwidth=self$varwidth,bandwidth=self$bandwidth,nbins=self$nbins,method=self$method,groupOnX=self$groupOnX)
   },
   compute_layer= function(data,params,panel) {
-    warning("TEST")
-    message("TEST2")
-    print(1:10)
     data <- remove_missing(data, vars = c("x","y"), name = "position_quasirandom")
     if (empty(data)) return(data.frame())
 
@@ -47,7 +40,6 @@ PositionQuasirandom <- ggproto("PositionQuasirandom",ggplot2:::Position,required
     
     if(is.null(.$groupOnX)) .$groupOnX <- length(unique(data$y)) > length(unique(data$x))
     if (is.null(.$width)) .$width <- ggplot2::resolution(data[,ifelse(groupOnX,'x','y')], zero = FALSE) * 0.4
-    print(.)
 
     trans_xy <- function(x) {
       new_x <- vipor::offsetX( 
