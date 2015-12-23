@@ -5,7 +5,7 @@
 \title{Violin point-style plots to show overlapping points. x must be discrete.}
 \usage{
 position_quasirandom(width = NULL, varwidth = FALSE, bandwidth = 0.5,
-  nbins = 1000, method = "quasirandom")
+  nbins = 1000, method = "quasirandom", groupOnX = NULL)
 }
 \arguments{
 \item{width}{the maximum amount of spread (default: 0.4)}
@@ -18,6 +18,8 @@ Smaller numbers (< 1) produce a tighter "fit". (default: 0.5)}
 \item{nbins}{the number of bins used when calculating density (has little effect with quasirandom/random distribution)}
 
 \item{method}{the method used for distributing points (quasirandom, pseudorandom, smiley or frowney)}
+
+\item{groupOnX}{should jitter be added to the x axis if TRUE or y axis if FALSE (the default NULL causes the function to guess which axis is the categorical one based on the number of unique entries in each)}
 }
 \description{
 Violin point-style plots to show overlapping points. x must be discrete.
