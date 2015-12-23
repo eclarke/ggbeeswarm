@@ -3,6 +3,7 @@
 #' @family position adjustments
 #' @param priority Method used to perform point layout (see \code{\link{swarmx}})
 #' @param cex Scaling for adjusting point spacing (see \code{\link{swarmx}})
+#' @param groupOnX should jitter be added to the x axis if TRUE or y axis if FALSE (the default NULL causes the function to guess which axis is the categorical one based on the number of unique entries in each)
 #' @export
 #' @import proto
 #' @import ggplot2
@@ -20,13 +21,13 @@
 #'   ggplot2::qplot(variable, value, data = distro, position = 
 #'                  position_beeswarm(priority='density'),cex=2.5)
 #'
-position_beeswarm <- function (priority = c("ascending", "descending", "density", "random", "none"),cex=2) {
-	ggproto(NULL,PositionBeeswarm,priority = priority,cex=cex)
+position_beeswarm <- function (priority = c("ascending", "descending", "density", "random", "none"),cex=2,groupOnX=NULL) {
+	ggproto(NULL,PositionBeeswarm,priority = priority,cex=cex,groupOnX=NULL)
 }
 
 PositionBeeswarm <- ggproto("PositionBeeswarm",ggplot2:::Position, required_aes=c('x','y'),
   setup_params=function(self,data){
-    list(priority=self$priority %||% "ascending",cex=self$cex %||% 2)
+    list(priority=self$priority,cex=self$cex,groupOnX=self$groupOnX)
   },
   compute_layer=function(data,params,panel){
 	# Adjust function is used to calculate new positions (from ggplot2:::Position)
@@ -34,48 +35,20 @@ PositionBeeswarm <- ggproto("PositionBeeswarm",ggplot2:::Position, required_aes=
 		if (nrow(data)==0) return(data.frame())
 
 		# more unique entries in x than y suggests y (not x) is categorical
-		if(length(unique(data$y)) < length(unique(data$x))) {
-			swap_xy<-TRUE
-		} else {
-			swap_xy<-FALSE
-		}
+    if(is.null(params$groupOnX)) params$groupOnX <- length(unique(data$y)) > length(unique(data$x))
 
-		params$newXY<- NULL
+    trans_x<-NULL
+    trans_y<-NULL
 
-		setNewXY<-function(){
-			if(!is.null(params$newXY))return(NULL)
-			#need to replace cex and xsize and ysize with options from ggplot
-			if(swap_xy) {
-				params$newXY<-do.call(rbind,ave(data$x,data$y,FUN=function(xx)split(beeswarm::swarmy(xx,0,cex=params$cex,priority=params$priority),1:length(xx)))) 
-				params$newXY$y<-params$newXY$y+data$y
-				params$newXY$oldX<-data$x
-				params$newXY$oldY<-data$y
-			} else {
-				params$newXY<-do.call(rbind,ave(data$y,data$x,FUN=function(yy)split(beeswarm::swarmx(0,yy,cex=params$cex,priority=params$priority),1:length(yy)))) 
-				params$newXY$x<-params$newXY$x+data$x
-				params$newXY$oldX<-data$x
-				params$newXY$oldY<-data$y
-			}
-			return(NULL)
-		}
+    trans_xy <- function(x) {
+      newXY<-do.call(rbind,ave(data[,ifelse(params$groupOnX,'x','y')],data[,ifelse(params$groupOnX,'y','x')],
+          FUN=function(xx)split(beeswarm::swarmx(0,xx,cex=params$cex,priority=params$priority),1:length(xx)))) 
+      return(newXY$x+x)
+    }
 
-		trans_x <- function(x) {
-			setNewXY()
-			if(!swap_xy & any(params$newXY$oldX!=x))stop(simpleError('Mismatch between expected x and x in position'))
-			#beeswarm returns both x and y coordinates but it seems that x should not be changed.
-			#Just in case it does, we'll throw an error and investigate
-			if(swap_xy & any(params$newXY$oldX!=params$newXY$x))stop(simpleError('x position moved by beeswarm. Please make sure this is desired'))
-			params$newXY$x
-		}
-		trans_y <- function(y) {
-			setNewXY()
-			if(any(params$newXY$oldY!=y))stop(simpleError('Mismatch between expected y and y in position'))
-			#beeswarm returns both x and y coordinates but it seems that y should not be changed.
-			#Just in case it does, we'll throw an error and investigate
-			if(!swap_xy & any(params$newXY$oldY!=params$newXY$y))stop(simpleError('y position moved by beeswarm. Please make sure this is desired'))
-			params$newXY$y
-		}
-		 
+    if(params$groupOnX) trans_x<-trans_xy
+    else trans_y<-trans_xy
+
 		transform_position(data, trans_x, trans_y)
 	}
 )

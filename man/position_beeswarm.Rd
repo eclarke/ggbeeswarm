@@ -5,12 +5,14 @@
 \title{Violin point-style plots to show overlapping points. x must be discrete.}
 \usage{
 position_beeswarm(priority = c("ascending", "descending", "density", "random",
-  "none"), cex = 2)
+  "none"), cex = 2, groupOnX = NULL)
 }
 \arguments{
 \item{priority}{Method used to perform point layout (see \code{\link{swarmx}})}
 
 \item{cex}{Scaling for adjusting point spacing (see \code{\link{swarmx}})}
+
+\item{groupOnX}{should jitter be added to the x axis if TRUE or y axis if FALSE (the default NULL causes the function to guess which axis is the categorical one based on the number of unique entries in each)}
 }
 \description{
 Violin point-style plots to show overlapping points. x must be discrete.
