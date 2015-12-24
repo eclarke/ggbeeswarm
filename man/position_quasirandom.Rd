@@ -35,6 +35,8 @@ ggplot2::qplot(class, hwy, data = ggplot2::mpg, position=position_quasirandom())
   ggplot2::qplot(variable, value, data = distro, position = position_quasirandom(width=0.1))
 }
 \seealso{
+\code{\link[vipor]{offsetX}}
+
 Other position.adjustments: \code{\link{position_beeswarm}}
 }
 
