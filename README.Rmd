@@ -8,11 +8,11 @@ output:
 ## Introduction
 Beeswarm plots (aka column scatter plots or violin scatter plots) are a way of plotting points that would ordinarily overlap so that they fall next to each other instead. In addition to reducing overplotting, it helps visualize the density of the data at each point (similar to a violin plot), while still showing each data point individually.
 
-`ggbeeswarm` provides two different methods to create beeswarm-style plots using [ggplot2](http://ggplot2.org). It does this by adding two new ggplot Position objects:
+`ggbeeswarm` provides two different methods to create beeswarm-style plots using [ggplot2](http://ggplot2.org). It does this by adding two new ggplot Geom objects:
 
-- `position_quasirandom`: Uses a [van der Corput sequence](http://en.wikipedia.org/wiki/Van_der_Corput_sequence) to space the dots to avoid overplotting. This uses [sherrillmix/vipor](https://github.com/sherrillmix/vipor).
+- `geom_quasirandom`: Uses a [van der Corput sequence](http://en.wikipedia.org/wiki/Van_der_Corput_sequence) to space the dots to avoid overplotting. This uses [sherrillmix/vipor](https://github.com/sherrillmix/vipor).
 
-- `position_beeswarm`: Uses the [beeswarm](https://cran.r-project.org/web/packages/beeswarm/index.html) library to do point-size based offset. 
+- `geom_beeswarm`: Uses the [beeswarm](https://cran.r-project.org/web/packages/beeswarm/index.html) library to do point-size based offset. 
 
 See the examples below.
 
@@ -26,41 +26,39 @@ devtools::install_github("eclarke/ggbeeswarm")
 
 ## Examples
 
-### position_quasirandom()
+### geom_quasirandom()
 
-Using `position_quasirandom`:
+Using `geom_quasirandom`:
 ```{r ggplot2-examples}
 set.seed(12345)
-library(ggbeeswarm)
 library(ggplot2)
-qplot(Species, Sepal.Length, data=iris, position=position_quasirandom())
-qplot(class, hwy, data=mpg, position=position_quasirandom())
+library(ggbeeswarm)
+qplot(Species, Sepal.Length, data=iris)+ geom_quasirandom()
+qplot(class, hwy, data=mpg, geom="quasirandom")
 
 # With categorical y-axis
-qplot(hwy, class, data=mpg, position=position_quasirandom())
+qplot(hwy, class, data=mpg, geom='quasirandom')
 
 # Some groups may have only a few points. Use `varwidth=TRUE` to adjust width dynamically.
-qplot(class, hwy, data=mpg, position=position_quasirandom(varwidth = TRUE))
+qplot(class, hwy, data=mpg) + geom_quasirandom(varwidth = TRUE)
 
 ```
 
-### position_beeswarm()
+### geom_beeswarm()
 
-Using `position_beeswarm`:
+Using `geom_beeswarm`:
 ```{r ggplot2-beeswarm}
-library(ggbeeswarm)
-library(ggplot2)
 
-qplot(Species, Sepal.Length, data=iris, position=position_beeswarm())
-qplot(class, hwy, data=mpg, position=position_beeswarm())
+qplot(Species, Sepal.Length, data=iris) + geom_beeswarm()
+qplot(class, hwy, data=mpg, geom='beeswarm')
 # With categorical y-axis
-qplot(hwy, class, data=mpg, position=position_quasirandom())
+qplot(hwy, class, data=mpg, geom='beeswarm')
 
 # ggplot doesn't pass any information about the actual device size of the points
 # to the underlying layout code, so it's important to manually adjust the `cex` 
 # parameter for best results
-qplot(class, hwy, data=mpg, position=position_beeswarm(priority = 'density', cex=5))
-qplot(Species, jitter(Sepal.Length), data=iris, position=position_beeswarm(cex=4))
+qplot(class, hwy, data=mpg)+ geom_beeswarm(cex=5)
+qplot(Species, Sepal.Length, data=iris) +geom_beeswarm(cex=4,priority='density')
 
 ```
 
