@@ -39,9 +39,9 @@ PositionBeeswarm <- ggplot2::ggproto("PositionBeeswarm",ggplot2:::Position, requ
     trans_y<-NULL
 
     trans_xy <- function(x) {
-      newXY<-do.call(rbind,ave(data[,ifelse(params$groupOnX,'x','y')],data[,ifelse(params$groupOnX,'y','x')],
-          FUN=function(xx)split(beeswarm::swarmx(0,xx,cex=params$cex,priority=params$priority),1:length(xx)))) 
-      return(newXY$x+x)
+      newX<-ave(data[,ifelse(params$groupOnX,'y','x')],data[,ifelse(params$groupOnX,'x','y')],
+          FUN=function(xx)beeswarm::swarmx(0,xx,cex=params$cex,priority=params$priority)$x)
+      return(newX+x)
     }
 
     if(params$groupOnX) trans_x<-trans_xy
