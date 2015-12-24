@@ -9,9 +9,8 @@
 #' @param method the method used for distributing points (quasirandom, pseudorandom, smiley or frowney)
 #' @param groupOnX should jitter be added to the x axis if TRUE or y axis if FALSE (the default NULL causes the function to guess which axis is the categorical one based on the number of unique entries in each)
 #' @export
-#' @import proto
-#' @import ggplot2
-#' @import vipor
+#' @importFrom vipor offsetX
+#' @seealso \code{\link[vipor]{offsetX}}
 #' @examples
 #' 
 #'   ggplot2::qplot(class, hwy, data = ggplot2::mpg, position=position_quasirandom())
@@ -24,10 +23,10 @@
 #'   ggplot2::qplot(variable, value, data = distro, position = position_quasirandom(width=0.1))
 #'
 position_quasirandom <- function (width = NULL, varwidth = FALSE, bandwidth=.5,nbins=1000,method='quasirandom',groupOnX=NULL) {
-  ggproto(NULL,PositionQuasirandom,width = width, varwidth = varwidth, bandwidth=bandwidth,nbins=nbins,method=method,groupOnX=groupOnX)
+  ggplot2::ggproto(NULL,PositionQuasirandom,width = width, varwidth = varwidth, bandwidth=bandwidth,nbins=nbins,method=method,groupOnX=groupOnX)
 }
 
-PositionQuasirandom <- ggproto("PositionQuasirandom",ggplot2:::Position,required_aes=c('x','y'),
+PositionQuasirandom <- ggplot2::ggproto("PositionQuasirandom",ggplot2:::Position,required_aes=c('x','y'),
   setup_params=function(self,data){
     list(width=self$width,varwidth=self$varwidth,bandwidth=self$bandwidth,nbins=self$nbins,method=self$method,groupOnX=self$groupOnX)
   },

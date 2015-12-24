@@ -7,6 +7,7 @@
 #'
 #' @inheritParams ggplot2::geom_point
 #' @inheritParams position_beeswarm
+#' @import ggplot2
 #' @seealso
 #'  \code{\link{geom_quasirandom}} an alternative method,
 #'  \code{\link[beeswarm]{swarmx}} how spacing is determined,
@@ -21,11 +22,11 @@ geom_beeswarm <- function(mapping = NULL, data = NULL,
   show.legend = NA, inherit.aes = TRUE, ...) {
   position <- position_beeswarm(priority = priority, cex = cex, groupOnX=groupOnX)
 
-  layer(
+  ggplot2::layer(
     data = data,
     mapping = mapping,
     stat = stat,
-    geom = GeomPoint,
+    geom = ggplot2::GeomPoint,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,

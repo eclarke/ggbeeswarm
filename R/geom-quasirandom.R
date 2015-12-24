@@ -7,6 +7,7 @@
 #'
 #' @inheritParams ggplot2::geom_point
 #' @inheritParams position_quasirandom
+#' @import ggplot2
 #' @seealso
 #'  \code{\link[vipor]{offsetX}} how spacing is determined,
 #'  \code{\link[ggplot2]{geom_point}} for regular, unjittered points,
@@ -20,11 +21,11 @@ geom_quasirandom <- function(mapping = NULL, data = NULL,
   show.legend = NA, inherit.aes = TRUE, ...) {
   position <- position_quasirandom(width = width, varwidth = varwidth, bandwidth=bandwidth,nbins=nbins,method=method,groupOnX=groupOnX)
 
-  layer(
+  ggplot2::layer(
     data = data,
     mapping = mapping,
     stat = stat,
-    geom = GeomPoint,
+    geom = ggplot2::GeomPoint,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,

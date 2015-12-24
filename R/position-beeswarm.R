@@ -5,10 +5,8 @@
 #' @param cex Scaling for adjusting point spacing (see \code{\link{swarmx}})
 #' @param groupOnX should jitter be added to the x axis if TRUE or y axis if FALSE (the default NULL causes the function to guess which axis is the categorical one based on the number of unique entries in each)
 #' @export
-#' @import proto
-#' @import ggplot2
-#' @import beeswarm
-#' @seealso \code{\link{position_quasirandom}}, \code{\link{swarmx}} 
+#' @importFrom beeswarm swarmx
+#' @seealso \code{\link{position_quasirandom}}, \code{\link[beeswarm]{swarmx}} 
 #' @examples
 #' 
 #'   ggplot2::qplot(class, hwy, data = ggplot2::mpg, position=position_beeswarm())
@@ -22,10 +20,10 @@
 #'                  position_beeswarm(priority='density'),cex=2.5)
 #'
 position_beeswarm <- function (priority = c("ascending", "descending", "density", "random", "none"),cex=2,groupOnX=NULL) {
-	ggproto(NULL,PositionBeeswarm,priority = priority,cex=cex,groupOnX=NULL)
+  ggplot2::ggproto(NULL,PositionBeeswarm,priority = priority,cex=cex,groupOnX=NULL)
 }
 
-PositionBeeswarm <- ggproto("PositionBeeswarm",ggplot2:::Position, required_aes=c('x','y'),
+PositionBeeswarm <- ggplot2::ggproto("PositionBeeswarm",ggplot2:::Position, required_aes=c('x','y'),
   setup_params=function(self,data){
     list(priority=self$priority,cex=self$cex,groupOnX=self$groupOnX)
   },
