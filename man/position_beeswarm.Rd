@@ -18,15 +18,15 @@ position_beeswarm(priority = c("ascending", "descending", "density", "random",
 Violin point-style plots to show overlapping points. x must be discrete.
 }
 \examples{
-ggplot2::qplot(class, hwy, data = ggplot2::mpg, position=position_beeswarm())
+ggplot2::qplot(class, hwy, data = ggplot2::mpg, geom='beeswarm')
   # Generate fake data
   distro <- data.frame(
     'variable'=rep(c('runif','rnorm'),each=100),
     'value'=c(runif(100, min=-3, max=3), rnorm(100))
   )
-  ggplot2::qplot(variable, value, data = distro, position = position_beeswarm())
-  ggplot2::qplot(variable, value, data = distro, position =
-                 position_beeswarm(priority='density'),cex=2.5)
+  ggplot2::qplot(variable, value, data = distro, geom='beeswarm')
+  ggplot2::qplot(variable, value, data = distro) +
+    geom_beeswarm(priority='density',cex=2.5)
 }
 \seealso{
 \code{\link{position_quasirandom}}, \code{\link[beeswarm]{swarmx}}

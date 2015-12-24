@@ -61,6 +61,17 @@ The beeswarm geom is a convenient means to offset points within categories to re
 
 \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "point")}
 }
+\examples{
+ggplot2::qplot(class, hwy, data = ggplot2::mpg, geom='beeswarm')
+  # Generate fake data
+  distro <- data.frame(
+    'variable'=rep(c('runif','rnorm'),each=100),
+    'value'=c(runif(100, min=-3, max=3), rnorm(100))
+  )
+  ggplot2::qplot(variable, value, data = distro, geom='beeswarm')
+  ggplot2::qplot(variable, value, data = distro) +
+    geom_beeswarm(priority='density',cex=2.5)
+}
 \seealso{
 \code{\link{geom_quasirandom}} an alternative method,
  \code{\link[beeswarm]{swarmx}} how spacing is determined,
