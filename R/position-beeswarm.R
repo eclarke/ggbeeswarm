@@ -20,12 +20,15 @@
 #'     geom_beeswarm(priority='density',cex=2.5)
 #'
 position_beeswarm <- function (priority = c("ascending", "descending", "density", "random", "none"),cex=2,groupOnX=NULL,dodge.width=0.5) {
-  ggplot2::ggproto(NULL,PositionBeeswarm,priority = priority,cex=cex,groupOnX=NULL)
+  ggplot2::ggproto(NULL,PositionBeeswarm,priority = priority,cex=cex,groupOnX=NULL,dodge.width=dodge.width)
 }
 
 PositionBeeswarm <- ggplot2::ggproto("PositionBeeswarm",ggplot2:::Position, required_aes=c('x','y'),
   setup_params=function(self,data){
-    list(priority=self$priority,cex=self$cex,groupOnX=self$groupOnX)
+    list(priority=self$priority,
+    cex=self$cex,
+    groupOnX=self$groupOnX,
+    dodge.width=self$dodge.width)
   },
   compute_panel=function(data,params,scales){
 	# Adjust function is used to calculate new positions (from ggplot2:::Position)
