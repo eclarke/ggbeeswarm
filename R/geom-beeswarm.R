@@ -29,7 +29,7 @@
 #'     geom_beeswarm(priority='density',cex=2.5)
 geom_beeswarm <- function(mapping = NULL, data = NULL,
   priority = c("ascending", "descending", "density", "random", "none"),cex=2,groupOnX=NULL,dodge.width=0,
-  stat='identity',position = "dodge", na.rm = FALSE,
+  stat='identity',position = "quasirandom", na.rm = FALSE,
   show.legend = NA, inherit.aes = TRUE, ...) {
   position <- position_beeswarm(priority = priority, cex = cex, groupOnX=groupOnX,dodge.width=0)
 
