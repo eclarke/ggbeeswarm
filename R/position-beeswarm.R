@@ -19,7 +19,7 @@
 #'   ggplot2::qplot(variable, value, data = distro) +
 #'     geom_beeswarm(priority='density',cex=2.5)
 #'
-position_beeswarm <- function (priority = c("ascending", "descending", "density", "random", "none"),cex=2,groupOnX=NULL) {
+position_beeswarm <- function (priority = c("ascending", "descending", "density", "random", "none"),cex=2,groupOnX=NULL,dodge.width=0.5) {
   ggplot2::ggproto(NULL,PositionBeeswarm,priority = priority,cex=cex,groupOnX=NULL)
 }
 
@@ -27,14 +27,22 @@ PositionBeeswarm <- ggplot2::ggproto("PositionBeeswarm",ggplot2:::Position, requ
   setup_params=function(self,data){
     list(priority=self$priority,cex=self$cex,groupOnX=self$groupOnX)
   },
-  compute_layer=function(data,params,panel){
+  compute_panel=function(data,params,scales){
 	# Adjust function is used to calculate new positions (from ggplot2:::Position)
 		data <- remove_missing(data, vars = c("x","y"), name = "position_beeswarm")
 		if (nrow(data)==0) return(data.frame())
 
 		# more unique entries in x than y suggests y (not x) is categorical
     if(is.null(params$groupOnX)) params$groupOnX <- length(unique(data$y)) > length(unique(data$x))
-
+    
+    # dodge
+    data <- ggplot2:::collide(data,
+    	params$dodge.width,
+    	"position_dodge", 
+    	ggplot2:::pos_dodge,
+    	check.width = FALSE)
+    	
+    # then beeswarm
     trans_x<-NULL
     trans_y<-NULL
 
