@@ -8,6 +8,7 @@
 #' @param nbins the number of bins used when calculating density (has little effect with quasirandom/random distribution)
 #' @param method the method used for distributing points (quasirandom, pseudorandom, smiley or frowney)
 #' @param groupOnX should jitter be added to the x axis if TRUE or y axis if FALSE (the default NULL causes the function to guess which axis is the categorical one based on the number of unique entries in each)
+#' @param dodge.width Amount by which points from different aesthetic groups will be dodged. This requires that one of the aesthetics is a factor.
 #' @export
 #' @importFrom vipor offsetX
 #' @seealso \code{\link[vipor]{offsetX}}
@@ -22,18 +23,26 @@
 #'   ggplot2::qplot(variable, value, data = distro, geom = 'quasirandom')
 #'   ggplot2::qplot(variable, value, data = distro) + geom_quasirandom(width=0.1)
 #'
-position_quasirandom <- function (width = NULL, varwidth = FALSE, bandwidth=.5,nbins=1000,method='quasirandom',groupOnX=NULL) {
-  ggplot2::ggproto(NULL,PositionQuasirandom,width = width, varwidth = varwidth, bandwidth=bandwidth,nbins=nbins,method=method,groupOnX=groupOnX)
+position_quasirandom <- function (width = NULL, varwidth = FALSE, bandwidth=.5,nbins=1000,method='quasirandom',groupOnX=NULL,dodge.width=0) {
+  ggplot2::ggproto(NULL,PositionQuasirandom,width = width, varwidth = varwidth, bandwidth=bandwidth,nbins=nbins,method=method,groupOnX=groupOnX,dodge.width=dodge.width)
 }
 
 PositionQuasirandom <- ggplot2::ggproto("PositionQuasirandom",ggplot2:::Position,required_aes=c('x','y'),
   setup_params=function(self,data){
-    list(width=self$width,varwidth=self$varwidth,bandwidth=self$bandwidth,nbins=self$nbins,method=self$method,groupOnX=self$groupOnX)
+    list(width=self$width,varwidth=self$varwidth,bandwidth=self$bandwidth,nbins=self$nbins,method=self$method,groupOnX=self$groupOnX,dodge.width=self$dodge.width)
   },
   compute_layer= function(data,params,panel) {
     data <- remove_missing(data, vars = c("x","y"), name = "position_quasirandom")
     if (nrow(data)==0) return(data.frame())
-
+    
+  # dodge
+    data <- ggplot2:::collide(data,
+    params$dodge.width,
+    "position_dodge", 
+    ggplot2:::pos_dodge,
+    check.width = FALSE)
+  
+  # then quasirandom transform
     trans_x <- NULL
     trans_y <- NULL
     

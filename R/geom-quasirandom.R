@@ -25,10 +25,10 @@
 #'   ggplot2::qplot(variable, value, data = distro) + geom_quasirandom(width=0.1)
 #' @export
 geom_quasirandom <- function(mapping = NULL, data = NULL,
-  width = NULL, varwidth = FALSE, bandwidth=.5,nbins=1000,method='quasirandom',groupOnX=NULL,
+  width = NULL, varwidth = FALSE, bandwidth=.5,nbins=1000,method='quasirandom',groupOnX=NULL,dodge.width=0,
   stat='identity',position = "quasirandom", na.rm = FALSE,
   show.legend = NA, inherit.aes = TRUE, ...) {
-  position <- position_quasirandom(width = width, varwidth = varwidth, bandwidth=bandwidth,nbins=nbins,method=method,groupOnX=groupOnX)
+  position <- position_quasirandom(width = width, varwidth = varwidth, bandwidth=bandwidth,nbins=nbins,method=method,groupOnX=groupOnX,dodge.width=dodge.width)
 
   ggplot2::layer(
     data = data,

@@ -4,6 +4,7 @@
 #' @param priority Method used to perform point layout (see \code{\link{swarmx}})
 #' @param cex Scaling for adjusting point spacing (see \code{\link{swarmx}})
 #' @param groupOnX should jitter be added to the x axis if TRUE or y axis if FALSE (the default NULL causes the function to guess which axis is the categorical one based on the number of unique entries in each)
+#' @param dodge.width Amount by which points from different aesthetic groups will be dodged. This requires that one of the aesthetics is a factor.
 #' @export
 #' @importFrom beeswarm swarmx
 #' @seealso \code{\link{position_quasirandom}}, \code{\link[beeswarm]{swarmx}} 
@@ -19,22 +20,33 @@
 #'   ggplot2::qplot(variable, value, data = distro) +
 #'     geom_beeswarm(priority='density',cex=2.5)
 #'
-position_beeswarm <- function (priority = c("ascending", "descending", "density", "random", "none"),cex=2,groupOnX=NULL) {
-  ggplot2::ggproto(NULL,PositionBeeswarm,priority = priority,cex=cex,groupOnX=NULL)
+position_beeswarm <- function (priority = c("ascending", "descending", "density", "random", "none"),cex=2,groupOnX=NULL,dodge.width=0) {
+  ggplot2::ggproto(NULL,PositionBeeswarm,priority = priority,cex=cex,groupOnX=NULL,dodge.width=dodge.width)
 }
 
 PositionBeeswarm <- ggplot2::ggproto("PositionBeeswarm",ggplot2:::Position, required_aes=c('x','y'),
   setup_params=function(self,data){
-    list(priority=self$priority,cex=self$cex,groupOnX=self$groupOnX)
+    list(priority=self$priority,
+    cex=self$cex,
+    groupOnX=self$groupOnX,
+    dodge.width=self$dodge.width)
   },
-  compute_layer=function(data,params,panel){
+  compute_panel=function(data,params,scales){
 	# Adjust function is used to calculate new positions (from ggplot2:::Position)
 		data <- remove_missing(data, vars = c("x","y"), name = "position_beeswarm")
 		if (nrow(data)==0) return(data.frame())
 
 		# more unique entries in x than y suggests y (not x) is categorical
     if(is.null(params$groupOnX)) params$groupOnX <- length(unique(data$y)) > length(unique(data$x))
-
+    
+    # dodge
+    data <- ggplot2:::collide(data,
+    	params$dodge.width,
+    	"position_dodge", 
+    	ggplot2:::pos_dodge,
+    	check.width = FALSE)
+    	
+    # then beeswarm
     trans_x<-NULL
     trans_y<-NULL
 
