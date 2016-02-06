@@ -4,6 +4,7 @@
 #' @param priority Method used to perform point layout (see \code{\link{swarmx}})
 #' @param cex Scaling for adjusting point spacing (see \code{\link{swarmx}})
 #' @param groupOnX should jitter be added to the x axis if TRUE or y axis if FALSE (the default NULL causes the function to guess which axis is the categorical one based on the number of unique entries in each)
+#' @param dodge.width Amount by which points from different aesthetic groups will be dodged. This requires that one of the aesthetics is a factor.
 #' @export
 #' @importFrom beeswarm swarmx
 #' @seealso \code{\link{position_quasirandom}}, \code{\link[beeswarm]{swarmx}} 
