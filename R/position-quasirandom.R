@@ -8,6 +8,7 @@
 #' @param nbins the number of bins used when calculating density (has little effect with quasirandom/random distribution)
 #' @param method the method used for distributing points (quasirandom, pseudorandom, smiley or frowney)
 #' @param groupOnX should jitter be added to the x axis if TRUE or y axis if FALSE (the default NULL causes the function to guess which axis is the categorical one based on the number of unique entries in each)
+#' @param dodge.width Amount by which points from different aesthetic groups will be dodged. This requires that one of the aesthetics is a factor.
 #' @export
 #' @importFrom vipor offsetX
 #' @seealso \code{\link[vipor]{offsetX}}
