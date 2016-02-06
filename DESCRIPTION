@@ -1,14 +1,19 @@
 Package: ggbeeswarm
 Type: Package
-Title: Plots multiple one-dimensional data in a plot combining the features of violin and scatter points
-Version: 0.4.0
+Title: Create beeswarm (a.k.a violin point) plots in ggplot2.
+Version: 0.5.0
 Date: 2015-01-13
-Author: Erik Clarke, Scott Sherrill-Mix
-Maintainer: Erik Clarke <ecl@mail.med.upenn.edu>
-Description: Provides methods for beeswarm (a.k.a. violin point) plots in ggplot2.
+Authors@R: as.person(c(
+    "Erik Clarke <erikclarke@gmail.com> [aut, cre]",
+    "Scott Sherrill-Mix <sherrillmix@gmail.com> [aut]"))
+Description: Provides two methods of plotting one-dimensional scatterplots such
+    that the arrangement of points within a category reflects the density of
+    data at that region. Extends ggplot2 v2.0.0.
 License: GPL (>=2)
 Depends:
-    R (>= 3.0.0), ggplot2 (>= 2.0)
+    R (>= 3.0.0),
+    ggplot2 (>= 2.0)
 Imports:
-    beeswarm, vipor
-
+    beeswarm,
+    vipor
+RoxygenNote: 5.0.1
