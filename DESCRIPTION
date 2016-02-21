@@ -1,14 +1,15 @@
 Package: ggbeeswarm
 Type: Package
-Title: Create beeswarm (a.k.a violin point) plots in ggplot2
+Title: Create Categorical Scatter (Violin Point) Plots in ggplot2
 Version: 0.5.0
-Date: 2015-01-13
-Authors@R: as.person(c(
-    "Erik Clarke <erikclarke@gmail.com> [aut, cre]",
-    "Scott Sherrill-Mix <sherrillmix@gmail.com> [aut]"))
-Description: Provides two methods of plotting one-dimensional scatterplots such
+Date: 2015-02-20
+Authors@R: c(
+person(given="Erik", family="Clarke", role=c("aut", "cre"), email="erikclarke@gmail.com"),
+person(given="Scott", family="Sherrill-Mix", role=c("aut"), email="sherrillmix@gmail.com"))
+
+Description: Provides two methods of plotting categorical scatter plots such
     that the arrangement of points within a category reflects the density of
-    data at that region. Extends ggplot2 v2.0.0.
+    data at that region, and avoids overplotting.
 License: GPL (>=2)
 Depends:
     R (>= 3.0.0),

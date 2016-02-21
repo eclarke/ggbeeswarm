@@ -4,3 +4,4 @@
 ^makefile$
 ^packrat/
 ^\.Rprofile$
+cran-comments.md
