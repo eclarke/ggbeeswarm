@@ -4,9 +4,8 @@ Title: Create Categorical Scatter (Violin Point) Plots in ggplot2
 Version: 0.5.0
 Date: 2015-02-20
 Authors@R: c(
-person(given="Erik", family="Clarke", role=c("aut", "cre"), email="erikclarke@gmail.com"),
-person(given="Scott", family="Sherrill-Mix", role=c("aut"), email="sherrillmix@gmail.com"))
-
+    person(given="Erik", family="Clarke", role=c("aut", "cre"), email="erikclarke@gmail.com"),
+    person(given="Scott", family="Sherrill-Mix", role=c("aut"), email="sherrillmix@gmail.com"))
 Description: Provides two methods of plotting categorical scatter plots such
     that the arrangement of points within a category reflects the density of
     data at that region, and avoids overplotting.
