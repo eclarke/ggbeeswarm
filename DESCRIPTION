@@ -9,6 +9,8 @@ Authors@R: c(
 Description: Provides two methods of plotting categorical scatter plots such
     that the arrangement of points within a category reflects the density of
     data at that region, and avoids over-plotting.
+URL: https://github.com/eclarke/ggbeeswarm
+BugReports: https://github.com/eclarke/ggbeeswarm/issues
 License: GPL (>=2)
 Depends:
     R (>= 3.0.0),
