@@ -5,3 +5,14 @@
 
 ## R CMD check results
 There were no ERRORs or WARNINGs.
+
+There was one NOTE:
+* checking CRAN incoming feasibility ... NOTE
+Maintainer: 'Erik Clarke <erikclarke@gmail.com>'
+
+New submission
+
+This is my first submission to CRAN!
+
+## Downstream dependencies
+There are currently no downstream dependencies for this package.
