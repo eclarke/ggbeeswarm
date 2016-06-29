@@ -74,31 +74,36 @@ ggplot(sub_mpg, aes(class, displ, color=factor(cyl))) + geom_quasirandom(dodge.w
 `geom_quasirandom` can also use several other methods to distribute points. For example:
 
 ```r
-ggplot(iris,aes(Species, Sepal.Length)) + geom_quasirandom(method='tukey') + ggtitle('Tukey texture')
+ggplot(iris, aes(Species, Sepal.Length)) + geom_quasirandom(method = "tukey") + 
+    ggtitle("Tukey texture")
 ```
 
 <img src="README_files/figure-html/ggplot2-methods-1.png" title="plot of chunk ggplot2-methods" alt="plot of chunk ggplot2-methods" width="432" />
 
 ```r
-ggplot(iris,aes(Species, Sepal.Length)) + geom_quasirandom(method='tukeyDense') + ggtitle('Tukey + density')
+ggplot(iris, aes(Species, Sepal.Length)) + geom_quasirandom(method = "tukeyDense") + 
+    ggtitle("Tukey + density")
 ```
 
 <img src="README_files/figure-html/ggplot2-methods-2.png" title="plot of chunk ggplot2-methods" alt="plot of chunk ggplot2-methods" width="432" />
 
 ```r
-ggplot(iris,aes(Species, Sepal.Length)) + geom_quasirandom(method='frowney') + ggtitle('Banded frowns')
+ggplot(iris, aes(Species, Sepal.Length)) + geom_quasirandom(method = "frowney") + 
+    ggtitle("Banded frowns")
 ```
 
 <img src="README_files/figure-html/ggplot2-methods-3.png" title="plot of chunk ggplot2-methods" alt="plot of chunk ggplot2-methods" width="432" />
 
 ```r
-ggplot(iris,aes(Species, Sepal.Length)) + geom_quasirandom(method='smiley') + ggtitle('Banded smiles')
+ggplot(iris, aes(Species, Sepal.Length)) + geom_quasirandom(method = "smiley") + 
+    ggtitle("Banded smiles")
 ```
 
 <img src="README_files/figure-html/ggplot2-methods-4.png" title="plot of chunk ggplot2-methods" alt="plot of chunk ggplot2-methods" width="432" />
 
 ```r
-ggplot(iris,aes(Species, Sepal.Length)) + geom_quasirandom(method='pseudorandom') + ggtitle('Jittered density')
+ggplot(iris, aes(Species, Sepal.Length)) + geom_quasirandom(method = "pseudorandom") + 
+    ggtitle("Jittered density")
 ```
 
 <img src="README_files/figure-html/ggplot2-methods-5.png" title="plot of chunk ggplot2-methods" alt="plot of chunk ggplot2-methods" width="432" />

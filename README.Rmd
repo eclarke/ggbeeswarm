@@ -63,7 +63,7 @@ ggplot(sub_mpg, aes(class, displ, color=factor(cyl))) + geom_quasirandom(dodge.w
 
 #### Alternative methods
 `geom_quasirandom` can also use several other methods to distribute points. For example:
-```{r ggplot2-methods}
+```{r ggplot2-methods,tidy=TRUE}
 ggplot(iris,aes(Species, Sepal.Length)) + geom_quasirandom(method='tukey') + ggtitle('Tukey texture')
 ggplot(iris,aes(Species, Sepal.Length)) + geom_quasirandom(method='tukeyDense') + ggtitle('Tukey + density')
 ggplot(iris,aes(Species, Sepal.Length)) + geom_quasirandom(method='frowney') + ggtitle('Banded frowns')
