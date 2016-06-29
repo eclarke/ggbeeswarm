@@ -43,14 +43,14 @@ ggplot(iris,aes(Species, Sepal.Length)) + geom_quasirandom()
 <img src="README_files/figure-html/ggplot2-examples-1.png" title="plot of chunk ggplot2-examples" alt="plot of chunk ggplot2-examples" width="432" />
 
 ```r
-ggplot(mpg,aes(class, hwy), geom="quasirandom")
+ggplot(mpg,aes(class, hwy)) + geom_quasirandom()
 ```
 
 <img src="README_files/figure-html/ggplot2-examples-2.png" title="plot of chunk ggplot2-examples" alt="plot of chunk ggplot2-examples" width="432" />
 
 ```r
 # With categorical y-axis
-ggplot(mpg,aes(hwy, class), geom='quasirandom')
+ggplot(mpg,aes(hwy, class)) + geom_quasirandom()
 ```
 
 <img src="README_files/figure-html/ggplot2-examples-3.png" title="plot of chunk ggplot2-examples" alt="plot of chunk ggplot2-examples" width="432" />
@@ -81,14 +81,14 @@ ggplot(iris,aes(Species, Sepal.Length)) + geom_beeswarm()
 <img src="README_files/figure-html/ggplot2-beeswarm-1.png" title="plot of chunk ggplot2-beeswarm" alt="plot of chunk ggplot2-beeswarm" width="432" />
 
 ```r
-ggplot(mpg,aes(class, hwy), geom='beeswarm')
+ggplot(mpg,aes(class, hwy)) + geom_beeswarm()
 ```
 
 <img src="README_files/figure-html/ggplot2-beeswarm-2.png" title="plot of chunk ggplot2-beeswarm" alt="plot of chunk ggplot2-beeswarm" width="432" />
 
 ```r
 # With categorical y-axis
-ggplot(mpg,aes(hwy, class), geom='beeswarm')
+ggplot(mpg,aes(hwy, class)) + geom_beeswarm()
 ```
 
 <img src="README_files/figure-html/ggplot2-beeswarm-3.png" title="plot of chunk ggplot2-beeswarm" alt="plot of chunk ggplot2-beeswarm" width="432" />
