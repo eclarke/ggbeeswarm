@@ -37,30 +37,30 @@ Using `geom_quasirandom`:
 set.seed(12345)
 library(ggplot2)
 library(ggbeeswarm)
-qplot(Species, Sepal.Length, data=iris) + geom_quasirandom()
+ggplot(iris,aes(Species, Sepal.Length)) + geom_quasirandom()
 ```
 
-<img src="README_files/figure-html/ggplot2-examples-1.png" title="" alt="" width="576" />
+<img src="README_files/figure-html/ggplot2-examples-1.png" title="plot of chunk ggplot2-examples" alt="plot of chunk ggplot2-examples" width="432" />
 
 ```r
-qplot(class, hwy, data=mpg, geom="quasirandom")
+ggplot(mpg,aes(class, hwy), geom="quasirandom")
 ```
 
-<img src="README_files/figure-html/ggplot2-examples-2.png" title="" alt="" width="576" />
+<img src="README_files/figure-html/ggplot2-examples-2.png" title="plot of chunk ggplot2-examples" alt="plot of chunk ggplot2-examples" width="432" />
 
 ```r
 # With categorical y-axis
-qplot(hwy, class, data=mpg, geom='quasirandom')
+ggplot(mpg,aes(hwy, class), geom='quasirandom')
 ```
 
-<img src="README_files/figure-html/ggplot2-examples-3.png" title="" alt="" width="576" />
+<img src="README_files/figure-html/ggplot2-examples-3.png" title="plot of chunk ggplot2-examples" alt="plot of chunk ggplot2-examples" width="432" />
 
 ```r
 # Some groups may have only a few points. Use `varwidth=TRUE` to adjust width dynamically.
-qplot(class, hwy, data=mpg) + geom_quasirandom(varwidth = TRUE)
+ggplot(mpg,aes(class, hwy)) + geom_quasirandom(varwidth = TRUE)
 ```
 
-<img src="README_files/figure-html/ggplot2-examples-4.png" title="" alt="" width="576" />
+<img src="README_files/figure-html/ggplot2-examples-4.png" title="plot of chunk ggplot2-examples" alt="plot of chunk ggplot2-examples" width="432" />
 
 ```r
 # Automatic dodging
@@ -68,52 +68,52 @@ sub_mpg <- mpg[mpg$class %in% c("midsize", "pickup", "suv"),]
 ggplot(sub_mpg, aes(class, displ, color=factor(cyl))) + geom_quasirandom(dodge.width=1)
 ```
 
-<img src="README_files/figure-html/ggplot2-examples-5.png" title="" alt="" width="576" />
+<img src="README_files/figure-html/ggplot2-examples-5.png" title="plot of chunk ggplot2-examples" alt="plot of chunk ggplot2-examples" width="432" />
 
 ### geom_beeswarm()
 
 Using `geom_beeswarm`:
 
 ```r
-qplot(Species, Sepal.Length, data=iris) + geom_beeswarm()
+ggplot(iris,aes(Species, Sepal.Length)) + geom_beeswarm()
 ```
 
-<img src="README_files/figure-html/ggplot2-beeswarm-1.png" title="" alt="" width="576" />
+<img src="README_files/figure-html/ggplot2-beeswarm-1.png" title="plot of chunk ggplot2-beeswarm" alt="plot of chunk ggplot2-beeswarm" width="432" />
 
 ```r
-qplot(class, hwy, data=mpg, geom='beeswarm')
+ggplot(mpg,aes(class, hwy), geom='beeswarm')
 ```
 
-<img src="README_files/figure-html/ggplot2-beeswarm-2.png" title="" alt="" width="576" />
+<img src="README_files/figure-html/ggplot2-beeswarm-2.png" title="plot of chunk ggplot2-beeswarm" alt="plot of chunk ggplot2-beeswarm" width="432" />
 
 ```r
 # With categorical y-axis
-qplot(hwy, class, data=mpg, geom='beeswarm')
+ggplot(mpg,aes(hwy, class), geom='beeswarm')
 ```
 
-<img src="README_files/figure-html/ggplot2-beeswarm-3.png" title="" alt="" width="576" />
+<img src="README_files/figure-html/ggplot2-beeswarm-3.png" title="plot of chunk ggplot2-beeswarm" alt="plot of chunk ggplot2-beeswarm" width="432" />
 
 ```r
 # ggplot doesn't pass any information about the actual device size of the points
 # to the underlying layout code, so it's important to manually adjust the `cex` 
 # parameter for best results
-qplot(class, hwy, data=mpg) + geom_beeswarm(cex=5)
+ggplot(mpg,aes(class, hwy)) + geom_beeswarm(cex=5)
 ```
 
-<img src="README_files/figure-html/ggplot2-beeswarm-4.png" title="" alt="" width="576" />
+<img src="README_files/figure-html/ggplot2-beeswarm-4.png" title="plot of chunk ggplot2-beeswarm" alt="plot of chunk ggplot2-beeswarm" width="432" />
 
 ```r
-qplot(Species, Sepal.Length, data=iris) + geom_beeswarm(cex=4,priority='density')
+ggplot(iris,aes(Species, Sepal.Length)) + geom_beeswarm(cex=4,priority='density')
 ```
 
-<img src="README_files/figure-html/ggplot2-beeswarm-5.png" title="" alt="" width="576" />
+<img src="README_files/figure-html/ggplot2-beeswarm-5.png" title="plot of chunk ggplot2-beeswarm" alt="plot of chunk ggplot2-beeswarm" width="432" />
 
 ```r
 # With automatic dodging
 ggplot(sub_mpg, aes(class, displ, color=factor(cyl))) + geom_beeswarm(dodge.width=0.7, cex=4)
 ```
 
-<img src="README_files/figure-html/ggplot2-beeswarm-6.png" title="" alt="" width="576" />
+<img src="README_files/figure-html/ggplot2-beeswarm-6.png" title="plot of chunk ggplot2-beeswarm" alt="plot of chunk ggplot2-beeswarm" width="432" />
 
 
 ------
