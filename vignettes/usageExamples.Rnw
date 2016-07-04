@@ -1,0 +1,197 @@
+\documentclass[article,nojss]{jss}
+
+
+<<package,include=FALSE,echo=FALSE>>=
+options(keep.source = TRUE, width = 60)
+packageInfo <- packageDescription("ggbeeswarm")
+library(ggbeeswarm)
+packageKeywords<-"visualization, display, one dimensional, grouped, groups, violin, scatter, points, quasirandom, beeswarm, van der Corput, beeswarm, ggplot, ggplot2"
+@
+%\VignetteIndexEntry{vipor package usage examples}
+%\VignetteDepends{}
+%\VignetteKeywords{visualization, display, one dimensional, grouped, groups, violin, scatter, points, quasirandom, beeswarm, van der Corput, beeswarm, ggplot, ggplot2}
+%\VignettePackage{vipor}
+
+\title{\pkg{\Sexpr{packageInfo$Package}} package usage example (version \Sexpr{packageInfo$Version})}
+\author{\Sexpr{packageInfo$Author}}
+\Plainauthor{\Sexpr{packageInfo$Author}}
+
+\Address{
+  Github: \url{http://github.com/eclarke/ggbeeswarm}
+  Cran: \url{https://cran.r-project.org/package=ggbeeswarm}
+}
+
+\Keywords{\Sexpr{packageKeywords}}
+
+\Abstract{
+  This is a collection of examples of usage for the \pkg{\Sexpr{packageInfo$Package}} package.
+}
+
+\begin{document}
+\SweaveOpts{engine=R,eps=FALSE}
+
+\section{The basics}
+
+This is the simplest example of using \code{geom_quasirandom} to generate violin scatter plots:
+<<ggPlot, echo=TRUE, eval=FALSE>>=
+  library(vipor)
+  set.seed(12345)
+  n<-100
+  dat<-rnorm(n*2)
+  labs<-rep(c('a','b'),n)
+  ggplot(mapping=aes(labs, dat)) + geom_quasirandom()
+@
+
+\begin{center}
+<<showGgPlot, fig=TRUE, height=3.5, width=5, echo=FALSE>>=
+<<ggPlot>>
+@
+\end{center}
+
+
+Normal \code{ggplot} options can be used:
+<<vpOpts, echo=TRUE, eval=FALSE>>=
+  ggplot(mapping=aes(labs, dat)) + geom_quasirandom(aes(color=labs))
+@
+
+\begin{center}
+<<showVpOpts, fig=TRUE, height=3.5, width=5, echo=FALSE>>=
+<<vpOpts>>
+@
+\end{center}
+
+%Factors can be used to generate custom group orderings:
+%<<vpFactors, echo=TRUE, eval=FALSE>>=
+%  labs2<-factor(labs,levels=c('b','a'))
+%  vpPlot(labs2,dat,las=1,ylab='Data',col=rep(1:2,n))
+%  abline(h=0,lty=2)
+%@
+%\begin{center}
+%<<showVpFactors, fig=TRUE, height=3.5, width=5, echo=FALSE>>=
+%<<vpFactors>>
+%@
+%\end{center}
+%
+%For custom plotting, the offsets for a group of points can be calculated using the \code{offsetX} function. The adjusted x position of the points is also returned invisibly from \code{vpPlot}:
+%<<offsetX, echo=TRUE, eval=TRUE>>=
+%  offsets<-offsetX(dat,labs)
+%  head(offsets,4)
+%  xPos<-vpPlot(labs,dat)
+%  head(xPos,4)
+%  xPos2<-rep(1:2,n)+offsets
+%  head(xPos2,4)
+%  all(xPos==xPos2)
+%@
+%Note that \code{offsetX} returns offsets centered around 0 which will need to be added to the original x positions.
+%
+%
+%\section{Options}
+%\code{offsetX} calls \code{stats::density} to compute kernel density estimates. The tightness of the fit can be adjusted with the \code{adjust} option and the width of the offset with \code{width}. \code{nbins} to adjust the number of bins used in the kernel density is also provided but this can usually be left at its default when using quasirandom offsets:
+%
+%<<distAdjust, echo=TRUE, eval=FALSE>>=
+%  dat <- list(
+%    'Normal'=rnorm(50),
+%    'Dense normal'= rnorm(500),
+%    'Bimodal'=c(rnorm(100), rnorm(100,5)),
+%    'Extremes'=rcauchy(100)
+%  )
+%  par(mfrow=c(4,1), mar=c(2.5,3.1, 1.2, 0.5),mgp=c(2.1,.75,0),
+%  cex.axis=1.2,cex.lab=1.2,cex.main=1.2)
+%  dummy<-sapply(names(dat),function(label) {
+%    y<-dat[[label]]
+%    offsets <- list(
+%      'defaults'=offsetX(y),  # Default
+%      'adjust=2'=offsetX(y, adjust=2),    # More smoothing
+%      'adjust=.1'=offsetX(y, adjust=0.1),  # Tighter fit
+%      'width=.1'=offsetX(y, width=0.1),    # Less wide
+%      'nbins=100'=offsetX(y, nbins=100)    # Less bins
+%    )  
+%    ids <- rep(1:length(offsets), each=length(y))
+%    plot(unlist(offsets) + ids, rep(y, length(offsets)), ylab='y value',
+%      xlab='', xaxt='n', pch=21,
+%      col='#00000099',bg='#00000033',las=1,main=label)
+%    axis(1, 1:length(offsets), names(offsets))
+%  })
+%@
+%\begin{center}
+%<<showDistAdjust, fig=TRUE, height=6, width=6, echo=FALSE>>=
+%<<distAdjust>>
+%@
+%\end{center}
+%
+%The \code{varwidth} argument scales the width of a group by the square root of the number of observations in that group (as in the function \code{boxplot}). Arguments to \code{offsetX} can be passed into \code{vpPlot} as a list through the \code{offsetXArgs} argument.
+%
+%<<varwidth, echo=TRUE, eval=FALSE>>=
+%  dat <- list(
+%    '10 points'=rnorm(10),
+%    '50 points'=rnorm(50,2),
+%    '200 points'=c(rnorm(400), rnorm(100,5)),
+%    '5000 points'= rnorm(5000,1)
+%  )
+%  labs<-rep(names(dat),sapply(dat,length))
+%  labs<-factor(labs,levels=unique(labs))
+%  vpPlot( labs,unlist(dat),offsetXArgs=list(varwidth=TRUE),
+%    las=1,ylab='Value',col='#00000066',bg='#00000022',pch=21)
+%@
+%\begin{center}
+%<<showVarwidth, fig=TRUE, height=4, width=6, echo=FALSE>>=
+%<<varwidth>>
+%@
+%\end{center}
+%
+%\section{Real data}
+%An example using the \code{beaver1} and \code{beaver2} data from the \pkg{datasets} package:
+%<<vpBeaver, echo=TRUE, eval=FALSE>>=
+%  y<-c(beaver1$temp,beaver2$temp)
+%  x<-rep(
+%    c('Beaver 1','Beaver 2'),
+%    c(nrow(beaver1),nrow(beaver2))
+%  )
+%  vpPlot(x,y,las=1, ylab='Body temperature',
+%    pch=21, col='#00000099',bg='#00000033')
+%@
+%\begin{center}
+%<<showBeaver, fig=TRUE, height=4, width=4, echo=FALSE>>=
+%<<vpBeaver>>
+%@
+%\end{center}
+%
+%An example using the \code{integrations} data from this package:
+%<<vpGene, echo=TRUE, eval=FALSE>>=
+%  ints<-integrations[integrations$nearestGene>0,]
+%  y<-log(ints$nearestGene)
+%  x<-as.factor(paste(ints$study,ints$latent))
+%  activeCols<-c('Expressed'='#FF000033','Unexpressed'='#0000FF33')
+%  cols<-activeCols[ints$latent]
+%  par(mar=c(4,7,.1,.1))
+%  vpPlot(x,y,las=2, ylab='Log distance to gene',xaxt='n',
+%    pch=21, col=cols,bg=cols,cex=.7)
+%  uniqX<-levels(x)
+%  prettyX<-tapply(1:length(uniqX),sub('(Une|E)xpressed$','',uniqX),mean)
+%  axis(1,prettyX,names(prettyX),las=2)
+%  legend(grconvertX(0.01,from='ndc'),grconvertY(0.15,from='ndc'),
+%    names(activeCols),pch=21,col=cols,pt.bg=activeCols,xpd=NA)
+%@
+%\begin{center}
+%<<showGene, fig=TRUE, height=4, width=6, echo=FALSE>>=
+%<<vpGene>>
+%@
+%\end{center}
+%
+%\section{ggbeeswarm package}
+%This package is also wrapped by the \pkg{ggbeeswarm} package so if you prefer \code{ggplot} then you can do something like:
+%<<ggPlot, echo=TRUE, eval=FALSE>>=
+%  library(ggbeeswarm)
+%  n<-100
+%  dat<-rnorm(n*2)
+%  labs<-rep(c('a','b'),n)
+%  ggplot(mapping=aes(labs,dat))+geom_quasirandom()
+%@
+%\begin{center}
+%<<showGg, fig=TRUE, height=4, width=6, echo=FALSE>>=
+%<<ggPlot>>
+%@
+%\end{center}
+
+
+\end{document}

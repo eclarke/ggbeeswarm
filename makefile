@@ -18,9 +18,9 @@ man: R/*.R
 	touch man
 
 
-#inst/doc: vignettes/*.Rnw
-	#R -e 'devtools::build_vignettes()'
-	#touch inst/doc
+inst/doc: vignettes/*.Rnw
+	R -e 'devtools::build_vignettes()'
+	touch inst/doc
 
 README.md: README.Rmd R/*.R
 	make localInstall
