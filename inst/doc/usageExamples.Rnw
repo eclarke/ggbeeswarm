@@ -50,28 +50,27 @@ This is the simplest example of using \code{geom_quasirandom} to generate violin
 
 
 Normal \code{ggplot} options can be used:
-<<vpOpts, echo=TRUE, eval=FALSE>>=
+<<ggOpts, echo=TRUE, eval=FALSE>>=
   ggplot(mapping=aes(labs, dat)) + geom_quasirandom(aes(color=labs))
 @
 
 \begin{center}
-<<showVpOpts, fig=TRUE, height=3.5, width=5, echo=FALSE>>=
-<<vpOpts>>
+<<showGgOpts, fig=TRUE, height=3.5, width=5, echo=FALSE>>=
+<<ggOpts>>
 @
 \end{center}
 
-%Factors can be used to generate custom group orderings:
-%<<vpFactors, echo=TRUE, eval=FALSE>>=
-%  labs2<-factor(labs,levels=c('b','a'))
-%  vpPlot(labs2,dat,las=1,ylab='Data',col=rep(1:2,n))
-%  abline(h=0,lty=2)
-%@
-%\begin{center}
-%<<showVpFactors, fig=TRUE, height=3.5, width=5, echo=FALSE>>=
-%<<vpFactors>>
-%@
-%\end{center}
-%
+Factors can be used to generate custom group orderings:
+<<ggFactors, echo=TRUE, eval=FALSE>>=
+  labs2<-factor(labs,levels=c('b','a'))
+  ggplot(mapping=aes(labs, dat)) + geom_quasirandom()
+@
+\begin{center}
+<<showGgFactors, fig=TRUE, height=3.5, width=5, echo=FALSE>>=
+<<ggFactors>>
+@
+\end{center}
+
 %For custom plotting, the offsets for a group of points can be calculated using the \code{offsetX} function. The adjusted x position of the points is also returned invisibly from \code{vpPlot}:
 %<<offsetX, echo=TRUE, eval=TRUE>>=
 %  offsets<-offsetX(dat,labs)

@@ -32,14 +32,28 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 
 
 ###################################################
-### code chunk number 4: vpOpts (eval = FALSE)
+### code chunk number 4: ggOpts (eval = FALSE)
 ###################################################
 ##   ggplot(mapping=aes(labs, dat)) + geom_quasirandom(aes(color=labs))
 
 
 ###################################################
-### code chunk number 5: showVpOpts
+### code chunk number 5: showGgOpts
 ###################################################
   ggplot(mapping=aes(labs, dat)) + geom_quasirandom(aes(color=labs))
+
+
+###################################################
+### code chunk number 6: ggFactors (eval = FALSE)
+###################################################
+##   labs2<-factor(labs,levels=c('b','a'))
+##   ggplot(mapping=aes(labs, dat)) + geom_quasirandom()
+
+
+###################################################
+### code chunk number 7: showGgFactors
+###################################################
+  labs2<-factor(labs,levels=c('b','a'))
+  ggplot(mapping=aes(labs, dat)) + geom_quasirandom()
 
 
