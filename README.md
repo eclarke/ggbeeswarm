@@ -7,7 +7,7 @@ Beeswarm plots (aka column scatter plots or violin scatter plots) are a way of p
 
 `ggbeeswarm` provides two different methods to create beeswarm-style plots using [ggplot2](http://ggplot2.org). It does this by adding two new ggplot geom objects:
 
-- `geom_quasirandom`: Uses a [van der Corput sequence](http://en.wikipedia.org/wiki/Van_der_Corput_sequence) to space the dots to avoid overplotting. This uses [sherrillmix/vipor](https://github.com/sherrillmix/vipor).
+- `geom_quasirandom`: Uses a [van der Corput sequence](http://en.wikipedia.org/wiki/Van_der_Corput_sequence) or Tukey texturing (Tukey and Tukey "Strips displaying empirical distributions: I. textured dot strips") to space the dots to avoid overplotting. This uses [sherrillmix/vipor](https://github.com/sherrillmix/vipor).
 
 - `geom_beeswarm`: Uses the [beeswarm](https://cran.r-project.org/web/packages/beeswarm/index.html) library to do point-size based offset. 
 
@@ -37,30 +37,30 @@ Using `geom_quasirandom`:
 set.seed(12345)
 library(ggplot2)
 library(ggbeeswarm)
-qplot(Species, Sepal.Length, data=iris) + geom_quasirandom()
+ggplot(iris,aes(Species, Sepal.Length)) + geom_quasirandom()
 ```
 
-<img src="README_files/figure-html/ggplot2-examples-1.png" title="" alt="" width="576" />
+<img src="README_files/figure-html/ggplot2-examples-1.png" title="plot of chunk ggplot2-examples" alt="plot of chunk ggplot2-examples" width="432" />
 
 ```r
-qplot(class, hwy, data=mpg, geom="quasirandom")
+ggplot(mpg,aes(class, hwy)) + geom_quasirandom()
 ```
 
-<img src="README_files/figure-html/ggplot2-examples-2.png" title="" alt="" width="576" />
+<img src="README_files/figure-html/ggplot2-examples-2.png" title="plot of chunk ggplot2-examples" alt="plot of chunk ggplot2-examples" width="432" />
 
 ```r
 # With categorical y-axis
-qplot(hwy, class, data=mpg, geom='quasirandom')
+ggplot(mpg,aes(hwy, class)) + geom_quasirandom()
 ```
 
-<img src="README_files/figure-html/ggplot2-examples-3.png" title="" alt="" width="576" />
+<img src="README_files/figure-html/ggplot2-examples-3.png" title="plot of chunk ggplot2-examples" alt="plot of chunk ggplot2-examples" width="432" />
 
 ```r
 # Some groups may have only a few points. Use `varwidth=TRUE` to adjust width dynamically.
-qplot(class, hwy, data=mpg) + geom_quasirandom(varwidth = TRUE)
+ggplot(mpg,aes(class, hwy)) + geom_quasirandom(varwidth = TRUE)
 ```
 
-<img src="README_files/figure-html/ggplot2-examples-4.png" title="" alt="" width="576" />
+<img src="README_files/figure-html/ggplot2-examples-4.png" title="plot of chunk ggplot2-examples" alt="plot of chunk ggplot2-examples" width="432" />
 
 ```r
 # Automatic dodging
@@ -68,52 +68,90 @@ sub_mpg <- mpg[mpg$class %in% c("midsize", "pickup", "suv"),]
 ggplot(sub_mpg, aes(class, displ, color=factor(cyl))) + geom_quasirandom(dodge.width=1)
 ```
 
-<img src="README_files/figure-html/ggplot2-examples-5.png" title="" alt="" width="576" />
+<img src="README_files/figure-html/ggplot2-examples-5.png" title="plot of chunk ggplot2-examples" alt="plot of chunk ggplot2-examples" width="432" />
+
+#### Alternative methods
+`geom_quasirandom` can also use several other methods to distribute points. For example:
+
+```r
+ggplot(iris, aes(Species, Sepal.Length)) + geom_quasirandom(method = "tukey") + 
+    ggtitle("Tukey texture")
+```
+
+<img src="README_files/figure-html/ggplot2-methods-1.png" title="plot of chunk ggplot2-methods" alt="plot of chunk ggplot2-methods" width="432" />
+
+```r
+ggplot(iris, aes(Species, Sepal.Length)) + geom_quasirandom(method = "tukeyDense") + 
+    ggtitle("Tukey + density")
+```
+
+<img src="README_files/figure-html/ggplot2-methods-2.png" title="plot of chunk ggplot2-methods" alt="plot of chunk ggplot2-methods" width="432" />
+
+```r
+ggplot(iris, aes(Species, Sepal.Length)) + geom_quasirandom(method = "frowney") + 
+    ggtitle("Banded frowns")
+```
+
+<img src="README_files/figure-html/ggplot2-methods-3.png" title="plot of chunk ggplot2-methods" alt="plot of chunk ggplot2-methods" width="432" />
+
+```r
+ggplot(iris, aes(Species, Sepal.Length)) + geom_quasirandom(method = "smiley") + 
+    ggtitle("Banded smiles")
+```
+
+<img src="README_files/figure-html/ggplot2-methods-4.png" title="plot of chunk ggplot2-methods" alt="plot of chunk ggplot2-methods" width="432" />
+
+```r
+ggplot(iris, aes(Species, Sepal.Length)) + geom_quasirandom(method = "pseudorandom") + 
+    ggtitle("Jittered density")
+```
+
+<img src="README_files/figure-html/ggplot2-methods-5.png" title="plot of chunk ggplot2-methods" alt="plot of chunk ggplot2-methods" width="432" />
 
 ### geom_beeswarm()
 
 Using `geom_beeswarm`:
 
 ```r
-qplot(Species, Sepal.Length, data=iris) + geom_beeswarm()
+ggplot(iris,aes(Species, Sepal.Length)) + geom_beeswarm()
 ```
 
-<img src="README_files/figure-html/ggplot2-beeswarm-1.png" title="" alt="" width="576" />
+<img src="README_files/figure-html/ggplot2-beeswarm-1.png" title="plot of chunk ggplot2-beeswarm" alt="plot of chunk ggplot2-beeswarm" width="432" />
 
 ```r
-qplot(class, hwy, data=mpg, geom='beeswarm')
+ggplot(mpg,aes(class, hwy)) + geom_beeswarm()
 ```
 
-<img src="README_files/figure-html/ggplot2-beeswarm-2.png" title="" alt="" width="576" />
+<img src="README_files/figure-html/ggplot2-beeswarm-2.png" title="plot of chunk ggplot2-beeswarm" alt="plot of chunk ggplot2-beeswarm" width="432" />
 
 ```r
 # With categorical y-axis
-qplot(hwy, class, data=mpg, geom='beeswarm')
+ggplot(mpg,aes(hwy, class)) + geom_beeswarm()
 ```
 
-<img src="README_files/figure-html/ggplot2-beeswarm-3.png" title="" alt="" width="576" />
+<img src="README_files/figure-html/ggplot2-beeswarm-3.png" title="plot of chunk ggplot2-beeswarm" alt="plot of chunk ggplot2-beeswarm" width="432" />
 
 ```r
 # ggplot doesn't pass any information about the actual device size of the points
 # to the underlying layout code, so it's important to manually adjust the `cex` 
 # parameter for best results
-qplot(class, hwy, data=mpg) + geom_beeswarm(cex=5)
+ggplot(mpg,aes(class, hwy)) + geom_beeswarm(cex=5)
 ```
 
-<img src="README_files/figure-html/ggplot2-beeswarm-4.png" title="" alt="" width="576" />
+<img src="README_files/figure-html/ggplot2-beeswarm-4.png" title="plot of chunk ggplot2-beeswarm" alt="plot of chunk ggplot2-beeswarm" width="432" />
 
 ```r
-qplot(Species, Sepal.Length, data=iris) + geom_beeswarm(cex=4,priority='density')
+ggplot(iris,aes(Species, Sepal.Length)) + geom_beeswarm(cex=4,priority='density')
 ```
 
-<img src="README_files/figure-html/ggplot2-beeswarm-5.png" title="" alt="" width="576" />
+<img src="README_files/figure-html/ggplot2-beeswarm-5.png" title="plot of chunk ggplot2-beeswarm" alt="plot of chunk ggplot2-beeswarm" width="432" />
 
 ```r
 # With automatic dodging
 ggplot(sub_mpg, aes(class, displ, color=factor(cyl))) + geom_beeswarm(dodge.width=0.7, cex=4)
 ```
 
-<img src="README_files/figure-html/ggplot2-beeswarm-6.png" title="" alt="" width="576" />
+<img src="README_files/figure-html/ggplot2-beeswarm-6.png" title="plot of chunk ggplot2-beeswarm" alt="plot of chunk ggplot2-beeswarm" width="432" />
 
 
 ------
