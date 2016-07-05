@@ -60,35 +60,49 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 ###################################################
 ### code chunk number 8: distAdjust (eval = FALSE)
 ###################################################
+##   library(gridExtra)
 ##   dat <- list(
 ##     'Normal'=rnorm(50),
 ##     'Dense normal'= rnorm(500),
 ##     'Bimodal'=c(rnorm(100), rnorm(100,5)),
-##     'Extremes'=rcauchy(100)
+##     'Trimodal'=c(rnorm(100), rnorm(100,5),rnorm(100,-3))
 ##   )
-##   labs<-rep(names(dat),sapply(dat,length),levels=names(dat))
+##   labs<-rep(names(dat),sapply(dat,length))
+##   labs<-factor(labs,levels=unique(labs))
 ##   dat<-unlist(dat)
-##   ggplot(mapping=aes(labs, dat)) + geom_quasirandom(bandwidth=2)
-##   ggplot(mapping=aes(labs, dat)) + geom_quasirandom(bandwidth=.1)
-##   ggplot(mapping=aes(labs, dat)) + geom_quasirandom(width=.1)
-##   ggplot(mapping=aes(labs, dat)) + geom_quasirandom(nbins=100)
+##   p1<-ggplot(mapping=aes(labs, dat)) + geom_quasirandom(bandwidth=2,alpha=.2) +
+##     ggtitle('bandwidth=2') + labs(x='')
+##   p2<-ggplot(mapping=aes(labs, dat)) + geom_quasirandom(bandwidth=.1,alpha=.2) +
+##     ggtitle('bandwidth=.1') + labs(x='') 
+##   p3<-ggplot(mapping=aes(labs, dat)) + geom_quasirandom(width=.1,alpha=.2) +
+##     ggtitle('width=.1') + labs(x='')
+##   p4<-ggplot(mapping=aes(labs, dat)) + geom_quasirandom(nbins=100,alpha=.2) +
+##     ggtitle('nbins=100') + labs(x='')
+##   grid.arrange(p1, p2, p3, p4, ncol=1)
 
 
 ###################################################
 ### code chunk number 9: showDistAdjust
 ###################################################
+  library(gridExtra)
   dat <- list(
     'Normal'=rnorm(50),
     'Dense normal'= rnorm(500),
     'Bimodal'=c(rnorm(100), rnorm(100,5)),
-    'Extremes'=rcauchy(100)
+    'Trimodal'=c(rnorm(100), rnorm(100,5),rnorm(100,-3))
   )
-  labs<-rep(names(dat),sapply(dat,length),levels=names(dat))
+  labs<-rep(names(dat),sapply(dat,length))
+  labs<-factor(labs,levels=unique(labs))
   dat<-unlist(dat)
-  ggplot(mapping=aes(labs, dat)) + geom_quasirandom(bandwidth=2)
-  ggplot(mapping=aes(labs, dat)) + geom_quasirandom(bandwidth=.1)
-  ggplot(mapping=aes(labs, dat)) + geom_quasirandom(width=.1)
-  ggplot(mapping=aes(labs, dat)) + geom_quasirandom(nbins=100)
+  p1<-ggplot(mapping=aes(labs, dat)) + geom_quasirandom(bandwidth=2,alpha=.2) +
+    ggtitle('bandwidth=2') + labs(x='')
+  p2<-ggplot(mapping=aes(labs, dat)) + geom_quasirandom(bandwidth=.1,alpha=.2) +
+    ggtitle('bandwidth=.1') + labs(x='') 
+  p3<-ggplot(mapping=aes(labs, dat)) + geom_quasirandom(width=.1,alpha=.2) +
+    ggtitle('width=.1') + labs(x='')
+  p4<-ggplot(mapping=aes(labs, dat)) + geom_quasirandom(nbins=100,alpha=.2) +
+    ggtitle('nbins=100') + labs(x='')
+  grid.arrange(p1, p2, p3, p4, ncol=1)
 
 
 ###################################################

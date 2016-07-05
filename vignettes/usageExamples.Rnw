@@ -17,7 +17,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 \Plainauthor{\Sexpr{packageInfo$Author}}
 
 \Address{
-  Github: \url{http://github.com/eclarke/ggbeeswarm}
+  Github: \url{http://github.com/eclarke/ggbeeswarm}\\
   Cran: \url{https://cran.r-project.org/package=ggbeeswarm}
 }
 
@@ -74,22 +74,29 @@ Factors can be used to generate custom group orderings:
 \section{Options}
 \code{quasirandom} calls \code{vipor::offsetX} which calls \code{stats::density} to compute kernel density estimates. The tightness of the fit can be adjusted with the \code{adjust} option and the width of the offset with \code{width}. \code{nbins} to adjust the number of bins used in the kernel density is also provided but this can usually be left at its default when using quasirandom offsets but is useful for non-quasirandom methods:
 
-<<distAdjust, echo=TRUE, eval=FALSE>>=
+<<distAdjust, echo=TRUE, eval=FALSE, tidy=TRUE>>=
+  library(gridExtra)
   dat <- list(
     'Normal'=rnorm(50),
     'Dense normal'= rnorm(500),
     'Bimodal'=c(rnorm(100), rnorm(100,5)),
-    'Extremes'=rcauchy(100)
+    'Trimodal'=c(rnorm(100), rnorm(100,5),rnorm(100,-3))
   )
-  labs<-rep(names(dat),sapply(dat,length),levels=names(dat))
+  labs<-rep(names(dat),sapply(dat,length))
+  labs<-factor(labs,levels=unique(labs))
   dat<-unlist(dat)
-  ggplot(mapping=aes(labs, dat)) + geom_quasirandom(bandwidth=2)
-  ggplot(mapping=aes(labs, dat)) + geom_quasirandom(bandwidth=.1)
-  ggplot(mapping=aes(labs, dat)) + geom_quasirandom(width=.1)
-  ggplot(mapping=aes(labs, dat)) + geom_quasirandom(nbins=100)
+  p1<-ggplot(mapping=aes(labs, dat)) + geom_quasirandom(bandwidth=2,alpha=.2) +
+    ggtitle('bandwidth=2') + labs(x='')
+  p2<-ggplot(mapping=aes(labs, dat)) + geom_quasirandom(bandwidth=.1,alpha=.2) +
+    ggtitle('bandwidth=.1') + labs(x='') 
+  p3<-ggplot(mapping=aes(labs, dat)) + geom_quasirandom(width=.1,alpha=.2) +
+    ggtitle('width=.1') + labs(x='')
+  p4<-ggplot(mapping=aes(labs, dat)) + geom_quasirandom(nbins=100,alpha=.2) +
+    ggtitle('nbins=100') + labs(x='')
+  grid.arrange(p1, p2, p3, p4, ncol=1)
 @
 \begin{center}
-<<showDistAdjust, fig=TRUE, height=6, width=6, echo=FALSE>>=
+<<showDistAdjust, fig=TRUE, height=8, width=6, echo=FALSE>>=
 <<distAdjust>>
 @
 \end{center}
