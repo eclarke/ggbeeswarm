@@ -18,15 +18,14 @@ man: R/*.R
 	touch man
 
 
-#inst/doc: vignettes/*.Rnw
-	#R -e 'devtools::build_vignettes()'
-	#touch inst/doc
+inst/doc: vignettes/*.Rnw
+	R -e 'devtools::build_vignettes()'
+	touch inst/doc
 
 README.md: README.Rmd R/*.R
 	make localInstall
 	R -e 'knitr::opts_chunk$$set(fig.path="README_files/figure-html/");knitr::knit("README.Rmd")'
 	sed '/^---$$/,/^---$$/d' README.md --in-place
 	
-#inst/doc
-$(PACKAGEFILE): man R/*.R DESCRIPTION 
+$(PACKAGEFILE): man R/*.R DESCRIPTION inst/doc
 	R -e 'devtools::check();devtools::build()'
