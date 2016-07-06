@@ -152,20 +152,5 @@ An example using the \code{integrations} data from the \pkg{vipor} package:
 @
 \end{center}
 
-%\section{ggbeeswarm package}
-%This package is also wrapped by the \pkg{ggbeeswarm} package so if you prefer \code{ggplot} then you can do something like:
-%<<ggPlot, echo=TRUE, eval=FALSE>>=
-%  library(ggbeeswarm)
-%  n<-100
-%  dat<-rnorm(n*2)
-%  labs<-rep(c('a','b'),n)
-%  ggplot(mapping=aes(labs,dat))+geom_quasirandom()
-%@
-%\begin{center}
-%<<showGg, fig=TRUE, height=4, width=6, echo=FALSE>>=
-%<<ggPlot>>
-%@
-%\end{center}
-
 
 \end{document}

@@ -169,7 +169,6 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 ##   ints$logGeneDist<-log(ints$nearestGene)
 ##   ggplot(ints,mapping=aes(study, logGeneDist,color=latent,alpha=.2)) +
 ##   geom_quasirandom(dodge.width=1) 
-##   #theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
 
 
 ###################################################
@@ -180,6 +179,5 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
   ints$logGeneDist<-log(ints$nearestGene)
   ggplot(ints,mapping=aes(study, logGeneDist,color=latent,alpha=.2)) +
   geom_quasirandom(dodge.width=1) 
-  #theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
 
 
