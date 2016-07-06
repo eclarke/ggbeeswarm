@@ -72,9 +72,17 @@ Factors can be used to generate custom group orderings:
 \end{center}
 
 \section{Options}
-\code{quasirandom} calls \code{vipor::offsetX} which calls \code{stats::density} to compute kernel density estimates. The tightness of the fit can be adjusted with the \code{adjust} option and the width of the offset with \code{width}. \code{nbins} to adjust the number of bins used in the kernel density is also provided but this can usually be left at its default when using quasirandom offsets but is useful for non-quasirandom methods:
+There are several ways to plot grouped one-dimensional data combining points and density estimation including:
+\begin{description}
+	\item[pseudorandom] The kernel density is estimated then points are distributed uniform randomly within the density estimate for a given bin.  Selection of an appropriate number of bins does not greatly affect appearance but coincidental clumpiness is common.
+	\item[alternating within bins] The kernel density is estimated then points are distributed within the density estimate for a given bin evenly spaced with extreme values alternating from right to left e.g. max, 3rd max, ..., 4th max, 2nd max. If maximums are placed on the outside then these plots often form consecutive ``smiley'' patterns. If minimums are placed on the outside then ``frowny'' patterns are generated. Selection of the number of bins can have large effects on appearance important.
+	\item[tukey] An algorithm described by Tukey and Tukey in ``Strips displaying empirical distributions: I. textured dot strips'' using constrained permutations of offsets to distrbute the data.
+	\item[quasirandom] The kernel density is estimated then points are distributed quasirandomly using the von der Corput sequence within the density estimate for a given bin.  Selection of an appropriate number of bins does not greatly affect appearance and position does not depend on plotting parameters.
+	\item[beeswarm] The package \pkg{beeswarm} provides methods for generating a ``beeswarm'' plot where points are distibuted so that no points overlap. Kernel density is not calculated although the resulting plot does provide an approximate density estimate.  Selection of an appropriate number of bins affects appearance and plot and point sizes must be known in advance.
+\end{description}
 
-<<distAdjust, echo=TRUE, eval=FALSE, tidy=TRUE>>=
+The first four options are included within \code{geom_quasirandom} using the \code{method=} argument and beeswarm plots are generated with \code{geom_beeswarm}:
+<<methods, echo=TRUE, eval=FALSE, tidy=TRUE>>=
   library(gridExtra)
   dat <- list(
     'Normal'=rnorm(50),
@@ -86,11 +94,48 @@ Factors can be used to generate custom group orderings:
   labs<-factor(labs,levels=unique(labs))
   dat<-unlist(dat)
   p1<-ggplot(mapping=aes(labs, dat)) +
+    geom_quasirandom(alpha=.2) +
+    ggtitle('quasirandom') + labs(x='') +
+    theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+  p2<-ggplot(mapping=aes(labs, dat)) +
+    geom_quasirandom(method='pseudorandom',alpha=.2) +
+    ggtitle('pseudorandom') + labs(x='') +
+    theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+  p3<-ggplot(mapping=aes(labs, dat)) +
+    geom_quasirandom(method='smiley',alpha=.2) +
+    ggtitle('smiley') + labs(x='') +
+    theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+  p4<-ggplot(mapping=aes(labs, dat)) +
+    geom_quasirandom(method='frowney',alpha=.2) +
+    ggtitle('smiley') + labs(x='') +
+    theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+  p5<-ggplot(mapping=aes(labs, dat)) +
+    geom_quasirandom(method='tukey',alpha=.2) +
+    ggtitle('tukey') + labs(x='') +
+    theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+  p6<-ggplot(mapping=aes(labs, dat)) +
+    geom_beeswarm(alpha=.2,cex=8,size=.75) +
+    ggtitle('geom_beeswarm') + labs(x='') +
+    theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+  grid.arrange(p1, p2, p3, p4, p5, p6, ncol=3)
+@
+\begin{center}
+<<showMethods, fig=TRUE, height=8, width=6.5, echo=FALSE>>=
+<<methods>>
+@
+\end{center}
+
+
+\code{quasirandom} calls \code{vipor::offsetX} which calls \code{stats::density} to compute kernel density estimates. The tightness of the fit can be adjusted with the \code{adjust} option and the width of the offset with \code{width}. \code{nbins} to adjust the number of bins used in the kernel density is also provided but this can usually be left at its default when using quasirandom offsets but is useful for non-quasirandom methods:
+
+<<distAdjust, echo=TRUE, eval=FALSE, tidy=TRUE>>=
+  library(gridExtra)
+  p1<-ggplot(mapping=aes(labs, dat)) +
     geom_quasirandom(bandwidth=2,alpha=.2) +
     ggtitle('bandwidth=2') + labs(x='')
   p2<-ggplot(mapping=aes(labs, dat)) +
     geom_quasirandom(bandwidth=.1,alpha=.2) +
-    ggtitle('bandwidth=.1') + labs(x='') 
+    ggtitle('bandwidth=.1') + labs(x='')
   p3<-ggplot(mapping=aes(labs, dat)) +
     geom_quasirandom(width=.1,alpha=.2) +
     ggtitle('width=.1') + labs(x='')
@@ -148,7 +193,7 @@ An example using the \code{integrations} data from the \pkg{vipor} package:
   ints<-integrations[integrations$nearestGene>0,]
   ints$logGeneDist<-log(ints$nearestGene)
   ggplot(ints,mapping=aes(study, logGeneDist,color=latent,alpha=.2)) +
-  geom_quasirandom(dodge.width=1) 
+  geom_quasirandom(dodge.width=1)
 @
 \begin{center}
 <<showGene, fig=TRUE, height=4, width=6, echo=FALSE>>=

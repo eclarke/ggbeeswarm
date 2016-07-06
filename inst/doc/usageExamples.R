@@ -58,7 +58,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 
 
 ###################################################
-### code chunk number 8: distAdjust (eval = FALSE)
+### code chunk number 8: methods (eval = FALSE)
 ###################################################
 ##   library(gridExtra)
 ##   dat <- list(
@@ -71,22 +71,34 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 ##   labs<-factor(labs,levels=unique(labs))
 ##   dat<-unlist(dat)
 ##   p1<-ggplot(mapping=aes(labs, dat)) +
-##     geom_quasirandom(bandwidth=2,alpha=.2) +
-##     ggtitle('bandwidth=2') + labs(x='')
+##     geom_quasirandom(alpha=.2) +
+##     ggtitle('quasirandom') + labs(x='') +
+##     theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
 ##   p2<-ggplot(mapping=aes(labs, dat)) +
-##     geom_quasirandom(bandwidth=.1,alpha=.2) +
-##     ggtitle('bandwidth=.1') + labs(x='') 
+##     geom_quasirandom(method='pseudorandom',alpha=.2) +
+##     ggtitle('pseudorandom') + labs(x='') +
+##     theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
 ##   p3<-ggplot(mapping=aes(labs, dat)) +
-##     geom_quasirandom(width=.1,alpha=.2) +
-##     ggtitle('width=.1') + labs(x='')
+##     geom_quasirandom(method='smiley',alpha=.2) +
+##     ggtitle('smiley') + labs(x='') +
+##     theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
 ##   p4<-ggplot(mapping=aes(labs, dat)) +
-##     geom_quasirandom(nbins=100,alpha=.2) +
-##     ggtitle('nbins=100') + labs(x='')
-##   grid.arrange(p1, p2, p3, p4, ncol=1)
+##     geom_quasirandom(method='frowney',alpha=.2) +
+##     ggtitle('smiley') + labs(x='') +
+##     theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+##   p5<-ggplot(mapping=aes(labs, dat)) +
+##     geom_quasirandom(method='tukey',alpha=.2) +
+##     ggtitle('tukey') + labs(x='') +
+##     theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+##   p6<-ggplot(mapping=aes(labs, dat)) +
+##     geom_beeswarm(alpha=.2,cex=8,size=.75) +
+##     ggtitle('geom_beeswarm') + labs(x='') +
+##     theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+##   grid.arrange(p1, p2, p3, p4, p5, p6, ncol=3)
 
 
 ###################################################
-### code chunk number 9: showDistAdjust
+### code chunk number 9: showMethods
 ###################################################
   library(gridExtra)
   dat <- list(
@@ -99,11 +111,61 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
   labs<-factor(labs,levels=unique(labs))
   dat<-unlist(dat)
   p1<-ggplot(mapping=aes(labs, dat)) +
+    geom_quasirandom(alpha=.2) +
+    ggtitle('quasirandom') + labs(x='') +
+    theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+  p2<-ggplot(mapping=aes(labs, dat)) +
+    geom_quasirandom(method='pseudorandom',alpha=.2) +
+    ggtitle('pseudorandom') + labs(x='') +
+    theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+  p3<-ggplot(mapping=aes(labs, dat)) +
+    geom_quasirandom(method='smiley',alpha=.2) +
+    ggtitle('smiley') + labs(x='') +
+    theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+  p4<-ggplot(mapping=aes(labs, dat)) +
+    geom_quasirandom(method='frowney',alpha=.2) +
+    ggtitle('smiley') + labs(x='') +
+    theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+  p5<-ggplot(mapping=aes(labs, dat)) +
+    geom_quasirandom(method='tukey',alpha=.2) +
+    ggtitle('tukey') + labs(x='') +
+    theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+  p6<-ggplot(mapping=aes(labs, dat)) +
+    geom_beeswarm(alpha=.2,cex=8,size=.75) +
+    ggtitle('geom_beeswarm') + labs(x='') +
+    theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+  grid.arrange(p1, p2, p3, p4, p5, p6, ncol=3)
+
+
+###################################################
+### code chunk number 10: distAdjust (eval = FALSE)
+###################################################
+##   library(gridExtra)
+##   p1<-ggplot(mapping=aes(labs, dat)) +
+##     geom_quasirandom(bandwidth=2,alpha=.2) +
+##     ggtitle('bandwidth=2') + labs(x='')
+##   p2<-ggplot(mapping=aes(labs, dat)) +
+##     geom_quasirandom(bandwidth=.1,alpha=.2) +
+##     ggtitle('bandwidth=.1') + labs(x='')
+##   p3<-ggplot(mapping=aes(labs, dat)) +
+##     geom_quasirandom(width=.1,alpha=.2) +
+##     ggtitle('width=.1') + labs(x='')
+##   p4<-ggplot(mapping=aes(labs, dat)) +
+##     geom_quasirandom(nbins=100,alpha=.2) +
+##     ggtitle('nbins=100') + labs(x='')
+##   grid.arrange(p1, p2, p3, p4, ncol=1)
+
+
+###################################################
+### code chunk number 11: showDistAdjust
+###################################################
+  library(gridExtra)
+  p1<-ggplot(mapping=aes(labs, dat)) +
     geom_quasirandom(bandwidth=2,alpha=.2) +
     ggtitle('bandwidth=2') + labs(x='')
   p2<-ggplot(mapping=aes(labs, dat)) +
     geom_quasirandom(bandwidth=.1,alpha=.2) +
-    ggtitle('bandwidth=.1') + labs(x='') 
+    ggtitle('bandwidth=.1') + labs(x='')
   p3<-ggplot(mapping=aes(labs, dat)) +
     geom_quasirandom(width=.1,alpha=.2) +
     ggtitle('width=.1') + labs(x='')
@@ -114,7 +176,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 
 
 ###################################################
-### code chunk number 10: varwidth (eval = FALSE)
+### code chunk number 12: varwidth (eval = FALSE)
 ###################################################
 ##   dat <- list(
 ##     '10 points'=rnorm(10),
@@ -129,7 +191,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 
 
 ###################################################
-### code chunk number 11: showVarwidth
+### code chunk number 13: showVarwidth
 ###################################################
   dat <- list(
     '10 points'=rnorm(10),
@@ -144,7 +206,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 
 
 ###################################################
-### code chunk number 12: vpBeaver (eval = FALSE)
+### code chunk number 14: vpBeaver (eval = FALSE)
 ###################################################
 ##   beaver<-data.frame(
 ##     'Temperature'=c(beaver1$temp,beaver2$temp),
@@ -157,7 +219,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 
 
 ###################################################
-### code chunk number 13: showBeaver
+### code chunk number 15: showBeaver
 ###################################################
   beaver<-data.frame(
     'Temperature'=c(beaver1$temp,beaver2$temp),
@@ -170,22 +232,22 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 
 
 ###################################################
-### code chunk number 14: vpGene (eval = FALSE)
+### code chunk number 16: vpGene (eval = FALSE)
 ###################################################
 ##   library(vipor)
 ##   ints<-integrations[integrations$nearestGene>0,]
 ##   ints$logGeneDist<-log(ints$nearestGene)
 ##   ggplot(ints,mapping=aes(study, logGeneDist,color=latent,alpha=.2)) +
-##   geom_quasirandom(dodge.width=1) 
+##   geom_quasirandom(dodge.width=1)
 
 
 ###################################################
-### code chunk number 15: showGene
+### code chunk number 17: showGene
 ###################################################
   library(vipor)
   ints<-integrations[integrations$nearestGene>0,]
   ints$logGeneDist<-log(ints$nearestGene)
   ggplot(ints,mapping=aes(study, logGeneDist,color=latent,alpha=.2)) +
-  geom_quasirandom(dodge.width=1) 
+  geom_quasirandom(dodge.width=1)
 
 
