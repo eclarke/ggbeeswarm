@@ -120,45 +120,39 @@ The \code{varwidth} argument scales the width of a group by the square root of t
 @
 \end{center}
 
-%\section{Real data}
-%An example using the \code{beaver1} and \code{beaver2} data from the \pkg{datasets} package:
-%<<vpBeaver, echo=TRUE, eval=FALSE>>=
-%  y<-c(beaver1$temp,beaver2$temp)
-%  x<-rep(
-%    c('Beaver 1','Beaver 2'),
-%    c(nrow(beaver1),nrow(beaver2))
-%  )
-%  vpPlot(x,y,las=1, ylab='Body temperature',
-%    pch=21, col='#00000099',bg='#00000033')
-%@
-%\begin{center}
-%<<showBeaver, fig=TRUE, height=4, width=4, echo=FALSE>>=
-%<<vpBeaver>>
-%@
-%\end{center}
-%
-%An example using the \code{integrations} data from this package:
-%<<vpGene, echo=TRUE, eval=FALSE>>=
-%  ints<-integrations[integrations$nearestGene>0,]
-%  y<-log(ints$nearestGene)
-%  x<-as.factor(paste(ints$study,ints$latent))
-%  activeCols<-c('Expressed'='#FF000033','Unexpressed'='#0000FF33')
-%  cols<-activeCols[ints$latent]
-%  par(mar=c(4,7,.1,.1))
-%  vpPlot(x,y,las=2, ylab='Log distance to gene',xaxt='n',
-%    pch=21, col=cols,bg=cols,cex=.7)
-%  uniqX<-levels(x)
-%  prettyX<-tapply(1:length(uniqX),sub('(Une|E)xpressed$','',uniqX),mean)
-%  axis(1,prettyX,names(prettyX),las=2)
-%  legend(grconvertX(0.01,from='ndc'),grconvertY(0.15,from='ndc'),
-%    names(activeCols),pch=21,col=cols,pt.bg=activeCols,xpd=NA)
-%@
-%\begin{center}
-%<<showGene, fig=TRUE, height=4, width=6, echo=FALSE>>=
-%<<vpGene>>
-%@
-%\end{center}
-%
+\section{Real data}
+An example using the \code{beaver1} and \code{beaver2} data from the \pkg{datasets} package:
+<<vpBeaver, echo=TRUE, eval=FALSE>>=
+  beaver<-data.frame(
+    'Temperature'=c(beaver1$temp,beaver2$temp),
+    'Beaver'=rep(
+      c('Beaver 1','Beaver 2'),
+      c(nrow(beaver1),nrow(beaver2))
+    )
+  )
+  ggplot(beaver,mapping=aes(Beaver, Temperature)) + geom_quasirandom()
+@
+\begin{center}
+<<showBeaver, fig=TRUE, height=4, width=4, echo=FALSE>>=
+<<vpBeaver>>
+@
+\end{center}
+
+An example using the \code{integrations} data from the \pkg{vipor} package:
+<<vpGene, echo=TRUE, eval=FALSE>>=
+  library(vipor)
+  ints<-integrations[integrations$nearestGene>0,]
+  ints$logGeneDist<-log(ints$nearestGene)
+  ggplot(ints,mapping=aes(study, logGeneDist,color=latent,alpha=.2)) +
+  geom_quasirandom(dodge.width=1) 
+  #theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+@
+\begin{center}
+<<showGene, fig=TRUE, height=4, width=6, echo=FALSE>>=
+<<vpGene>>
+@
+\end{center}
+
 %\section{ggbeeswarm package}
 %This package is also wrapped by the \pkg{ggbeeswarm} package so if you prefer \code{ggplot} then you can do something like:
 %<<ggPlot, echo=TRUE, eval=FALSE>>=

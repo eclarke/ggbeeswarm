@@ -135,3 +135,51 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
   ggplot(mapping=aes(labs, dat)) + geom_quasirandom(varwidth=TRUE)
 
 
+###################################################
+### code chunk number 12: vpBeaver (eval = FALSE)
+###################################################
+##   beaver<-data.frame(
+##     'Temperature'=c(beaver1$temp,beaver2$temp),
+##     'Beaver'=rep(
+##       c('Beaver 1','Beaver 2'),
+##       c(nrow(beaver1),nrow(beaver2))
+##     )
+##   )
+##   ggplot(beaver,mapping=aes(Beaver, Temperature)) + geom_quasirandom()
+
+
+###################################################
+### code chunk number 13: showBeaver
+###################################################
+  beaver<-data.frame(
+    'Temperature'=c(beaver1$temp,beaver2$temp),
+    'Beaver'=rep(
+      c('Beaver 1','Beaver 2'),
+      c(nrow(beaver1),nrow(beaver2))
+    )
+  )
+  ggplot(beaver,mapping=aes(Beaver, Temperature)) + geom_quasirandom()
+
+
+###################################################
+### code chunk number 14: vpGene (eval = FALSE)
+###################################################
+##   library(vipor)
+##   ints<-integrations[integrations$nearestGene>0,]
+##   ints$logGeneDist<-log(ints$nearestGene)
+##   ggplot(ints,mapping=aes(study, logGeneDist,color=latent,alpha=.2)) +
+##   geom_quasirandom(dodge.width=1) 
+##   #theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+
+
+###################################################
+### code chunk number 15: showGene
+###################################################
+  library(vipor)
+  ints<-integrations[integrations$nearestGene>0,]
+  ints$logGeneDist<-log(ints$nearestGene)
+  ggplot(ints,mapping=aes(study, logGeneDist,color=latent,alpha=.2)) +
+  geom_quasirandom(dodge.width=1) 
+  #theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+
+
