@@ -70,13 +70,17 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 ##   labs<-rep(names(dat),sapply(dat,length))
 ##   labs<-factor(labs,levels=unique(labs))
 ##   dat<-unlist(dat)
-##   p1<-ggplot(mapping=aes(labs, dat)) + geom_quasirandom(bandwidth=2,alpha=.2) +
+##   p1<-ggplot(mapping=aes(labs, dat)) +
+##     geom_quasirandom(bandwidth=2,alpha=.2) +
 ##     ggtitle('bandwidth=2') + labs(x='')
-##   p2<-ggplot(mapping=aes(labs, dat)) + geom_quasirandom(bandwidth=.1,alpha=.2) +
+##   p2<-ggplot(mapping=aes(labs, dat)) +
+##     geom_quasirandom(bandwidth=.1,alpha=.2) +
 ##     ggtitle('bandwidth=.1') + labs(x='') 
-##   p3<-ggplot(mapping=aes(labs, dat)) + geom_quasirandom(width=.1,alpha=.2) +
+##   p3<-ggplot(mapping=aes(labs, dat)) +
+##     geom_quasirandom(width=.1,alpha=.2) +
 ##     ggtitle('width=.1') + labs(x='')
-##   p4<-ggplot(mapping=aes(labs, dat)) + geom_quasirandom(nbins=100,alpha=.2) +
+##   p4<-ggplot(mapping=aes(labs, dat)) +
+##     geom_quasirandom(nbins=100,alpha=.2) +
 ##     ggtitle('nbins=100') + labs(x='')
 ##   grid.arrange(p1, p2, p3, p4, ncol=1)
 
@@ -94,13 +98,17 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
   labs<-rep(names(dat),sapply(dat,length))
   labs<-factor(labs,levels=unique(labs))
   dat<-unlist(dat)
-  p1<-ggplot(mapping=aes(labs, dat)) + geom_quasirandom(bandwidth=2,alpha=.2) +
+  p1<-ggplot(mapping=aes(labs, dat)) +
+    geom_quasirandom(bandwidth=2,alpha=.2) +
     ggtitle('bandwidth=2') + labs(x='')
-  p2<-ggplot(mapping=aes(labs, dat)) + geom_quasirandom(bandwidth=.1,alpha=.2) +
+  p2<-ggplot(mapping=aes(labs, dat)) +
+    geom_quasirandom(bandwidth=.1,alpha=.2) +
     ggtitle('bandwidth=.1') + labs(x='') 
-  p3<-ggplot(mapping=aes(labs, dat)) + geom_quasirandom(width=.1,alpha=.2) +
+  p3<-ggplot(mapping=aes(labs, dat)) +
+    geom_quasirandom(width=.1,alpha=.2) +
     ggtitle('width=.1') + labs(x='')
-  p4<-ggplot(mapping=aes(labs, dat)) + geom_quasirandom(nbins=100,alpha=.2) +
+  p4<-ggplot(mapping=aes(labs, dat)) +
+    geom_quasirandom(nbins=100,alpha=.2) +
     ggtitle('nbins=100') + labs(x='')
   grid.arrange(p1, p2, p3, p4, ncol=1)
 
