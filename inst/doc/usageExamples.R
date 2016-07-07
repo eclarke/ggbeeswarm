@@ -223,7 +223,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 ##   labs<-rep(names(dat),sapply(dat,length))
 ##   labs<-factor(labs,levels=unique(labs))
 ##   dat<-unlist(dat)
-##   ggplot(mapping=aes(labs, dat)) + geom_quasirandom(varwidth=TRUE)
+##   ggplot(mapping=aes(labs, dat)) + geom_quasirandom(alpha=.3,varwidth=TRUE)
 
 
 ###################################################
@@ -238,7 +238,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
   labs<-rep(names(dat),sapply(dat,length))
   labs<-factor(labs,levels=unique(labs))
   dat<-unlist(dat)
-  ggplot(mapping=aes(labs, dat)) + geom_quasirandom(varwidth=TRUE)
+  ggplot(mapping=aes(labs, dat)) + geom_quasirandom(alpha=.3,varwidth=TRUE)
 
 
 ###################################################
@@ -273,8 +273,8 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 ##   library(vipor)
 ##   ints<-integrations[integrations$nearestGene>0,]
 ##   ints$logGeneDist<-log(ints$nearestGene)
-##   ggplot(ints,mapping=aes(study, logGeneDist,color=latent,alpha=.2)) +
-##   geom_quasirandom(dodge.width=1)
+##   ggplot(ints,mapping=aes(study, logGeneDist,color=latent)) +
+##   geom_quasirandom(dodge.width=1,alpha=.4)
 
 
 ###################################################
@@ -283,7 +283,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
   library(vipor)
   ints<-integrations[integrations$nearestGene>0,]
   ints$logGeneDist<-log(ints$nearestGene)
-  ggplot(ints,mapping=aes(study, logGeneDist,color=latent,alpha=.2)) +
-  geom_quasirandom(dodge.width=1)
+  ggplot(ints,mapping=aes(study, logGeneDist,color=latent)) +
+  geom_quasirandom(dodge.width=1,alpha=.4)
 
 
