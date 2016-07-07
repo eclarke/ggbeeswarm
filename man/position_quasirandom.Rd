@@ -5,7 +5,7 @@
 \title{Violin point-style plots to show overlapping points. x must be discrete.}
 \usage{
 position_quasirandom(width = NULL, varwidth = FALSE, bandwidth = 0.5,
-  nbins = 1000, method = "quasirandom", groupOnX = NULL,
+  nbins = NULL, method = "quasirandom", groupOnX = NULL,
   dodge.width = 0)
 }
 \arguments{

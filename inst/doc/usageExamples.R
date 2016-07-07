@@ -176,7 +176,43 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 
 
 ###################################################
-### code chunk number 12: varwidth (eval = FALSE)
+### code chunk number 12: nbins (eval = FALSE)
+###################################################
+##   p1<-ggplot(mapping=aes(labs, dat)) +
+##     geom_quasirandom(method='smiley',alpha=.2) +
+##     ggtitle('Default (n/5)') + labs(x='')
+##   p2<-ggplot(mapping=aes(labs, dat)) +
+##     geom_quasirandom(method='smiley',nbins=50,alpha=.2) +
+##     ggtitle('nbins=50') + labs(x='')
+##   p3<-ggplot(mapping=aes(labs, dat)) +
+##     geom_quasirandom(method='smiley',nbins=100,alpha=.2) +
+##     ggtitle('nbins=100') + labs(x='')
+##   p4<-ggplot(mapping=aes(labs, dat)) +
+##     geom_quasirandom(method='smiley',nbins=250,alpha=.2) +
+##     ggtitle('nbins=250') + labs(x='')
+##   grid.arrange(p1, p2, p3, p4, ncol=1)
+
+
+###################################################
+### code chunk number 13: showNBins
+###################################################
+  p1<-ggplot(mapping=aes(labs, dat)) +
+    geom_quasirandom(method='smiley',alpha=.2) +
+    ggtitle('Default (n/5)') + labs(x='')
+  p2<-ggplot(mapping=aes(labs, dat)) +
+    geom_quasirandom(method='smiley',nbins=50,alpha=.2) +
+    ggtitle('nbins=50') + labs(x='')
+  p3<-ggplot(mapping=aes(labs, dat)) +
+    geom_quasirandom(method='smiley',nbins=100,alpha=.2) +
+    ggtitle('nbins=100') + labs(x='')
+  p4<-ggplot(mapping=aes(labs, dat)) +
+    geom_quasirandom(method='smiley',nbins=250,alpha=.2) +
+    ggtitle('nbins=250') + labs(x='')
+  grid.arrange(p1, p2, p3, p4, ncol=1)
+
+
+###################################################
+### code chunk number 14: varwidth (eval = FALSE)
 ###################################################
 ##   dat <- list(
 ##     '10 points'=rnorm(10),
@@ -191,7 +227,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 
 
 ###################################################
-### code chunk number 13: showVarwidth
+### code chunk number 15: showVarwidth
 ###################################################
   dat <- list(
     '10 points'=rnorm(10),
@@ -206,7 +242,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 
 
 ###################################################
-### code chunk number 14: vpBeaver (eval = FALSE)
+### code chunk number 16: vpBeaver (eval = FALSE)
 ###################################################
 ##   beaver<-data.frame(
 ##     'Temperature'=c(beaver1$temp,beaver2$temp),
@@ -219,7 +255,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 
 
 ###################################################
-### code chunk number 15: showBeaver
+### code chunk number 17: showBeaver
 ###################################################
   beaver<-data.frame(
     'Temperature'=c(beaver1$temp,beaver2$temp),
@@ -232,7 +268,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 
 
 ###################################################
-### code chunk number 16: vpGene (eval = FALSE)
+### code chunk number 18: vpGene (eval = FALSE)
 ###################################################
 ##   library(vipor)
 ##   ints<-integrations[integrations$nearestGene>0,]
@@ -242,7 +278,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 
 
 ###################################################
-### code chunk number 17: showGene
+### code chunk number 19: showGene
 ###################################################
   library(vipor)
   ints<-integrations[integrations$nearestGene>0,]

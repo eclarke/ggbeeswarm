@@ -23,7 +23,7 @@
 #'   ggplot2::qplot(variable, value, data = distro, geom = 'quasirandom')
 #'   ggplot2::qplot(variable, value, data = distro) + geom_quasirandom(width=0.1)
 #'
-position_quasirandom <- function (width = NULL, varwidth = FALSE, bandwidth=.5,nbins=1000,method='quasirandom',groupOnX=NULL,dodge.width=0) {
+position_quasirandom <- function (width = NULL, varwidth = FALSE, bandwidth=.5,nbins=NULL,method='quasirandom',groupOnX=NULL,dodge.width=0) {
   ggplot2::ggproto(NULL,PositionQuasirandom,width = width, varwidth = varwidth, bandwidth=bandwidth,nbins=nbins,method=method,groupOnX=groupOnX,dodge.width=dodge.width)
 }
 
@@ -56,7 +56,8 @@ PositionQuasirandom <- ggplot2::ggproto("PositionQuasirandom",ggplot2:::Position
         width=params$width, 
         varwidth=params$varwidth, 
         adjust=params$bandwidth,
-        method=params$method
+        method=params$method,
+        nbins=params$nbins
       )
       new_x + x
     }

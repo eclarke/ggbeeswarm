@@ -150,6 +150,30 @@ The first four options are included within \code{geom_quasirandom} using the \co
 @
 \end{center}
 
+
+The \code{frowney} or \code{smiley} methods are sensitive to the number of bins so the argument \code{nbins} is more useful/necessary with them:
+<<nbins, echo=TRUE, eval=FALSE, tidy=TRUE>>=
+  p1<-ggplot(mapping=aes(labs, dat)) +
+    geom_quasirandom(method='smiley',alpha=.2) +
+    ggtitle('Default (n/5)') + labs(x='')
+  p2<-ggplot(mapping=aes(labs, dat)) +
+    geom_quasirandom(method='smiley',nbins=50,alpha=.2) +
+    ggtitle('nbins=50') + labs(x='')
+  p3<-ggplot(mapping=aes(labs, dat)) +
+    geom_quasirandom(method='smiley',nbins=100,alpha=.2) +
+    ggtitle('nbins=100') + labs(x='')
+  p4<-ggplot(mapping=aes(labs, dat)) +
+    geom_quasirandom(method='smiley',nbins=250,alpha=.2) +
+    ggtitle('nbins=250') + labs(x='')
+  grid.arrange(p1, p2, p3, p4, ncol=1)
+@
+\begin{center}
+<<showNBins, fig=TRUE, height=8, width=6, echo=FALSE>>=
+<<nbins>>
+@
+\end{center}
+
+
 The \code{varwidth} argument scales the width of a group by the square root of the number of observations in that group (as in the function \code{boxplot}):
 <<varwidth, echo=TRUE, eval=FALSE>>=
   dat <- list(

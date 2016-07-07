@@ -18,7 +18,7 @@ man: R/*.R
 	touch man
 
 
-inst/doc: vignettes/*.Rnw
+inst/doc: vignettes/*.Rnw R/*.R
 	R -e 'devtools::build_vignettes()'
 	touch inst/doc
 
