@@ -58,7 +58,47 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 
 
 ###################################################
-### code chunk number 8: methods (eval = FALSE)
+### code chunk number 8: yaxis (eval = FALSE)
+###################################################
+##   ggplot(mapping=aes(dat,labs)) + geom_quasirandom(aes(color=labs))
+
+
+###################################################
+### code chunk number 9: showYaxis
+###################################################
+  ggplot(mapping=aes(dat,labs)) + geom_quasirandom(aes(color=labs))
+
+
+###################################################
+### code chunk number 10: dodge (eval = FALSE)
+###################################################
+##   labs2<-factor(rep(1:2,each=n))
+##   ggplot(mapping=aes(labs,dat,color=labs2)) + geom_quasirandom(dodge.width=.8)
+
+
+###################################################
+### code chunk number 11: showDodge
+###################################################
+  labs2<-factor(rep(1:2,each=n))
+  ggplot(mapping=aes(labs,dat,color=labs2)) + geom_quasirandom(dodge.width=.8)
+
+
+###################################################
+### code chunk number 12: dodgey (eval = FALSE)
+###################################################
+##   labs2<-factor(rep(1:2,each=n))
+##   ggplot(mapping=aes(dat,labs,color=labs2)) + geom_quasirandom(dodge.width=.8)
+
+
+###################################################
+### code chunk number 13: showDodgey
+###################################################
+  labs2<-factor(rep(1:2,each=n))
+  ggplot(mapping=aes(labs,dat,color=labs2)) + geom_quasirandom(dodge.width=.8)
+
+
+###################################################
+### code chunk number 14: methods (eval = FALSE)
 ###################################################
 ##   library(gridExtra)
 ##   dat <- list(
@@ -98,7 +138,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 
 
 ###################################################
-### code chunk number 9: showMethods
+### code chunk number 15: showMethods
 ###################################################
   library(gridExtra)
   dat <- list(
@@ -138,7 +178,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 
 
 ###################################################
-### code chunk number 10: distAdjust (eval = FALSE)
+### code chunk number 16: distAdjust (eval = FALSE)
 ###################################################
 ##   library(gridExtra)
 ##   p1<-ggplot(mapping=aes(labs, dat)) +
@@ -157,7 +197,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 
 
 ###################################################
-### code chunk number 11: showDistAdjust
+### code chunk number 17: showDistAdjust
 ###################################################
   library(gridExtra)
   p1<-ggplot(mapping=aes(labs, dat)) +
@@ -176,7 +216,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 
 
 ###################################################
-### code chunk number 12: nbins (eval = FALSE)
+### code chunk number 18: nbins (eval = FALSE)
 ###################################################
 ##   p1<-ggplot(mapping=aes(labs, dat)) +
 ##     geom_quasirandom(method='smiley',alpha=.2) +
@@ -194,7 +234,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 
 
 ###################################################
-### code chunk number 13: showNBins
+### code chunk number 19: showNBins
 ###################################################
   p1<-ggplot(mapping=aes(labs, dat)) +
     geom_quasirandom(method='smiley',alpha=.2) +
@@ -212,7 +252,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 
 
 ###################################################
-### code chunk number 14: varwidth (eval = FALSE)
+### code chunk number 20: varwidth (eval = FALSE)
 ###################################################
 ##   dat <- list(
 ##     '10 points'=rnorm(10),
@@ -227,7 +267,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 
 
 ###################################################
-### code chunk number 15: showVarwidth
+### code chunk number 21: showVarwidth
 ###################################################
   dat <- list(
     '10 points'=rnorm(10),
@@ -242,7 +282,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 
 
 ###################################################
-### code chunk number 16: vpBeaver (eval = FALSE)
+### code chunk number 22: vpBeaver (eval = FALSE)
 ###################################################
 ##   beaver<-data.frame(
 ##     'Temperature'=c(beaver1$temp,beaver2$temp),
@@ -255,7 +295,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 
 
 ###################################################
-### code chunk number 17: showBeaver
+### code chunk number 23: showBeaver
 ###################################################
   beaver<-data.frame(
     'Temperature'=c(beaver1$temp,beaver2$temp),
@@ -268,7 +308,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 
 
 ###################################################
-### code chunk number 18: vpGene (eval = FALSE)
+### code chunk number 24: vpGene (eval = FALSE)
 ###################################################
 ##   library(vipor)
 ##   ints<-integrations[integrations$nearestGene>0,]
@@ -278,7 +318,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 
 
 ###################################################
-### code chunk number 19: showGene
+### code chunk number 25: showGene
 ###################################################
   library(vipor)
   ints<-integrations[integrations$nearestGene>0,]
