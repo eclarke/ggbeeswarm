@@ -41,6 +41,7 @@ PositionQuasirandom <- ggplot2::ggproto("PositionQuasirandom",ggplot2:::Position
     # dodge
     if(!params$groupOnX){
       data[,c('x','y')]<-data[,c('y','x')]
+      origCols<-colnames(data)
     }
     data <- ggplot2:::collide(
       data,
@@ -51,6 +52,8 @@ PositionQuasirandom <- ggplot2::ggproto("PositionQuasirandom",ggplot2:::Position
     )
     if(!params$groupOnX){
       data[,c('x','y')]<-data[,c('y','x')]
+      #remove x/y min/max created by collide
+      data<-data[,origCols]
     }
   
     # then quasirandom transform
