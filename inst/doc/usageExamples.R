@@ -94,7 +94,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 ### code chunk number 13: showDodgey
 ###################################################
   labs2<-factor(rep(1:2,each=n))
-  ggplot(mapping=aes(labs,dat,color=labs2)) + geom_quasirandom(dodge.width=.8)
+  ggplot(mapping=aes(dat,labs,color=labs2)) + geom_quasirandom(dodge.width=.8)
 
 
 ###################################################

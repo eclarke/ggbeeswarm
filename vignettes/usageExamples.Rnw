@@ -98,7 +98,7 @@ Or on the y-axis:
 @
 \begin{center}
 <<showDodgey, fig=TRUE, height=3.5, width=5, echo=FALSE>>=
-<<dodge>>
+<<dodgey>>
 @
 \end{center}
 
