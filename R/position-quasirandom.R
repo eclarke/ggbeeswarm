@@ -40,9 +40,7 @@ PositionQuasirandom <- ggplot2::ggproto("PositionQuasirandom",ggplot2:::Position
 
     # dodge
     if(!params$groupOnX){
-      tmp<-data$y
-      data$y<-data$x
-      data$x<-tmp
+      data[,c('x','y')]<-data[,c('y','x')]
     }
     data <- ggplot2:::collide(
       data,
@@ -52,9 +50,7 @@ PositionQuasirandom <- ggplot2::ggproto("PositionQuasirandom",ggplot2:::Position
       check.width = FALSE
     )
     if(!params$groupOnX){
-      tmp<-data$y
-      data$y<-data$x
-      data$x<-tmp
+      data[,c('x','y')]<-data[,c('y','x')]
     }
   
     # then quasirandom transform
