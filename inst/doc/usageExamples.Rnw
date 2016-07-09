@@ -84,7 +84,7 @@ The axes can also be switched with a categorical y-axis:
 And dodging can be used to compare within groups:
 <<dodge, echo=TRUE, eval=FALSE>>=
   labs2<-factor(rep(1:2,each=n))
-  ggplot(mapping=aes(labs,dat,color=labs2)) + geom_quasirandom(dodge.width=1)
+  ggplot(mapping=aes(labs,dat,color=labs2)) + geom_quasirandom(dodge.width=.8)
 @
 \begin{center}
 <<showDodge, fig=TRUE, height=3.5, width=5, echo=FALSE>>=
@@ -94,7 +94,7 @@ And dodging can be used to compare within groups:
 Or on the y-axis:
 <<dodgey, echo=TRUE, eval=FALSE>>=
   labs2<-factor(rep(1:2,each=n))
-  ggplot(mapping=aes(dat,labs,color=labs2)) + geom_quasirandom(dodge.width=1)
+  ggplot(mapping=aes(dat,labs,color=labs2)) + geom_quasirandom(dodge.width=.8)
 @
 \begin{center}
 <<showDodgey, fig=TRUE, height=3.5, width=5, echo=FALSE>>=
@@ -250,7 +250,7 @@ An example using the \code{integrations} data from the \pkg{vipor} package and t
   ints<-integrations[integrations$nearestGene>0,]
   ints$logGeneDist<-log(ints$nearestGene)
   ggplot(ints,mapping=aes(study, logGeneDist,color=latent)) +
-  geom_quasirandom(dodge.width=1,alpha=.4)
+  geom_quasirandom(dodge.width=.9,alpha=.4)
 @
 \begin{center}
 <<showGene, fig=TRUE, height=4, width=6, echo=FALSE>>=
