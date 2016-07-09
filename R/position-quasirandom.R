@@ -34,8 +34,16 @@ PositionQuasirandom <- ggplot2::ggproto("PositionQuasirandom",ggplot2:::Position
   compute_layer= function(data,params,panel) {
     data <- remove_missing(data, vars = c("x","y"), name = "position_quasirandom")
     if (nrow(data)==0) return(data.frame())
-    
-  # dodge
+
+    if(is.null(params$groupOnX)) params$groupOnX <- length(unique(data$y)) > length(unique(data$x))
+    if (is.null(params$width)) params$width <- ggplot2::resolution(data[,ifelse(params$groupOnX,'x','y')], zero = FALSE) * 0.4
+
+    # dodge
+    if(!params$groupOnX){
+      tmp<-data$y
+      data$y<-data$x
+      data$x<-tmp
+    }
     data <- ggplot2:::collide(
       data,
       params$dodge.width,
@@ -43,14 +51,16 @@ PositionQuasirandom <- ggplot2::ggproto("PositionQuasirandom",ggplot2:::Position
       ggplot2:::pos_dodge,
       check.width = FALSE
     )
+    if(!params$groupOnX){
+      tmp<-data$y
+      data$y<-data$x
+      data$x<-tmp
+    }
   
-  # then quasirandom transform
+    # then quasirandom transform
     trans_x <- NULL
     trans_y <- NULL
     
-    if(is.null(params$groupOnX)) params$groupOnX <- length(unique(data$y)) > length(unique(data$x))
-    if (is.null(params$width)) params$width <- ggplot2::resolution(data[,ifelse(params$groupOnX,'x','y')], zero = FALSE) * 0.4
-
     trans_xy <- function(x) {
       new_x <- vipor::offsetX( 
         data[,ifelse(params$groupOnX,'y','x')],
