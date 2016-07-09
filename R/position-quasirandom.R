@@ -36,11 +36,13 @@ PositionQuasirandom <- ggplot2::ggproto("PositionQuasirandom",ggplot2:::Position
     if (nrow(data)==0) return(data.frame())
     
   # dodge
-    data <- ggplot2:::collide(data,
-    params$dodge.width,
-    "position_dodge", 
-    ggplot2:::pos_dodge,
-    check.width = FALSE)
+    data <- ggplot2:::collide(
+      data,
+      params$dodge.width,
+      "position_dodge",
+      ggplot2:::pos_dodge,
+      check.width = FALSE
+    )
   
   # then quasirandom transform
     trans_x <- NULL
