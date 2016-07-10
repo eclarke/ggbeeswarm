@@ -102,6 +102,24 @@ Or on the y-axis:
 @
 \end{center}
 
+And with \code{geom_beeswarm}:
+<<dodgeBee, echo=TRUE, eval=FALSE>>= labs2<-factor(rep(1:2,each=n))
+  ggplot(mapping=aes(labs,dat,color=labs2)) + geom_beeswarm(dodge.width=.8)
+@
+\begin{center}
+<<showDodgeBee, fig=TRUE, height=3.5, width=5, echo=FALSE>>=
+<<dodgeBee>>
+@
+\end{center}
+<<dodgeYBee, echo=TRUE, eval=FALSE>>=
+  ggplot(mapping=aes(dat,labs,color=labs2)) + geom_beeswarm(dodge.width=.8)
+@
+\begin{center}
+<<showDodgeYBee, fig=TRUE, height=3.5, width=5, echo=FALSE>>=
+<<dodgeYBee>>
+@
+\end{center}
+
 
 
 
