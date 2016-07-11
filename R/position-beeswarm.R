@@ -31,21 +31,32 @@ PositionBeeswarm <- ggplot2::ggproto("PositionBeeswarm",ggplot2:::Position, requ
     groupOnX=self$groupOnX,
     dodge.width=self$dodge.width)
   },
-  compute_panel=function(data,params,scales){
-	# Adjust function is used to calculate new positions (from ggplot2:::Position)
-		data <- remove_missing(data, vars = c("x","y"), name = "position_beeswarm")
-		if (nrow(data)==0) return(data.frame())
+  compute_panel= function(data,params,scales){
+    # Adjust function is used to calculate new positions (from ggplot2:::Position)
+    data <- remove_missing(data, vars = c("x","y"), name = "position_beeswarm")
+    if (nrow(data)==0) return(data.frame())
 
-		# more unique entries in x than y suggests y (not x) is categorical
+    # more unique entries in x than y suggests y (not x) is categorical
     if(is.null(params$groupOnX)) params$groupOnX <- length(unique(data$y)) > length(unique(data$x))
-    
+
     # dodge
-    data <- ggplot2:::collide(data,
-    	params$dodge.width,
-    	"position_dodge", 
-    	ggplot2:::pos_dodge,
-    	check.width = FALSE)
-    	
+    if(!params$groupOnX){
+      data[,c('x','y')]<-data[,c('y','x')]
+      origCols<-colnames(data)
+    }
+    data <- ggplot2:::collide(
+      data,
+      params$dodge.width,
+      "position_dodge", 
+      ggplot2:::pos_dodge,
+      check.width = FALSE
+    )
+    if(!params$groupOnX){
+      data[,c('x','y')]<-data[,c('y','x')]
+      #remove x/y min/max created by collide
+      data<-data[,origCols]
+    }
+
     # then beeswarm
     trans_x<-NULL
     trans_y<-NULL
@@ -64,7 +75,7 @@ PositionBeeswarm <- ggplot2::ggproto("PositionBeeswarm",ggplot2:::Position, requ
     if(params$groupOnX) trans_x<-trans_xy
     else trans_y<-trans_xy
 
-		transform_position(data, trans_x, trans_y)
-	}
+    transform_position(data, trans_x, trans_y)
+  }
 )
 

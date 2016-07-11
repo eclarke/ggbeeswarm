@@ -34,21 +34,34 @@ PositionQuasirandom <- ggplot2::ggproto("PositionQuasirandom",ggplot2:::Position
   compute_layer= function(data,params,panel) {
     data <- remove_missing(data, vars = c("x","y"), name = "position_quasirandom")
     if (nrow(data)==0) return(data.frame())
-    
-  # dodge
-    data <- ggplot2:::collide(data,
-    params$dodge.width,
-    "position_dodge", 
-    ggplot2:::pos_dodge,
-    check.width = FALSE)
+
+    if(is.null(params$groupOnX)) params$groupOnX <- length(unique(data$y)) > length(unique(data$x))
+
+    # dodge
+    if(!params$groupOnX){
+      data[,c('x','y')]<-data[,c('y','x')]
+      origCols<-colnames(data)
+    }
+    data <- ggplot2:::collide(
+      data,
+      params$dodge.width,
+      "position_dodge",
+      ggplot2:::pos_dodge,
+      check.width = FALSE
+    )
+    if(!params$groupOnX){
+      data[,c('x','y')]<-data[,c('y','x')]
+      #remove x/y min/max created by collide
+      data<-data[,origCols]
+    }
+
+    #resolution needs to be after the dodge
+    if (is.null(params$width)) params$width <- ggplot2::resolution(data[,ifelse(params$groupOnX,'x','y')], zero = FALSE) * 0.4
   
-  # then quasirandom transform
+    # then quasirandom transform
     trans_x <- NULL
     trans_y <- NULL
     
-    if(is.null(params$groupOnX)) params$groupOnX <- length(unique(data$y)) > length(unique(data$x))
-    if (is.null(params$width)) params$width <- ggplot2::resolution(data[,ifelse(params$groupOnX,'x','y')], zero = FALSE) * 0.4
-
     trans_xy <- function(x) {
       new_x <- vipor::offsetX( 
         data[,ifelse(params$groupOnX,'y','x')],

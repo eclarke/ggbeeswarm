@@ -28,4 +28,5 @@ README.md: README.Rmd R/*.R
 	sed '/^---$$/,/^---$$/d' README.md --in-place
 	
 $(PACKAGEFILE): man R/*.R DESCRIPTION inst/doc
+	sed -i "s/^Date:.*$$/Date: `date +%Y-%m-%d`/" DESCRIPTION
 	R -e 'devtools::check();devtools::build()'
