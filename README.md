@@ -21,46 +21,62 @@ See the examples below.
 
 ## Installation
 
+This package is on CRAN so install should be a simple:
 
 ```r
-# Until this package is on CRAN:
+install.packages('ggbeeswarm')
+```
+
+If you want the development version from GitHub, you can do:
+
+
+```r
 devtools::install_github("eclarke/ggbeeswarm")
 ```
 
 ## Examples
+Here is a comparison between `geom_jitter` and `geom_quasirandom` on the `iris` dataset:
+
+```r
+set.seed(12345)
+library(ggplot2)
+library(ggbeeswarm)
+#compare to jitter
+ggplot(iris,aes(Species, Sepal.Length)) + geom_jitter()
+```
+
+<img src="README_files/figure-html/ggplot2-compare-1.png" title="plot of chunk ggplot2-compare" alt="plot of chunk ggplot2-compare" width="432" />
+
+```r
+ggplot(iris,aes(Species, Sepal.Length)) + geom_quasirandom()
+```
+
+<img src="README_files/figure-html/ggplot2-compare-2.png" title="plot of chunk ggplot2-compare" alt="plot of chunk ggplot2-compare" width="432" />
 
 ### geom_quasirandom()
 
 Using `geom_quasirandom`:
 
 ```r
-set.seed(12345)
-library(ggplot2)
-library(ggbeeswarm)
-ggplot(iris,aes(Species, Sepal.Length)) + geom_quasirandom()
-```
-
-<img src="README_files/figure-html/ggplot2-examples-1.png" title="plot of chunk ggplot2-examples" alt="plot of chunk ggplot2-examples" width="432" />
-
-```r
+#default geom_quasirandom
 ggplot(mpg,aes(class, hwy)) + geom_quasirandom()
 ```
 
-<img src="README_files/figure-html/ggplot2-examples-2.png" title="plot of chunk ggplot2-examples" alt="plot of chunk ggplot2-examples" width="432" />
+<img src="README_files/figure-html/ggplot2-examples-1.png" title="plot of chunk ggplot2-examples" alt="plot of chunk ggplot2-examples" width="432" />
 
 ```r
 # With categorical y-axis
 ggplot(mpg,aes(hwy, class)) + geom_quasirandom()
 ```
 
-<img src="README_files/figure-html/ggplot2-examples-3.png" title="plot of chunk ggplot2-examples" alt="plot of chunk ggplot2-examples" width="432" />
+<img src="README_files/figure-html/ggplot2-examples-2.png" title="plot of chunk ggplot2-examples" alt="plot of chunk ggplot2-examples" width="432" />
 
 ```r
 # Some groups may have only a few points. Use `varwidth=TRUE` to adjust width dynamically.
 ggplot(mpg,aes(class, hwy)) + geom_quasirandom(varwidth = TRUE)
 ```
 
-<img src="README_files/figure-html/ggplot2-examples-4.png" title="plot of chunk ggplot2-examples" alt="plot of chunk ggplot2-examples" width="432" />
+<img src="README_files/figure-html/ggplot2-examples-3.png" title="plot of chunk ggplot2-examples" alt="plot of chunk ggplot2-examples" width="432" />
 
 ```r
 # Automatic dodging
@@ -68,7 +84,7 @@ sub_mpg <- mpg[mpg$class %in% c("midsize", "pickup", "suv"),]
 ggplot(sub_mpg, aes(class, displ, color=factor(cyl))) + geom_quasirandom(dodge.width=1)
 ```
 
-<img src="README_files/figure-html/ggplot2-examples-5.png" title="plot of chunk ggplot2-examples" alt="plot of chunk ggplot2-examples" width="432" />
+<img src="README_files/figure-html/ggplot2-examples-4.png" title="plot of chunk ggplot2-examples" alt="plot of chunk ggplot2-examples" width="432" />
 
 #### Alternative methods
 `geom_quasirandom` can also use several other methods to distribute points. For example:
