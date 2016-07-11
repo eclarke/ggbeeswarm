@@ -35,7 +35,7 @@ devtools::install_github("eclarke/ggbeeswarm")
 ```
 
 ## Examples
-For comparison, here is an comparing `geom_jitter` and `geom_quasirandom` on the `iris` dataset:
+Here is a comparison between `geom_jitter` and `geom_quasirandom` on the `iris` dataset:
 
 ```r
 set.seed(12345)
