@@ -33,21 +33,34 @@ See the examples below.
 
 ## Installation
 
+This package is on CRAN so install should be a simple:
 ```{r, eval=FALSE}
-# Until this package is on CRAN:
+install.packages('ggbeeswarm')
+```
+
+If you want the development version from GitHub, you can do:
+
+```{r, eval=FALSE}
 devtools::install_github("eclarke/ggbeeswarm")
 ```
 
 ## Examples
+For comparison, here is an comparing `geom_jitter` and `geom_quasirandom` on the `iris` dataset:
+```{r ggplot2-compare}
+set.seed(12345)
+library(ggplot2)
+library(ggbeeswarm)
+#compare to jitter
+ggplot(iris,aes(Species, Sepal.Length)) + geom_jitter()
+ggplot(iris,aes(Species, Sepal.Length)) + geom_quasirandom()
+```
 
 ### geom_quasirandom()
 
 Using `geom_quasirandom`:
 ```{r ggplot2-examples}
-set.seed(12345)
-library(ggplot2)
-library(ggbeeswarm)
-ggplot(iris,aes(Species, Sepal.Length)) + geom_quasirandom()
+
+#default geom_quasirandom
 ggplot(mpg,aes(class, hwy)) + geom_quasirandom()
 
 # With categorical y-axis
