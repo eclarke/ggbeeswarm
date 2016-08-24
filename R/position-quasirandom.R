@@ -31,7 +31,7 @@ PositionQuasirandom <- ggplot2::ggproto("PositionQuasirandom",ggplot2:::Position
   setup_params=function(self,data){
     list(width=self$width,varwidth=self$varwidth,bandwidth=self$bandwidth,nbins=self$nbins,method=self$method,groupOnX=self$groupOnX,dodge.width=self$dodge.width)
   },
-  compute_layer= function(data,params,panel){
+  compute_panel= function(data,params,scales){
     data <- remove_missing(data, vars = c("x","y"), name = "position_quasirandom")
     if (nrow(data)==0) return(data.frame())
 
