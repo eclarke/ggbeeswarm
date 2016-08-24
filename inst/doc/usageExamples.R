@@ -122,7 +122,41 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 
 
 ###################################################
-### code chunk number 18: methods (eval = FALSE)
+### code chunk number 18: facetQuasi (eval = FALSE)
+###################################################
+##   df<-data.frame(labs,dat,labs2)
+##   ggplot(df,aes(labs,dat,color=labs2)) +
+##     geom_quasirandom() +
+##     facet_grid(.~labs2)
+
+
+###################################################
+### code chunk number 19: showFacetQuasi
+###################################################
+  df<-data.frame(labs,dat,labs2)
+  ggplot(df,aes(labs,dat,color=labs2)) +
+    geom_quasirandom() +
+    facet_grid(.~labs2)
+
+
+###################################################
+### code chunk number 20: facetBee (eval = FALSE)
+###################################################
+##   ggplot(df,aes(labs,dat,color=labs2)) +
+##     geom_beeswarm(cex=3) +
+##     facet_grid(.~labs2)
+
+
+###################################################
+### code chunk number 21: showFacetBee
+###################################################
+  ggplot(df,aes(labs,dat,color=labs2)) +
+    geom_beeswarm(cex=3) +
+    facet_grid(.~labs2)
+
+
+###################################################
+### code chunk number 22: methods (eval = FALSE)
 ###################################################
 ##   library(gridExtra)
 ##   dat <- list(
@@ -162,7 +196,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 
 
 ###################################################
-### code chunk number 19: showMethods
+### code chunk number 23: showMethods
 ###################################################
   library(gridExtra)
   dat <- list(
@@ -202,7 +236,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 
 
 ###################################################
-### code chunk number 20: distAdjust (eval = FALSE)
+### code chunk number 24: distAdjust (eval = FALSE)
 ###################################################
 ##   library(gridExtra)
 ##   p1<-ggplot(mapping=aes(labs, dat)) +
@@ -221,7 +255,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 
 
 ###################################################
-### code chunk number 21: showDistAdjust
+### code chunk number 25: showDistAdjust
 ###################################################
   library(gridExtra)
   p1<-ggplot(mapping=aes(labs, dat)) +
@@ -240,7 +274,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 
 
 ###################################################
-### code chunk number 22: nbins (eval = FALSE)
+### code chunk number 26: nbins (eval = FALSE)
 ###################################################
 ##   p1<-ggplot(mapping=aes(labs, dat)) +
 ##     geom_quasirandom(method='smiley',alpha=.2) +
@@ -258,7 +292,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 
 
 ###################################################
-### code chunk number 23: showNBins
+### code chunk number 27: showNBins
 ###################################################
   p1<-ggplot(mapping=aes(labs, dat)) +
     geom_quasirandom(method='smiley',alpha=.2) +
@@ -276,7 +310,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 
 
 ###################################################
-### code chunk number 24: varwidth (eval = FALSE)
+### code chunk number 28: varwidth (eval = FALSE)
 ###################################################
 ##   dat <- list(
 ##     '10 points'=rnorm(10),
@@ -291,7 +325,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 
 
 ###################################################
-### code chunk number 25: showVarwidth
+### code chunk number 29: showVarwidth
 ###################################################
   dat <- list(
     '10 points'=rnorm(10),
@@ -306,7 +340,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 
 
 ###################################################
-### code chunk number 26: vpBeaver (eval = FALSE)
+### code chunk number 30: vpBeaver (eval = FALSE)
 ###################################################
 ##   beaver<-data.frame(
 ##     'Temperature'=c(beaver1$temp,beaver2$temp),
@@ -319,7 +353,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 
 
 ###################################################
-### code chunk number 27: showBeaver
+### code chunk number 31: showBeaver
 ###################################################
   beaver<-data.frame(
     'Temperature'=c(beaver1$temp,beaver2$temp),
@@ -332,7 +366,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 
 
 ###################################################
-### code chunk number 28: vpGene (eval = FALSE)
+### code chunk number 32: vpGene (eval = FALSE)
 ###################################################
 ##   library(vipor)
 ##   ints<-integrations[integrations$nearestGene>0,]
@@ -342,7 +376,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 
 
 ###################################################
-### code chunk number 29: showGene
+### code chunk number 33: showGene
 ###################################################
   library(vipor)
   ints<-integrations[integrations$nearestGene>0,]

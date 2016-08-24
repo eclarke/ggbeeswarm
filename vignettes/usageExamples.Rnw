@@ -15,9 +15,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 \title{\pkg{\Sexpr{packageInfo$Package}} package usage example (version \Sexpr{packageInfo$Version})}
 \author{\Sexpr{packageInfo$Author}}
 \Plainauthor{\Sexpr{packageInfo$Author}}
-
-\Address{
-  Github: \url{http://github.com/eclarke/ggbeeswarm}\\
+\Address{ Github: \url{http://github.com/eclarke/ggbeeswarm}\\
   Cran: \url{https://cran.r-project.org/package=ggbeeswarm}
 }
 
@@ -119,6 +117,31 @@ And with \code{geom_beeswarm}:
 <<dodgeYBee>>
 @
 \end{center}
+
+Both \code{geom_beeswarm} and \code{geom_quasirandom} also work with facets:
+<<facetQuasi, echo=TRUE, eval=FALSE>>= labs2<-factor(rep(1:2,each=n))
+  df<-data.frame(labs,dat,labs2)
+  ggplot(df,aes(labs,dat,color=labs2)) +
+    geom_quasirandom() +
+    facet_grid(.~labs2)
+@
+\begin{center}
+<<showFacetQuasi, fig=TRUE, height=3.5, width=5, echo=FALSE>>=
+<<facetQuasi>>
+@
+\end{center}
+<<facetBee, echo=TRUE, eval=FALSE>>= labs2<-factor(rep(1:2,each=n))
+  ggplot(df,aes(labs,dat,color=labs2)) +
+    geom_beeswarm(cex=3) +
+    facet_grid(.~labs2)
+@
+\begin{center}
+<<showFacetBee, fig=TRUE, height=3.5, width=5, echo=FALSE>>=
+<<facetBee>>
+@
+\end{center}
+
+
 
 
 

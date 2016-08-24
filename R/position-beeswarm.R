@@ -20,7 +20,7 @@
 #'   ggplot2::qplot(variable, value, data = distro) +
 #'     geom_beeswarm(priority='density',cex=2.5)
 #'
-position_beeswarm <- function (priority = c("ascending", "descending", "density", "random", "none"),cex=2,groupOnX=NULL,dodge.width=0) {
+position_beeswarm <- function (priority = c("ascending", "descending", "density", "random", "none"),cex=2,groupOnX=NULL,dodge.width=0){
   ggplot2::ggproto(NULL,PositionBeeswarm,priority = priority,cex=cex,groupOnX=NULL,dodge.width=dodge.width)
 }
 
@@ -61,15 +61,16 @@ PositionBeeswarm <- ggplot2::ggproto("PositionBeeswarm",ggplot2:::Position, requ
     trans_x<-NULL
     trans_y<-NULL
 
-    trans_xy <- function(x) {
-      newX<-ave(data[,ifelse(params$groupOnX,'y','x')],data[,ifelse(params$groupOnX,'x','y')],
-          FUN=function(xx) {
-            if (length(xx) < 2) {
-              return(0)
-            } else {
-              beeswarm::swarmx(0,xx,cex=params$cex,priority=params$priority)$x            
-            }})
-      return(newX+x)
+    trans_xy <- function(xx){
+      newX<-ave(
+        data[,ifelse(params$groupOnX,'y','x')],
+        data[,ifelse(params$groupOnX,'x','y')],
+        FUN=function(yy){
+          if (length(yy) == 1) return(0)
+          else beeswarm::swarmx(0,yy,cex=params$cex,priority=params$priority)$x
+        }
+      )
+      return(newX+xx)
     }
 
     if(params$groupOnX) trans_x<-trans_xy
