@@ -62,17 +62,17 @@ PositionQuasirandom <- ggplot2::ggproto("PositionQuasirandom",ggplot2:::Position
     trans_x <- NULL
     trans_y <- NULL
     
-    trans_xy <- function(x) {
+    trans_xy <- function(xx) {
       new_x <- vipor::offsetX( 
         data[,ifelse(params$groupOnX,'y','x')],
-        x,
+        xx,
         width=params$width, 
         varwidth=params$varwidth, 
         adjust=params$bandwidth,
         method=params$method,
         nbins=params$nbins
       )
-      new_x + x
+      return(new_x + xx)
     }
 
     if(params$width > 0) {
