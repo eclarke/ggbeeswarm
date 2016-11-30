@@ -34,7 +34,7 @@ plot. You must supply \code{mapping} if there is no plot mapping.}
 
 \item{varwidth}{vary the width by the relative size of each group}
 
-\item{bandwidth}{the bandwidth adjustment to use when calculating density 
+\item{bandwidth}{the bandwidth adjustment to use when calculating density
 Smaller numbers (< 1) produce a tighter "fit". (default: 0.5)}
 
 \item{nbins}{the number of bins used when calculating density (has little effect with quasirandom/random distribution)}
