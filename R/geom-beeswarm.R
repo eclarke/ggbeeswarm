@@ -35,7 +35,6 @@ geom_beeswarm <- function(
   groupOnX=NULL,
   dodge.width=0,
   stat='identity',
-  position = "quasirandom",
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE,
