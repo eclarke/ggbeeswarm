@@ -100,25 +100,29 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 ###################################################
 ### code chunk number 14: dodgeBee (eval = FALSE)
 ###################################################
-##   ggplot(mapping=aes(labs,dat,color=labs2)) + geom_beeswarm(dodge.width=.8)
+##   ggplot(mapping=aes(labs,dat,color=labs2)) +
+##     geom_beeswarm(dodge.width=.8,cex=2)
 
 
 ###################################################
 ### code chunk number 15: showDodgeBee
 ###################################################
-  ggplot(mapping=aes(labs,dat,color=labs2)) + geom_beeswarm(dodge.width=.8)
+  ggplot(mapping=aes(labs,dat,color=labs2)) +
+    geom_beeswarm(dodge.width=.8,cex=2)
 
 
 ###################################################
 ### code chunk number 16: dodgeYBee (eval = FALSE)
 ###################################################
-##   ggplot(mapping=aes(dat,labs,color=labs2)) + geom_beeswarm(dodge.width=.8)
+##   ggplot(mapping=aes(dat,labs,color=labs2)) +
+##     geom_beeswarm(dodge.width=.8,cex=2)
 
 
 ###################################################
 ### code chunk number 17: showDodgeYBee
 ###################################################
-  ggplot(mapping=aes(dat,labs,color=labs2)) + geom_beeswarm(dodge.width=.8)
+  ggplot(mapping=aes(dat,labs,color=labs2)) +
+    geom_beeswarm(dodge.width=.8,cex=2)
 
 
 ###################################################
@@ -189,7 +193,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 ##     ggtitle('tukey') + labs(x='') +
 ##     theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
 ##   p6<-ggplot(mapping=aes(labs, dat)) +
-##     geom_beeswarm(alpha=.2,cex=8,size=.75) +
+##     geom_beeswarm(alpha=.2,size=.75) +
 ##     ggtitle('geom_beeswarm') + labs(x='') +
 ##     theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
 ##   grid.arrange(p1, p2, p3, p4, p5, p6, ncol=3)
@@ -229,7 +233,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
     ggtitle('tukey') + labs(x='') +
     theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
   p6<-ggplot(mapping=aes(labs, dat)) +
-    geom_beeswarm(alpha=.2,cex=8,size=.75) +
+    geom_beeswarm(alpha=.2,size=.75) +
     ggtitle('geom_beeswarm') + labs(x='') +
     theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
   grid.arrange(p1, p2, p3, p4, p5, p6, ncol=3)

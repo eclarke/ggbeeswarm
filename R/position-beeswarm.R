@@ -20,7 +20,7 @@
 #'   ggplot2::qplot(variable, value, data = distro) +
 #'     geom_beeswarm(priority='density',cex=2.5)
 #'
-position_beeswarm <- function (priority = c("ascending", "descending", "density", "random", "none"),cex=2,groupOnX=NULL,dodge.width=0){
+position_beeswarm <- function (priority = c("ascending", "descending", "density", "random", "none"),cex=1,groupOnX=NULL,dodge.width=0){
   ggplot2::ggproto(NULL,PositionBeeswarm,priority = priority,cex=cex,groupOnX=NULL,dodge.width=dodge.width)
 }
 
@@ -61,13 +61,38 @@ PositionBeeswarm <- ggplot2::ggproto("PositionBeeswarm",ggplot2:::Position, requ
     trans_x<-NULL
     trans_y<-NULL
 
+    getScaleDiff<-function(scales){
+      if(is.null(scales$limits))lims<-scales$range$range
+      else lims<-scales$limits
+      if(inherits(scales,'ScaleContinuous')){
+        limDiff<-diff(lims)
+      }else if(inherits(scales,'ScaleDiscrete')){
+        limDiff<-length(unique(lims))
+      }else{
+        stop('Unknown scale type')
+      }
+      if(limDiff==0)limDiff<-1
+      return(limDiff)
+    }
+
     trans_xy <- function(xx){
+      xRange<-getScaleDiff(scales$x)
+      yRange<-getScaleDiff(scales$y)
       newX<-ave(
         data[,ifelse(params$groupOnX,'y','x')],
         data[,ifelse(params$groupOnX,'x','y')],
         FUN=function(yy){
           if (length(yy) == 1) return(0)
-          else beeswarm::swarmx(0,yy,cex=params$cex,priority=params$priority)$x
+          else beeswarm::swarmx(
+            0,
+            yy,
+            cex=params$cex,
+            priority=params$priority,
+            #divisor is a magic number to get a reasonable baseline
+            #better option would be to figure out point size in user coords
+            xsize=ifelse(params$groupOnX,xRange,yRange)/100,
+            ysize=ifelse(params$groupOnX,yRange,xRange)/100
+          )$x
         }
       )
       return(newX+xx)

@@ -5,9 +5,9 @@
 \title{Points, jittered to reduce overplotting using the beeswarm package}
 \usage{
 geom_beeswarm(mapping = NULL, data = NULL, priority = c("ascending",
-  "descending", "density", "random", "none"), cex = 2, groupOnX = NULL,
-  dodge.width = 0, stat = "identity", position = "quasirandom",
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
+  "descending", "density", "random", "none"), cex = 1, groupOnX = NULL,
+  dodge.width = 0, stat = "identity", na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
@@ -40,11 +40,8 @@ plot. You must supply \code{mapping} if there is no plot mapping.}
 \item{stat}{The statistical transformation to use on the data for this
 layer, as a string.}
 
-\item{position}{Position adjustment, either as a string, or the result of
-a call to a position adjustment function.}
-
-\item{na.rm}{If \code{FALSE} (the default), removes missing values with
-a warning.  If \code{TRUE} silently removes missing values.}
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.

@@ -142,7 +142,7 @@ ggplot(mpg,aes(class, hwy)) + geom_beeswarm()
 
 ```r
 # With categorical y-axis
-ggplot(mpg,aes(hwy, class)) + geom_beeswarm()
+ggplot(mpg,aes(hwy, class)) + geom_beeswarm(cex=1.2)
 ```
 
 <img src="README_files/figure-html/ggplot2-beeswarm-3.png" title="plot of chunk ggplot2-beeswarm" alt="plot of chunk ggplot2-beeswarm" width="432" />
@@ -151,20 +151,21 @@ ggplot(mpg,aes(hwy, class)) + geom_beeswarm()
 # ggplot doesn't pass any information about the actual device size of the points
 # to the underlying layout code, so it's important to manually adjust the `cex` 
 # parameter for best results
-ggplot(mpg,aes(class, hwy)) + geom_beeswarm(cex=5)
+# Also watch out for points escaping from the plot with geom_beeswarm
+ggplot(mpg,aes(class, hwy)) + geom_beeswarm(cex=1.1)
 ```
 
 <img src="README_files/figure-html/ggplot2-beeswarm-4.png" title="plot of chunk ggplot2-beeswarm" alt="plot of chunk ggplot2-beeswarm" width="432" />
 
 ```r
-ggplot(iris,aes(Species, Sepal.Length)) + geom_beeswarm(cex=4,priority='density')
+ggplot(iris,aes(Species, Sepal.Length)) + geom_beeswarm(cex=1.2,priority='density')
 ```
 
 <img src="README_files/figure-html/ggplot2-beeswarm-5.png" title="plot of chunk ggplot2-beeswarm" alt="plot of chunk ggplot2-beeswarm" width="432" />
 
 ```r
 # With automatic dodging
-ggplot(sub_mpg, aes(class, displ, color=factor(cyl))) + geom_beeswarm(dodge.width=0.7, cex=4)
+ggplot(sub_mpg, aes(class, displ, color=factor(cyl))) + geom_beeswarm(dodge.width=0.5)
 ```
 
 <img src="README_files/figure-html/ggplot2-beeswarm-6.png" title="plot of chunk ggplot2-beeswarm" alt="plot of chunk ggplot2-beeswarm" width="432" />
