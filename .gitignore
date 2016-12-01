@@ -1,6 +1,7 @@
-.Rproj.user
+*.Rproj.user
 .Rhistory
 .RData
 packrat/lib*/
 packrat/src/
 README.html
+*.Rcheck
