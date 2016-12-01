@@ -5,7 +5,7 @@
 \title{Points, jittered to reduce overplotting using the beeswarm package}
 \usage{
 geom_beeswarm(mapping = NULL, data = NULL, priority = c("ascending",
-  "descending", "density", "random", "none"), cex = 2, groupOnX = NULL,
+  "descending", "density", "random", "none"), cex = 1, groupOnX = NULL,
   dodge.width = 0, stat = "identity", na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE, ...)
 }
