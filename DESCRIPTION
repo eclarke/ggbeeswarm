@@ -1,7 +1,7 @@
 Package: ggbeeswarm
 Type: Package
 Title: Categorical Scatter (Violin Point) Plots
-Version: 0.5.2
+Version: 0.5.3
 Date: 2016-12-01
 Authors@R: c(
     person(given="Erik", family="Clarke", role=c("aut", "cre"), email="erikclarke@gmail.com"),
