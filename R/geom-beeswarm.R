@@ -31,7 +31,7 @@ geom_beeswarm <- function(
   mapping = NULL,
   data = NULL,
   priority = c("ascending", "descending", "density", "random", "none"),
-  cex=2,
+  cex=1,
   groupOnX=NULL,
   dodge.width=0,
   stat='identity',

@@ -20,7 +20,7 @@
 #'   ggplot2::qplot(variable, value, data = distro) +
 #'     geom_beeswarm(priority='density',cex=2.5)
 #'
-position_beeswarm <- function (priority = c("ascending", "descending", "density", "random", "none"),cex=2,groupOnX=NULL,dodge.width=0){
+position_beeswarm <- function (priority = c("ascending", "descending", "density", "random", "none"),cex=1,groupOnX=NULL,dodge.width=0){
   ggplot2::ggproto(NULL,PositionBeeswarm,priority = priority,cex=cex,groupOnX=NULL,dodge.width=dodge.width)
 }
 
