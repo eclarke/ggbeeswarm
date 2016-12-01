@@ -61,9 +61,23 @@ PositionBeeswarm <- ggplot2::ggproto("PositionBeeswarm",ggplot2:::Position, requ
     trans_x<-NULL
     trans_y<-NULL
 
+    getScaleDiff<-function(scales){
+      if(is.null(scales$limits))lims<-scales$range$range
+      else lims<-scales$limits
+      if(inherits(scales,'ScaleContinuous')){
+        limDiff<-diff(lims)
+      }else if(inherits(scales,'ScaleDiscrete')){
+        limDiff<-length(unique(lims))
+      }else{
+        stop('Unknown scale type')
+      }
+      if(limDiff==0)limDiff<-1
+      return(limDiff)
+    }
+
     trans_xy <- function(xx){
-      xRange<-ifelse(is.null(scales$x$limits),diff(scales$x$range$range),diff(scales$x$limits))
-      yRange<-ifelse(is.null(scales$y$limits),diff(scales$y$range$range),diff(scales$y$limits))
+      xRange<-getScaleDiff(scales$x)
+      yRange<-getScaleDiff(scales$y)
       newX<-ave(
         data[,ifelse(params$groupOnX,'y','x')],
         data[,ifelse(params$groupOnX,'x','y')],
@@ -74,8 +88,10 @@ PositionBeeswarm <- ggplot2::ggproto("PositionBeeswarm",ggplot2:::Position, requ
             yy,
             cex=params$cex,
             priority=params$priority,
-            xsize=xRange/200,
-            ysize=yRange/200
+            #divisor is a magic number to get a reasonable baseline
+            #better option would be to figure out point size in user coords
+            xsize=ifelse(params$groupOnX,xRange,yRange)/100,
+            ysize=ifelse(params$groupOnX,yRange,xRange)/100
           )$x
         }
       )
