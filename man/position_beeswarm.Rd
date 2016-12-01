@@ -5,7 +5,7 @@
 \title{Violin point-style plots to show overlapping points. x must be discrete.}
 \usage{
 position_beeswarm(priority = c("ascending", "descending", "density", "random",
-  "none"), cex = 2, groupOnX = NULL, dodge.width = 0)
+  "none"), cex = 1, groupOnX = NULL, dodge.width = 0)
 }
 \arguments{
 \item{priority}{Method used to perform point layout (see \code{\link{swarmx}})}
