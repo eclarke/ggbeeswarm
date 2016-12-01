@@ -62,12 +62,21 @@ PositionBeeswarm <- ggplot2::ggproto("PositionBeeswarm",ggplot2:::Position, requ
     trans_y<-NULL
 
     trans_xy <- function(xx){
+      xRange<-ifelse(is.null(scales$x$limits),diff(scales$x$range$range),diff(scales$x$limits))
+      yRange<-ifelse(is.null(scales$y$limits),diff(scales$y$range$range),diff(scales$y$limits))
       newX<-ave(
         data[,ifelse(params$groupOnX,'y','x')],
         data[,ifelse(params$groupOnX,'x','y')],
         FUN=function(yy){
           if (length(yy) == 1) return(0)
-          else beeswarm::swarmx(0,yy,cex=params$cex,priority=params$priority)$x
+          else beeswarm::swarmx(
+            0,
+            yy,
+            cex=params$cex,
+            priority=params$priority,
+            xsize=xRange/200,
+            ysize=yRange/200
+          )$x
         }
       )
       return(newX+xx)
