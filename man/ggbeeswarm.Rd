@@ -10,7 +10,7 @@ This package allows plotting of several groups of one dimensional data as a viol
 }
 \examples{
 
-  ggplot2::qplot(class, hwy, data = ggplot2::mpg, position=position_quasirandom())
+  ggplot2::ggplot(ggplot2::mpg,aes(class, hwy)) + geom_quasirandom()
   # Generate fake data
   distro <- data.frame(
     'variable'=rep(c('runif','rnorm'),each=100),
