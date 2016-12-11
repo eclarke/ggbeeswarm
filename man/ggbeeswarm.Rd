@@ -16,8 +16,8 @@ This package allows plotting of several groups of one dimensional data as a viol
     'variable'=rep(c('runif','rnorm'),each=100),
     'value'=c(runif(100, min=-3, max=3), rnorm(100))
   )
-  ggplot2::qplot(variable, value, data = distro, position = position_quasirandom())
-  ggplot2::qplot(variable, value, data = distro, position = position_quasirandom(width=0.1))
+  ggplot2::ggplot(distro,aes(variable, value)) + geom_quasirandom()
+  ggplot2::ggplot(distro,aes(variable, value)) + geom_quasirandom(width=.1)
 
 }
 \author{

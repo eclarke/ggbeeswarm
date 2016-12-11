@@ -73,7 +73,7 @@ The beeswarm geom is a convenient means to offset points within categories to re
     'value'=c(runif(100, min=-3, max=3), rnorm(100))
   )
   ggplot2::qplot(variable, value, data = distro, geom='beeswarm')
-  ggplot2::qplot(variable, value, data = distro) +
+  ggplot2::ggplot(distro,aes(variable, value)) +
     geom_beeswarm(priority='density',cex=2.5)
 }
 \seealso{
