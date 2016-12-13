@@ -51,8 +51,8 @@ layer, as a string.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{na.rm}{If \code{FALSE} (the default), removes missing values with
-a warning.  If \code{TRUE} silently removes missing values.}
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -83,7 +83,7 @@ The quasirandom geom is a convenient means to offset points within categories to
     'value'=c(runif(100, min=-3, max=3), rnorm(100))
   )
   ggplot2::qplot(variable, value, data = distro, geom = 'quasirandom')
-  ggplot2::qplot(variable, value, data = distro) + geom_quasirandom(width=0.1)
+  ggplot2::ggplot(distro,aes(variable, value)) + geom_quasirandom(width=0.1)
 }
 \seealso{
 \code{\link[vipor]{offsetX}} how spacing is determined,

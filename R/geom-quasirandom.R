@@ -22,7 +22,7 @@
 #'     'value'=c(runif(100, min=-3, max=3), rnorm(100))
 #'   )
 #'   ggplot2::qplot(variable, value, data = distro, geom = 'quasirandom')
-#'   ggplot2::qplot(variable, value, data = distro) + geom_quasirandom(width=0.1)
+#'   ggplot2::ggplot(distro,aes(variable, value)) + geom_quasirandom(width=0.1)
 #' @export
 geom_quasirandom <- function(
   mapping = NULL,
