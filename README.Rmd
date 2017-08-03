@@ -25,7 +25,7 @@ Beeswarm plots (aka column scatter plots or violin scatter plots) are a way of p
 
 Features: 
 
-- Can handle categorical variables on the y-axis (thanks @smsaladi)
+- Can handle categorical variables on the y-axis (thanks @smsaladi, @koncina)
 - Automatically dodges if a grouping variable is categorical and `dodge.width` is specified (thanks @josesho)
 
 See the examples below.
@@ -64,7 +64,7 @@ Using `geom_quasirandom`:
 ggplot(mpg,aes(class, hwy)) + geom_quasirandom()
 
 # With categorical y-axis
-ggplot(mpg,aes(hwy, class)) + geom_quasirandom()
+ggplot(mpg,aes(hwy, class)) + geom_quasirandom(groupOnX=FALSE)
 
 # Some groups may have only a few points. Use `varwidth=TRUE` to adjust width dynamically.
 ggplot(mpg,aes(class, hwy)) + geom_quasirandom(varwidth = TRUE)
@@ -92,7 +92,7 @@ Using `geom_beeswarm`:
 ggplot(iris,aes(Species, Sepal.Length)) + geom_beeswarm()
 ggplot(mpg,aes(class, hwy)) + geom_beeswarm()
 # With categorical y-axis
-ggplot(mpg,aes(hwy, class)) + geom_beeswarm(cex=1.2)
+ggplot(mpg,aes(hwy, class)) + geom_beeswarm(cex=1.2,groupOnX=FALSE)
 
 # ggplot doesn't pass any information about the actual device size of the points
 # to the underlying layout code, so it's important to manually adjust the `cex` 
