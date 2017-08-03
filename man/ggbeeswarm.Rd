@@ -20,10 +20,9 @@ This package allows plotting of several groups of one dimensional data as a viol
   ggplot2::ggplot(distro,aes(variable, value)) + geom_quasirandom(width=.1)
 
 }
-\author{
-Erik Clarke, \email{ecl@mail.med.upenn.edu}
-}
 \seealso{
 \code{\link{position_quasirandom}}
 }
-
+\author{
+Erik Clarke, \email{ecl@mail.med.upenn.edu}
+}
