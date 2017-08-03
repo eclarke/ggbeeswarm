@@ -13,7 +13,7 @@ Beeswarm plots (aka column scatter plots or violin scatter plots) are a way of p
 
 Features: 
 
-- Can handle categorical variables on the y-axis (thanks @smsaladi)
+- Can handle categorical variables on the y-axis (thanks @smsaladi, @koncina)
 - Automatically dodges if a grouping variable is categorical and `dodge.width` is specified (thanks @josesho)
 
 See the examples below.
@@ -66,7 +66,7 @@ ggplot(mpg,aes(class, hwy)) + geom_quasirandom()
 
 ```r
 # With categorical y-axis
-ggplot(mpg,aes(hwy, class)) + geom_quasirandom()
+ggplot(mpg,aes(hwy, class)) + geom_quasirandom(groupOnX=FALSE)
 ```
 
 <img src="README_files/figure-html/ggplot2-examples-2.png" title="plot of chunk ggplot2-examples" alt="plot of chunk ggplot2-examples" width="432" />
@@ -142,7 +142,7 @@ ggplot(mpg,aes(class, hwy)) + geom_beeswarm()
 
 ```r
 # With categorical y-axis
-ggplot(mpg,aes(hwy, class)) + geom_beeswarm(cex=1.2)
+ggplot(mpg,aes(hwy, class)) + geom_beeswarm(cex=1.2,groupOnX=FALSE)
 ```
 
 <img src="README_files/figure-html/ggplot2-beeswarm-3.png" title="plot of chunk ggplot2-beeswarm" alt="plot of chunk ggplot2-beeswarm" width="432" />

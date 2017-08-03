@@ -33,7 +33,7 @@ plot. You must supply \code{mapping} if there is no plot mapping.}
 
 \item{cex}{Scaling for adjusting point spacing (see \code{\link{swarmx}})}
 
-\item{groupOnX}{should jitter be added to the x axis if TRUE or y axis if FALSE (the default NULL causes the function to guess which axis is the categorical one based on the number of unique entries in each)}
+\item{groupOnX}{if TRUE then jitter is added to the x axis and if FALSE jitter is added to the y axis. Prior to v0.6.0, the default NULL causes the function to guess which axis is the categorical one based on the number of unique entries in each. This could result in unexpected results when the x variable has few unique values and so in v0.6.0 the default was changed to always jitter on the x axis unless groupOnX=FALSE. Also consider \code{\link[ggplot2]{coord_flip}}.}
 
 \item{dodge.width}{Amount by which points from different aesthetic groups will be dodged. This requires that one of the aesthetics is a factor.}
 
@@ -64,6 +64,7 @@ The beeswarm geom is a convenient means to offset points within categories to re
 
 \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "point")}
 }
+
 \examples{
 
   ggplot2::qplot(class, hwy, data = ggplot2::mpg, geom='beeswarm')
@@ -84,4 +85,3 @@ The beeswarm geom is a convenient means to offset points within categories to re
  \code{\link[ggplot2]{geom_boxplot}} for another way of looking at the conditional
     distribution of a variable
 }
-
