@@ -7,7 +7,7 @@
 #' Smaller numbers (< 1) produce a tighter "fit". (default: 0.5)
 #' @param nbins the number of bins used when calculating density (has little effect with quasirandom/random distribution)
 #' @param method the method used for distributing points (quasirandom, pseudorandom, smiley or frowney)
-#' @param groupOnX should jitter be added to the x axis if TRUE or y axis if FALSE. Prior to v0.6.0, the default NULL causes the function to guess which axis is the categorical one based on the number of unique entries in each. This could result in unexpected results when the x variable has few unique values and so, in v0.6.0, the default was changed to always jitter on the x axis unless groupOnX=FALSE. Also consider \code{\link[ggplot2]{coord_flip}}.
+#' @param groupOnX if TRUE then jitter is added to the x axis and if FALSE jitter is added to the y axis. Prior to v0.6.0, the default NULL causes the function to guess which axis is the categorical one based on the number of unique entries in each. This could result in unexpected results when the x variable has few unique values and so in v0.6.0 the default was changed to always jitter on the x axis unless groupOnX=FALSE. Also consider \code{\link[ggplot2]{coord_flip}}.
 #' @param dodge.width Amount by which points from different aesthetic groups will be dodged. This requires that one of the aesthetics is a factor.
 #' @export
 #' @importFrom vipor offsetX
