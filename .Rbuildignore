@@ -5,3 +5,4 @@
 ^packrat/
 ^\.Rprofile$
 cran-comments.md
+^\.travis\.yml$

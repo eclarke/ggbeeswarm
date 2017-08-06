@@ -5,3 +5,4 @@ packrat/lib*/
 packrat/src/
 README.html
 *.Rcheck
+.Rproj.user
