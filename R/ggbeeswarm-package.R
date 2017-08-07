@@ -1,6 +1,6 @@
 #' ggbeeswarm extends ggplot2 with violin point/beeswarm plots
 #' 
-#' This package allows plotting of several groups of one dimensional data as a violin point/beeswarm plot by arraning data points to resemble the underlying distribution. The development version of this package is on \url{http://github.com/eclarke/ggbeeswarm}.
+#' This package allows plotting of several groups of one dimensional data as a violin point/beeswarm plot by arranging data points to resemble the underlying distribution. The development version of this package is on \url{http://github.com/eclarke/ggbeeswarm}.
 #' @docType package
 #' @name ggbeeswarm
 #' @author Erik Clarke, \email{ecl@@mail.med.upenn.edu}
