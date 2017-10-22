@@ -14,6 +14,8 @@ knitr::opts_chunk$set(
 
 # Beeswarm-style plots with ggplot2
 
+[![Build Status](https://travis-ci.org/eclarke/ggbeeswarm.svg?branch=master)](https://travis-ci.org/eclarke/ggbeeswarm)
+
 ## Introduction
 Beeswarm plots (aka column scatter plots or violin scatter plots) are a way of plotting points that would ordinarily overlap so that they fall next to each other instead. In addition to reducing overplotting, it helps visualize the density of the data at each point (similar to a violin plot), while still showing each data point individually.
 
