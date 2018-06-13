@@ -57,7 +57,7 @@ PositionBeeswarm <- ggplot2::ggproto("PositionBeeswarm",ggplot2:::Position, requ
 
     getScaleDiff<-function(scales){
       if(is.null(scales$limits))lims<-scales$range$range
-      else lims<-scales$limits
+      else lims<-scales$get_limits()
       if(inherits(scales,'ScaleContinuous')){
         limDiff<-diff(lims)
       }else if(inherits(scales,'ScaleDiscrete')){
