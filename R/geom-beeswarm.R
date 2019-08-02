@@ -34,13 +34,14 @@ geom_beeswarm <- function(
   cex=1,
   groupOnX=NULL,
   dodge.width=0,
+  beeswarmArgs=list(),
   stat='identity',
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE,
   ...
 ) {
-  position <- position_beeswarm(priority = priority, cex = cex, groupOnX=groupOnX,dodge.width=dodge.width)
+  position <- position_beeswarm(priority = priority, cex = cex, groupOnX=groupOnX,dodge.width=dodge.width,beeswarmArgs=beeswarmArgs)
 
   ggplot2::layer(
     data = data,
