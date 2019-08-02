@@ -186,7 +186,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 ##     theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
 ##   p4<-ggplot(mapping=aes(labs, dat)) +
 ##     geom_quasirandom(method='frowney',alpha=.2) +
-##     ggtitle('smiley') + labs(x='') +
+##     ggtitle('frowney') + labs(x='') +
 ##     theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
 ##   p5<-ggplot(mapping=aes(labs, dat)) +
 ##     geom_quasirandom(method='tukey',alpha=.2) +
@@ -226,7 +226,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
     theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
   p4<-ggplot(mapping=aes(labs, dat)) +
     geom_quasirandom(method='frowney',alpha=.2) +
-    ggtitle('smiley') + labs(x='') +
+    ggtitle('frowney') + labs(x='') +
     theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
   p5<-ggplot(mapping=aes(labs, dat)) +
     geom_quasirandom(method='tukey',alpha=.2) +
