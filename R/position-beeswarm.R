@@ -42,6 +42,10 @@ position_beeswarm= function(data,xRange=1,yRange=1,priority = c("ascending", "de
     data<-data[,origCols]
   }
 
+  #divisors are magic numbers to get a reasonable base spacing
+  #note that the base beeswarm package is not 100% precise with differing plotting sizes resulting in variation in points overlap/spacing
+  xSize<-xRange*oSize[1]/.71
+  ySize<-yRange*oSize[2]/.92
   offset<-stats::ave(
     data[,ifelse(groupOnX,'y','x')],
     data[,ifelse(groupOnX,'x','y')],
@@ -52,10 +56,8 @@ position_beeswarm= function(data,xRange=1,yRange=1,priority = c("ascending", "de
         yy,
         cex=1,
         priority=priority,
-        #divisors are magic numbers to get a reasonable base spacing
-        #note that the base beeswarm package is not 100% precise with differing plotting sizes resulting in variation in points overlap/spacing
-        xsize=ifelse(groupOnX,xRange,yRange)*oSize[1]/.71,
-        ysize=ifelse(groupOnX,yRange,xRange)*oSize[2]/.92
+        xsize=ifelse(groupOnX,xSize,ySize),
+        ysize=ifelse(groupOnX,ySize,xSize)
       ),beeswarmArgs)
     )$x
     }
