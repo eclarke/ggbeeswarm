@@ -6,7 +6,7 @@
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "point")}
 #'
 #' @inheritParams ggplot2::geom_point
-#' @inheritParams position_beeswarm
+#' @inheritParams offset_beeswarm
 #' @import ggplot2
 #' @seealso
 #'  \code{\link{geom_quasirandom}} an alternative method,
@@ -40,12 +40,13 @@ geom_beeswarm <- function(
   inherit.aes = TRUE,
   ...
 ) {
+  position <- position_beeswarm(groupOnX=groupOnX,dodge.width=dodge.width)
   ggplot2::layer(
     data = data,
     mapping = mapping,
     stat = stat,
     geom = GeomBeeswarm,
-    position = 'identity',
+    position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(
@@ -95,7 +96,7 @@ makeContent.beeswarm <- function(self) {
     grid::convertX(grid::grobWidth(grid::textGrob('o',gp=grid::gpar(cex=1))),'native'),
     grid::convertY(grid::grobHeight(grid::textGrob('o',gp=grid::gpar(cex=1))),'native')
   )
-  coords<-position_beeswarm(self$coords,priority=self$priority,cex=self$coords$size[1],groupOnX=self$groupOnX,dodge.width=self$dodge.width,beeswarmArgs=self$beeswarmArgs,oSize=oSize)
+  coords<-offset_beeswarm(self$coords,priority=self$priority,cex=self$coords$size[1],groupOnX=self$groupOnX,dodge.width=self$dodge.width,beeswarmArgs=self$beeswarmArgs,oSize=oSize)
 
   grid::pointsGrob(
     coords$x, coords$y,

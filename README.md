@@ -174,10 +174,6 @@ ggplot(iris,aes(Species, Sepal.Length)) + geom_beeswarm(size=1.2,priority='densi
 ggplot(sub_mpg, aes(class, displ, color=factor(cyl))) + geom_beeswarm(dodge.width=0.5)
 ```
 
-```
-## Warning: position_dodge requires non-overlapping x intervals
-```
-
 <img src="README_files/figure-html/ggplot2-beeswarm-7.png" title="plot of chunk ggplot2-beeswarm" alt="plot of chunk ggplot2-beeswarm" width="432" />
 
 

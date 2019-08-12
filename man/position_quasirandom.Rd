@@ -35,5 +35,5 @@ Violin point-style plots to show overlapping points. x must be discrete.
 \seealso{
 \code{\link[vipor]{offsetX}}
 
-Other position adjustments: \code{\link{position_beeswarm}}
+Other position adjustments: \code{\link{offset_beeswarm}}
 }
