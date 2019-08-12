@@ -97,7 +97,7 @@ ggplot(mpg,aes(class, hwy)) + geom_beeswarm()
 # With categorical y-axis
 ggplot(mpg,aes(hwy, class)) + geom_beeswarm(size=.6,groupOnX=FALSE)
 # Also watch out for points escaping from the plot with geom_beeswarm
-ggplot(mpg,aes(hwy, class)) + geom_beeswarm(size=.6,groupOnX=FALSE) + expand_limits(y=c(1,8))
+ggplot(mpg,aes(hwy, class)) + geom_beeswarm(size=.6,groupOnX=FALSE) + scale_y_discrete(expand=expand_scale(add=c(0.5,1)))
 
 ggplot(mpg,aes(class, hwy)) + geom_beeswarm(size=1.1)
 

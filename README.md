@@ -152,7 +152,7 @@ ggplot(mpg,aes(hwy, class)) + geom_beeswarm(size=.6,groupOnX=FALSE)
 
 ```r
 # Also watch out for points escaping from the plot with geom_beeswarm
-ggplot(mpg,aes(hwy, class)) + geom_beeswarm(size=.6,groupOnX=FALSE) + expand_limits(y=c(1,8))
+ggplot(mpg,aes(hwy, class)) + geom_beeswarm(size=.6,groupOnX=FALSE) + scale_y_discrete(expand=expand_scale(add=c(0.5,1)))
 ```
 
 <img src="README_files/figure-html/ggplot2-beeswarm-4.png" title="plot of chunk ggplot2-beeswarm" alt="plot of chunk ggplot2-beeswarm" width="432" />
