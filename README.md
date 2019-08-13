@@ -127,6 +127,12 @@ ggplot(iris, aes(Species, Sepal.Length)) + geom_quasirandom(method = "pseudorand
 
 <img src="README_files/figure-html/ggplot2-methods-5.png" title="plot of chunk ggplot2-methods" alt="plot of chunk ggplot2-methods" width="432" />
 
+```r
+ggplot(iris, aes(Species, Sepal.Length)) + geom_beeswarm() + ggtitle("Beeswarm")
+```
+
+<img src="README_files/figure-html/ggplot2-methods-6.png" title="plot of chunk ggplot2-methods" alt="plot of chunk ggplot2-methods" width="432" />
+
 ### geom_beeswarm()
 
 Using `geom_beeswarm`:
@@ -138,33 +144,33 @@ ggplot(iris,aes(Species, Sepal.Length)) + geom_beeswarm()
 <img src="README_files/figure-html/ggplot2-beeswarm-1.png" title="plot of chunk ggplot2-beeswarm" alt="plot of chunk ggplot2-beeswarm" width="432" />
 
 ```r
-ggplot(mpg,aes(class, hwy)) + geom_beeswarm()
+ggplot(iris,aes(Species, Sepal.Length)) + geom_beeswarm(beeswarmArgs=list(side=1))
 ```
 
 <img src="README_files/figure-html/ggplot2-beeswarm-2.png" title="plot of chunk ggplot2-beeswarm" alt="plot of chunk ggplot2-beeswarm" width="432" />
 
 ```r
-# With categorical y-axis
-ggplot(mpg,aes(hwy, class)) + geom_beeswarm(size=.6,groupOnX=FALSE)
+ggplot(mpg,aes(class, hwy)) + geom_beeswarm(size=.5)
 ```
 
 <img src="README_files/figure-html/ggplot2-beeswarm-3.png" title="plot of chunk ggplot2-beeswarm" alt="plot of chunk ggplot2-beeswarm" width="432" />
 
 ```r
-# Also watch out for points escaping from the plot with geom_beeswarm
-ggplot(mpg,aes(hwy, class)) + geom_beeswarm(size=.6,groupOnX=FALSE) + scale_y_discrete(expand=expand_scale(add=c(0.5,1)))
+# With categorical y-axis
+ggplot(mpg,aes(hwy, class)) + geom_beeswarm(size=.5,groupOnX=FALSE)
 ```
 
 <img src="README_files/figure-html/ggplot2-beeswarm-4.png" title="plot of chunk ggplot2-beeswarm" alt="plot of chunk ggplot2-beeswarm" width="432" />
 
 ```r
-ggplot(mpg,aes(class, hwy)) + geom_beeswarm(size=1.1)
+# Also watch out for points escaping from the plot with geom_beeswarm
+ggplot(mpg,aes(hwy, class)) + geom_beeswarm(size=.5,groupOnX=FALSE) + scale_y_discrete(expand=expand_scale(add=c(0.5,1)))
 ```
 
 <img src="README_files/figure-html/ggplot2-beeswarm-5.png" title="plot of chunk ggplot2-beeswarm" alt="plot of chunk ggplot2-beeswarm" width="432" />
 
 ```r
-ggplot(iris,aes(Species, Sepal.Length)) + geom_beeswarm(size=1.2,priority='density')
+ggplot(mpg,aes(class, hwy)) + geom_beeswarm(size=1.1)
 ```
 
 <img src="README_files/figure-html/ggplot2-beeswarm-6.png" title="plot of chunk ggplot2-beeswarm" alt="plot of chunk ggplot2-beeswarm" width="432" />
@@ -175,6 +181,33 @@ ggplot(sub_mpg, aes(class, displ, color=factor(cyl))) + geom_beeswarm(dodge.widt
 ```
 
 <img src="README_files/figure-html/ggplot2-beeswarm-7.png" title="plot of chunk ggplot2-beeswarm" alt="plot of chunk ggplot2-beeswarm" width="432" />
+
+```r
+#With different beeswarm point distribution priority
+dat<-data.frame(x=rep(1:3,c(20,40,80)))
+dat$y<-rnorm(nrow(dat),dat$x)
+ggplot(dat,aes(x,y)) + geom_beeswarm(size=2) + ggtitle('Default (ascending)') + scale_x_continuous(expand=expand_scale(add=c(0.5,.5)))
+```
+
+<img src="README_files/figure-html/ggplot2-beeswarm-8.png" title="plot of chunk ggplot2-beeswarm" alt="plot of chunk ggplot2-beeswarm" width="432" />
+
+```r
+ggplot(dat,aes(x,y)) + geom_beeswarm(size=2,priority='descending') + ggtitle('Descending') + scale_x_continuous(expand=expand_scale(add=c(0.5,.5)))
+```
+
+<img src="README_files/figure-html/ggplot2-beeswarm-9.png" title="plot of chunk ggplot2-beeswarm" alt="plot of chunk ggplot2-beeswarm" width="432" />
+
+```r
+ggplot(dat,aes(x,y)) + geom_beeswarm(size=2,priority='density') + ggtitle('Density') + scale_x_continuous(expand=expand_scale(add=c(0.5,.5)))
+```
+
+<img src="README_files/figure-html/ggplot2-beeswarm-10.png" title="plot of chunk ggplot2-beeswarm" alt="plot of chunk ggplot2-beeswarm" width="432" />
+
+```r
+ggplot(dat,aes(x,y)) + geom_beeswarm(size=2,priority='random') + ggtitle('Random') + scale_x_continuous(expand=expand_scale(add=c(0.5,.5)))
+```
+
+<img src="README_files/figure-html/ggplot2-beeswarm-11.png" title="plot of chunk ggplot2-beeswarm" alt="plot of chunk ggplot2-beeswarm" width="432" />
 
 
 ------
