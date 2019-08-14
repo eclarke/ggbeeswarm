@@ -27,13 +27,8 @@ Smaller numbers (< 1) produce a tighter "fit". (default: 0.5)}
 \description{
 Violin point-style plots to show overlapping points. x must be discrete.
 }
-\examples{
-
-  ggplot2::qplot(class, hwy, data = ggplot2::mpg, position=position_quasirandom())
-
-}
 \seealso{
-\code{\link[vipor]{offsetX}}
+\code{\link[vipor]{offsetX}}, \code{\link{geom_quasirandom}}
 
-Other position adjustments: \code{\link{position_beeswarm}}
+Other position adjustments: \code{\link{offset_beeswarm}}
 }

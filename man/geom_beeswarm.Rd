@@ -5,7 +5,7 @@
 \title{Points, jittered to reduce overplotting using the beeswarm package}
 \usage{
 geom_beeswarm(mapping = NULL, data = NULL, priority = c("ascending",
-  "descending", "density", "random", "none"), cex = 1, groupOnX = NULL,
+  "descending", "density", "random", "none"), groupOnX = NULL,
   dodge.width = 0, beeswarmArgs = list(), stat = "identity",
   na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
 }
@@ -31,8 +31,6 @@ will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{priority}{Method used to perform point layout (see \code{\link{swarmx}})}
-
-\item{cex}{Scaling for adjusting point spacing (see \code{\link{swarmx}})}
 
 \item{groupOnX}{if TRUE then jitter is added to the x axis and if FALSE jitter is added to the y axis. Prior to v0.6.0, the default NULL causes the function to guess which axis is the categorical one based on the number of unique entries in each. This could result in unexpected results when the x variable has few unique values and so in v0.6.0 the default was changed to always jitter on the x axis unless groupOnX=FALSE. Also consider \code{\link[ggplot2]{coord_flip}}.}
 
@@ -80,7 +78,7 @@ The beeswarm geom is a convenient means to offset points within categories to re
   )
   ggplot2::qplot(variable, value, data = distro, geom='beeswarm')
   ggplot2::ggplot(distro,aes(variable, value)) +
-    geom_beeswarm(priority='density',cex=2.5)
+    geom_beeswarm(priority='density',size=2.5)
 }
 \seealso{
 \code{\link{geom_quasirandom}} an alternative method,

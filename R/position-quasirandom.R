@@ -11,10 +11,7 @@
 #' @param dodge.width Amount by which points from different aesthetic groups will be dodged. This requires that one of the aesthetics is a factor.
 #' @export
 #' @importFrom vipor offsetX
-#' @seealso \code{\link[vipor]{offsetX}}
-#' @examples
-#' 
-#'   ggplot2::qplot(class, hwy, data = ggplot2::mpg, position=position_quasirandom())
+#' @seealso \code{\link[vipor]{offsetX}}, \code{\link{geom_quasirandom}}
 #'
 position_quasirandom <- function (width = NULL, varwidth = FALSE, bandwidth=.5,nbins=NULL,method='quasirandom',groupOnX=NULL,dodge.width=0){
   ggplot2::ggproto(NULL,PositionQuasirandom,width = width, varwidth = varwidth, bandwidth=bandwidth,nbins=nbins,method=method,groupOnX=groupOnX,dodge.width=dodge.width)
