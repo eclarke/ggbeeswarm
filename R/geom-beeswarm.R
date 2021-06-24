@@ -31,18 +31,29 @@
 geom_beeswarm <- function(
   mapping = NULL,
   data = NULL,
-  priority = c("ascending", "descending", "density", "random", "none"),
-  groupOnX = NULL,
-  dodge.width = 0,
-  beeswarmArgs = list(),
   stat = 'identity',
+  ...,
+  method = "swarm",
+  cex = 1,
+  side = 0L,
+  priority = "ascending",
+  dodge.width = NULL,
+  groupOnX = NULL,
+  beeswarmArgs = list(),
   na.rm = FALSE,
   show.legend = NA,
-  inherit.aes = TRUE,
-  ...
+  inherit.aes = TRUE
 ) {
-  position <- position_beeswarm(groupOnX = groupOnX, dodge.width = dodge.width)
-  ggplot2::layer(
+  position <- position_beeswarm(
+    method = method,
+    cex = cex,
+    side = side,
+    priority = priority,
+    # groupOnX = groupOnX, deprecated
+    dodge.width = dodge.width
+  )
+  
+  layer(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -52,10 +63,6 @@ geom_beeswarm <- function(
     inherit.aes = inherit.aes,
     params = list(
       na.rm = na.rm,
-      priority = priority,
-      groupOnX = groupOnX,
-      dodge.width = dodge.width,
-      beeswarmArgs = beeswarmArgs,
       ...
     )
   )

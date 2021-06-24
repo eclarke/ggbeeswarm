@@ -13,98 +13,119 @@
 #' @export
 #' @importFrom beeswarm swarmx
 #' @seealso \code{\link{geom_beeswarm}}, \code{\link{position_quasirandom}}, \code{\link[beeswarm]{swarmx}}
-
-
-offset_beeswarm= function(
+offset_beeswarm <- function(
   data, 
-  xRange = 1, 
-  yRange = 1,
-  priority = c("ascending", "descending", "density", "random", "none"), 
+  plot.ylim.short,
+  plot.xlim,
+  plot.ylim,
+  y.lim,
+  method = "swarm",
   cex = 1, 
-  groupOnX = NULL, 
-  dodge.width = 0, 
-  beeswarmArgs = list(),
-  oSize = c(1/200, 1/200)
+  side = 0L,
+  priority = "ascending"
 ) {
-  # Adjust function is used to calculate new positions (from ggplot2:::Position)
-  data <- remove_missing(data, vars = c("x","y"), name = "position_beeswarm")
-  if (nrow(data)==0) return(data.frame())
-  
-  if (is.null(groupOnX)){
-    groupOnX <- TRUE
-    if (length(unique(data$y)) <= length(unique(data$x))) warning(paste(
-      'The default behavior of beeswarm has changed in version 0.6.0.',
-      'In versions <0.6.0, this plot would have been dodged on the y-axis.', 
-      'In versions >=0.6.0, groupOnX=FALSE must be explicitly set to group on y-axis.',
-      'Please set groupOnX=TRUE/FALSE to avoid this warning and ensure proper axis choice.'
-    ))
+  if (method == "swarm") {
+    # adjust par("usr") based on input data
+    graphics::par("usr" = c(plot.xlim, plot.ylim.short))
+    
+    x.offset <- beeswarm::swarmx(
+      x = rep(0, length(data$y)), y = data$y,
+      cex = cex, side = side, priority = priority
+    )$x
   }
   
-  #divisors are magic numbers to get a reasonable base spacing
-  #note that the base beeswarm package is not 100% precise with differing plotting sizes resulting in variation in points overlap/spacing
-  xSize<-xRange * oSize[1] / .71
-  ySize<-yRange * oSize[2] / .92
-  offset < -stats::ave(
-    data[, ifelse(groupOnX, 'y', 'x')],
-    data[, ifelse(groupOnX, 'x', 'y')],
-    FUN = function(yy){
-      if (length(yy) == 1) return(0)
-      else do.call(beeswarm::swarmx,c(list(
-        0,
-        yy,
-        cex = 1,
-        priority = priority,
-        xsize = ifelse(groupOnX, xSize, ySize),
-        ysize = ifelse(groupOnX, ySize, xSize)
-      ), beeswarmArgs)
-      )$x
-    }
-  )
-  data[, ifelse(groupOnX, 'x', 'y')] <- data[, ifelse(groupOnX, 'x', 'y')] + offset
-  
+  data$x <- data$x + x.offset
   return(data)
 }
 
-position_beeswarm <- function (groupOnX = NULL, dodge.width = 0) {
-  ggplot2::ggproto(NULL, PositionBeeswarm, groupOnX = groupOnX, dodge.width = dodge.width)
+position_beeswarm <- function(
+  method = "swarm",
+  cex = 1,
+  side = 0L,
+  priority = "ascending",
+  groupOnX = NULL, 
+  dodge.width = 0
+) {
+  ggproto(NULL, PositionBeeswarm, 
+          method = method,
+          cex = cex,
+          side = side,
+          priority = priority,
+          # groupOnX = groupOnX, deprecated
+          dodge.width = dodge.width
+  )
 }
 
-PositionBeeswarm <- ggplot2::ggproto("PositionBeeswarm", ggplot2:::Position, 
-                                     required_aes = c('x','y'),
+PositionBeeswarm <- ggplot2::ggproto("PositionBeeswarm", Position, 
+                                     required_aes = c('x', 'y'),
                                      setup_params = function(self, data) {
-                                       list(groupOnX = self$groupOnX, dodge.width = self$dodge.width)
+                                       flipped_aes <- has_flipped_aes(data)
+                                       data <- flip_data(data, flipped_aes)
+                                       
+                                       # get y range of data and extend it a little
+                                       y.lim <- grDevices::extendrange(data$y, f = 0.01)
+                                       
+                                       list(
+                                         # groupOnX = self$groupOnX, deprecated
+                                         method = self$method,
+                                         cex = self$cex,
+                                         side = self$side,
+                                         priority = self$priority,
+                                         dodge.width = self$dodge.width,
+                                         y.lim = y.lim,
+                                         flipped_aes = flipped_aes 
+                                       )
                                      },
                                      compute_panel = function(data, params, scales) {
-                                       data <- remove_missing(data, vars = c("x", "y"), name = "position_quasirandom")
-                                       if (nrow(data) == 0) return(data.frame())
+                                       data <- flip_data(data, params$flipped_aes)
                                        
-                                       if (is.null(params$groupOnX)){
-                                         params$groupOnX <- TRUE
-                                         if (length(unique(data$y)) <= length(unique(data$x))) warning(paste(
-                                           'The default behavior of beeswarm has changed in version 0.6.0.',
-                                           'In versions <0.6.0, this plot would have been dodged on the y-axis.',
-                                           'In versions >=0.6.0, groupOnX=FALSE must be explicitly set to group on y-axis.',
-                                           'Please set groupOnX=TRUE/FALSE to avoid this warning and ensure proper axis choice.'
-                                         ))
+                                       # get plot limits
+                                       if (params$flipped_aes) {
+                                         plot.ylim.short <- scales$x$get_limits()
+                                         plot.ylim <- ggplot2:::expand_range4(scales$x$get_limits(), c(0.045, 0))
+                                         plot.xlim <- ggplot2:::expand_range4(c(1, length(scales$y$get_limits())), c(0, 0.6))
+                                       } else {
+                                         plot.ylim.short <- scales$y$get_limits()
+                                         plot.ylim <- ggplot2:::expand_range4(scales$y$get_limits(), c(0.045, 0))
+                                         plot.xlim <- ggplot2:::expand_range4(c(1, length(scales$x$get_limits())), c(0, 0.6))
                                        }
                                        
-                                       # dodge
-                                       if (!params$groupOnX){
-                                         data[, c('x', 'y')] <- data[, c('y', 'x')]
-                                         origCols <- colnames(data)
-                                       }
+                                       # capture current par values
+                                       current.par <- graphics::par("usr")
+                                       # on exit return par("usr") to normal
+                                       on.exit(graphics::par("usr" = current.par), add = TRUE)
+                                       
                                        data <- ggplot2:::collide(
                                          data,
                                          params$dodge.width,
-                                         "position_dodge",
-                                         ggplot2:::pos_dodge,
+                                         name = "position_beeswarm",
+                                         strategy = ggplot2:::pos_dodge,
                                          check.width = FALSE
                                        )
-                                       if(!params$groupOnX){
-                                         data[, c('x', 'y')] <- data[, c('y', 'x')]
-                                         #remove x/y min/max created by collide
-                                         data <- data[, origCols]
+                                       
+                                       # split data.frame into list of data.frames
+                                       if(!is.null(params$dodge.width)) {
+                                         data <- split(data, data$group)
+                                       } else {
+                                         data <- split(data, data$x)
                                        }
-                                       return(data)
+                                       
+                                       # perform swarming separately for each data.frame
+                                       data <- lapply(
+                                         data,
+                                         offset_beeswarm,
+                                         plot.ylim.short = plot.ylim.short,
+                                         plot.xlim = plot.xlim, plot.ylim = plot.ylim,
+                                         y.lim = params$y.lim,
+                                         method = params$method,
+                                         cex = params$cex,
+                                         side = params$side,
+                                         priority = params$priority
+                                       )
+                                       
+                                       # recombine list of data.frames into one
+                                       data <- Reduce(rbind, data)
+                                       
+                                       flip_data(data, params$flipped_aes)
                                      }
 )
