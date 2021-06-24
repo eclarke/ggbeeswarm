@@ -4,9 +4,15 @@
 \alias{position_quasirandom}
 \title{Violin point-style plots to show overlapping points. x must be discrete.}
 \usage{
-position_quasirandom(width = NULL, varwidth = FALSE, bandwidth = 0.5,
-  nbins = NULL, method = "quasirandom", groupOnX = NULL,
-  dodge.width = 0)
+position_quasirandom(
+  width = NULL,
+  varwidth = FALSE,
+  bandwidth = 0.5,
+  nbins = NULL,
+  method = "quasirandom",
+  groupOnX = NULL,
+  dodge.width = 0
+)
 }
 \arguments{
 \item{width}{the maximum amount of spread (default: 0.4)}
@@ -30,5 +36,7 @@ Violin point-style plots to show overlapping points. x must be discrete.
 \seealso{
 \code{\link[vipor]{offsetX}}, \code{\link{geom_quasirandom}}
 
-Other position adjustments: \code{\link{offset_beeswarm}}
+Other position adjustments: 
+\code{\link{offset_beeswarm}()}
 }
+\concept{position adjustments}

@@ -46,7 +46,7 @@ geom_beeswarm <- function(
     data = data,
     mapping = mapping,
     stat = stat,
-    geom = GeomBeeswarm,
+    geom = GeomPoint,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
@@ -60,49 +60,3 @@ geom_beeswarm <- function(
     )
   )
 }
-
-#' geom object for use in geom_beeswarm
-#' @export
-GeomBeeswarm <- ggplot2::ggproto("GeomBeeswarm", ggplot2::GeomPoint,
-                                 draw_panel = function(data, panel_params, coord, priority = c("ascending", "descending", "density", "random", "none"), cex=1, groupOnX=NULL, dodge.width=0, beeswarmArgs=list(), na.rm = FALSE) {
-                                   if (is.character(data$shape)) {
-                                     data$shape <- ggplot2::translate_shape_string(data$shape)
-                                   }
-                                   coords <- coord$transform(data, panel_params)
-                                   grid::gTree(
-                                     coords=coords,
-                                     priority=priority,
-                                     groupOnX=groupOnX,
-                                     dodge.width=dodge.width,
-                                     beeswarmArgs=beeswarmArgs,
-                                     gp=grid::gpar(
-                                       col = alpha(coords$colour, coords$alpha),
-                                       fill = alpha(coords$fill, coords$alpha),
-                                       # Stroke is added around the outside of the point
-                                       fontsize = coords$size * .pt + coords$stroke * .stroke / 2,
-                                       lwd = coords$stroke * .stroke / 2
-                                     ),
-                                     cl = "beeswarm"
-                                   )
-                                 }
-)
-
-#' grid::makeContent function for the grobTree of GeomBeeswarm objects
-#'
-#' @param self a beeswarm gridTree grob
-#' @return a pointsGrob
-#' @export
-makeContent.beeswarm <- function(self) {
-  oSize<-c(
-    grid::convertX(grid::grobWidth(grid::textGrob('o',gp=grid::gpar(cex=1))),'native'),
-    grid::convertY(grid::grobHeight(grid::textGrob('o',gp=grid::gpar(cex=1))),'native')
-  )
-  coords<-offset_beeswarm(self$coords,priority=self$priority,cex=self$coords$size[1],groupOnX=self$groupOnX,dodge.width=self$dodge.width,beeswarmArgs=self$beeswarmArgs,oSize=oSize)
-  
-  grid::pointsGrob(
-    coords$x, coords$y,
-    pch = coords$shape
-  )
-}
-
-

@@ -4,9 +4,17 @@
 \alias{offset_beeswarm}
 \title{An internal function to calculate new positions for geom_beeswarm}
 \usage{
-offset_beeswarm(data, xRange = 1, yRange = 1, priority = c("ascending",
-  "descending", "density", "random", "none"), cex = 1, groupOnX = NULL,
-  dodge.width = 0, beeswarmArgs = list(), oSize = c(1/200, 1/200))
+offset_beeswarm(
+  data,
+  xRange = 1,
+  yRange = 1,
+  priority = c("ascending", "descending", "density", "random", "none"),
+  cex = 1,
+  groupOnX = NULL,
+  dodge.width = 0,
+  beeswarmArgs = list(),
+  oSize = c(1/200, 1/200)
+)
 }
 \arguments{
 \item{data}{A data.frame containing plotting data in columns x and y. Usually obtained from data processed by ggplot2.}
@@ -33,5 +41,7 @@ An internal function to calculate new positions for geom_beeswarm
 \seealso{
 \code{\link{geom_beeswarm}}, \code{\link{position_quasirandom}}, \code{\link[beeswarm]{swarmx}}
 
-Other position adjustments: \code{\link{position_quasirandom}}
+Other position adjustments: 
+\code{\link{position_quasirandom}()}
 }
+\concept{position adjustments}

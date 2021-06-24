@@ -11,6 +11,7 @@ Description: Provides two methods of plotting categorical scatter plots such
     data at that region, and avoids over-plotting.
 URL: https://github.com/eclarke/ggbeeswarm
 BugReports: https://github.com/eclarke/ggbeeswarm/issues
+Encoding: UTF-8
 License: GPL (>=2)
 Depends:
     R (>= 3.0.0),
@@ -20,4 +21,4 @@ Imports:
     vipor
 Suggests:
     gridExtra
-RoxygenNote: 6.0.1
+RoxygenNote: 7.1.1
