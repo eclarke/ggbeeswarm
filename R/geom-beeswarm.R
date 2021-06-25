@@ -8,6 +8,10 @@
 #'
 #' @inheritParams ggplot2::geom_point
 #' @inheritParams offset_beeswarm
+#' @param dodge.width Amount by which points from different aesthetic groups 
+#' will be dodged. This requires that one of the aesthetics is a factor.
+#' @param groupOnX Deprecated.
+#' @param beeswarmArgs Deprecated.
 #' @import ggplot2
 #' @seealso
 #'  \code{\link{geom_quasirandom}} an alternative method,

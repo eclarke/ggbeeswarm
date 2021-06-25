@@ -59,6 +59,13 @@ to the paired geom/stat.}
 
 \item{priority}{Method used to perform point layout (see \code{\link{swarmx}})}
 
+\item{dodge.width}{Amount by which points from different aesthetic groups 
+will be dodged. This requires that one of the aesthetics is a factor.}
+
+\item{groupOnX}{Deprecated.}
+
+\item{beeswarmArgs}{Deprecated.}
+
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
 
