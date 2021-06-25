@@ -48,7 +48,7 @@ Here is a comparison between `geom_jitter` and `geom_quasirandom` on the `iris` 
 ```r
 set.seed(12345)
 library(ggplot2)
-library(ggbeeswarm3)
+library(ggbeeswarm)
 #compare to jitter
 ggplot(iris,aes(Species, Sepal.Length)) + geom_jitter()
 ```

@@ -4,8 +4,8 @@
 ### code chunk number 1: package
 ###################################################
 options(keep.source = TRUE, width = 60)
-packageInfo <- packageDescription("ggbeeswarm3")
-library(ggbeeswarm3)
+packageInfo <- packageDescription("ggbeeswarm")
+library(ggbeeswarm)
 packageKeywords<-"visualization, display, one dimensional, grouped, groups, violin, scatter, points, quasirandom, beeswarm, van der Corput, beeswarm, ggplot, ggplot2"
 
 

@@ -1,4 +1,4 @@
-Package: ggbeeswarm3
+Package: ggbeeswarm
 Type: Package
 Title: Categorical Scatter (Violin Point) Plots
 Version: 0.7.0.9000
