@@ -7,15 +7,18 @@
 geom_beeswarm(
   mapping = NULL,
   data = NULL,
-  priority = c("ascending", "descending", "density", "random", "none"),
-  groupOnX = NULL,
-  dodge.width = 0,
-  beeswarmArgs = list(),
   stat = "identity",
+  ...,
+  method = "swarm",
+  cex = 1,
+  side = 0L,
+  priority = "ascending",
+  dodge.width = NULL,
+  groupOnX = NULL,
+  beeswarmArgs = list(),
   na.rm = FALSE,
   show.legend = NA,
-  inherit.aes = TRUE,
-  ...
+  inherit.aes = TRUE
 )
 }
 \arguments{
@@ -39,16 +42,22 @@ the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
-\item{priority}{Method used to perform point layout (see \code{\link{swarmx}})}
-
-\item{groupOnX}{if TRUE then jitter is added to the x axis and if FALSE jitter is added to the y axis. Prior to v0.6.0, the default NULL causes the function to guess which axis is the categorical one based on the number of unique entries in each. This could result in unexpected results when the x variable has few unique values and so in v0.6.0 the default was changed to always jitter on the x axis unless groupOnX=FALSE. Also consider \code{\link[ggplot2]{coord_flip}}.}
-
-\item{dodge.width}{Amount by which points from different aesthetic groups will be dodged. This requires that one of the aesthetics is a factor.}
-
-\item{beeswarmArgs}{A list of additional arguments to be passed to the \link{swarmx} function of beeswarm e.g. \code{list(side=1)} or \code{list(side=-1)} to only distribute points to the right/left side}
-
 \item{stat}{The statistical transformation to use on the data for this
 layer, as a string.}
+
+\item{...}{Other arguments passed on to \code{\link[ggplot2:layer]{layer()}}. These are
+often aesthetics, used to set an aesthetic to a fixed value, like
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
+to the paired geom/stat.}
+
+\item{method}{Method for arranging points (see Details of \code{\link[beeswarm]{beeswarm}})}
+
+\item{cex}{Scaling for adjusting point spacing (see \code{\link[beeswarm]{swarmx}})}
+
+\item{side}{Direction to perform jittering: 0: both directions; 
+1: to the right or upwards; -1: to the left or downwards.}
+
+\item{priority}{Method used to perform point layout (see \code{\link{swarmx}})}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
@@ -63,11 +72,6 @@ display.}
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
-
-\item{...}{Other arguments passed on to \code{\link[ggplot2:layer]{layer()}}. These are
-often aesthetics, used to set an aesthetic to a fixed value, like
-\code{colour = "red"} or \code{size = 3}. They may also be parameters
-to the paired geom/stat.}
 }
 \description{
 The beeswarm geom is a convenient means to offset points within categories to

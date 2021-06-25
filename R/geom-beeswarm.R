@@ -44,12 +44,15 @@ geom_beeswarm <- function(
   show.legend = NA,
   inherit.aes = TRUE
 ) {
+  
+  if (!missing(groupOnX)) warning("The `groupOnX` argument of `geom_beeswarm` is deprecated as of ggbeeswarm 0.7.0.9000.")
+  if (!missing(beeswarmArgs)) warning("The `beeswarmArgs` argument of `geom_beeswarm` is deprecated as of ggbeeswarm 0.7.0.9000.")
+  
   position <- position_beeswarm(
     method = method,
     cex = cex,
     side = side,
     priority = priority,
-    # groupOnX = groupOnX, deprecated
     dodge.width = dodge.width
   )
   

@@ -6,42 +6,46 @@
 \usage{
 offset_beeswarm(
   data,
-  xRange = 1,
-  yRange = 1,
-  priority = c("ascending", "descending", "density", "random", "none"),
+  yRange,
+  xRange.expand,
+  yRange.expand,
+  yLim.expand,
+  method = "swarm",
   cex = 1,
-  groupOnX = NULL,
-  dodge.width = 0,
-  beeswarmArgs = list(),
-  oSize = c(1/200, 1/200)
+  side = 0L,
+  priority = "ascending"
 )
 }
 \arguments{
-\item{data}{A data.frame containing plotting data in columns x and y. Usually obtained from data processed by ggplot2.}
+\item{data}{A data.frame containing plotting data in columns x and y. 
+Usually obtained from data processed by ggplot2.}
 
-\item{xRange}{span of the x axis e.g. yMax-yMin}
+\item{yRange}{y axis limits}
 
-\item{yRange}{span of the y axis e.g. yMax-yMin}
+\item{xRange.expand}{x axis limits plus small expansion}
+
+\item{yRange.expand}{y axis limits plus small expansion}
+
+\item{yLim.expand}{y data range plus small expansion}
+
+\item{method}{Method for arranging points (see Details of \code{\link[beeswarm]{beeswarm}})}
+
+\item{cex}{Scaling for adjusting point spacing (see \code{\link[beeswarm]{swarmx}})}
+
+\item{side}{Direction to perform jittering: 0: both directions; 
+1: to the right or upwards; -1: to the left or downwards.}
 
 \item{priority}{Method used to perform point layout (see \code{\link{swarmx}})}
-
-\item{cex}{Scaling for adjusting point spacing (see \code{\link{swarmx}})}
-
-\item{groupOnX}{if TRUE then jitter is added to the x axis and if FALSE jitter is added to the y axis. Prior to v0.6.0, the default NULL causes the function to guess which axis is the categorical one based on the number of unique entries in each. This could result in unexpected results when the x variable has few unique values and so in v0.6.0 the default was changed to always jitter on the x axis unless groupOnX=FALSE. Also consider \code{\link[ggplot2]{coord_flip}}.}
-
-\item{dodge.width}{Amount by which points from different aesthetic groups will be dodged. This requires that one of the aesthetics is a factor.}
-
-\item{beeswarmArgs}{A list of additional arguments to be passed to the \link{swarmx} function of beeswarm e.g. \code{list(side=1)} or \code{list(side=-1)} to only distribute points to the right/left side}
-
-\item{oSize}{A 2 element vector giving the width and height of a cex=1 character "o" in user coordinates}
 }
 \description{
 An internal function to calculate new positions for geom_beeswarm
 }
 \seealso{
-\code{\link{geom_beeswarm}}, \code{\link{position_quasirandom}}, \code{\link[beeswarm]{swarmx}}
+\code{\link{geom_beeswarm}}, \code{\link{position_quasirandom}}, 
+\code{\link[beeswarm]{swarmx}}
 
 Other position adjustments: 
 \code{\link{position_quasirandom}()}
 }
 \concept{position adjustments}
+\keyword{internal}
