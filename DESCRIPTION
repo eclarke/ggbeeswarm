@@ -1,7 +1,7 @@
 Package: ggbeeswarm
 Type: Package
 Title: Categorical Scatter (Violin Point) Plots
-Version: 0.7.0
+Version: 0.7.0.9000
 Date: 2019-08-13
 Authors@R: c(
     person(given="Erik", family="Clarke", role=c("aut", "cre"), email="erikclarke@gmail.com"),
@@ -11,13 +11,14 @@ Description: Provides two methods of plotting categorical scatter plots such
     data at that region, and avoids over-plotting.
 URL: https://github.com/eclarke/ggbeeswarm
 BugReports: https://github.com/eclarke/ggbeeswarm/issues
+Encoding: UTF-8
 License: GPL (>=2)
 Depends:
-    R (>= 3.0.0),
-    ggplot2 (>= 2.0)
+    R (>= 3.2),
+    ggplot2 (>= 3.3.0)
 Imports:
     beeswarm,
     vipor
 Suggests:
     gridExtra
-RoxygenNote: 6.0.1
+RoxygenNote: 7.1.1

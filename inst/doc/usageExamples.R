@@ -115,14 +115,14 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 ### code chunk number 16: dodgeYBee (eval = FALSE)
 ###################################################
 ##   ggplot(mapping=aes(dat,labs,color=labs2)) +
-##     geom_beeswarm(dodge.width=.8,cex=2,groupOnX=FALSE)
+##     geom_beeswarm(dodge.width=.8,cex=2)
 
 
 ###################################################
 ### code chunk number 17: showDodgeYBee
 ###################################################
   ggplot(mapping=aes(dat,labs,color=labs2)) +
-    geom_beeswarm(dodge.width=.8,cex=2,groupOnX=FALSE)
+    geom_beeswarm(dodge.width=.8,cex=2)
 
 
 ###################################################

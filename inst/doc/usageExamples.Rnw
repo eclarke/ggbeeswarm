@@ -26,6 +26,7 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 }
 
 \begin{document}
+\SweaveOpts{concordance=TRUE}
 \SweaveOpts{engine=R,eps=FALSE}
 
 \section{The basics}
@@ -112,7 +113,7 @@ And with \code{geom_beeswarm}:
 \end{center}
 <<dodgeYBee, echo=TRUE, eval=FALSE>>=
   ggplot(mapping=aes(dat,labs,color=labs2)) +
-    geom_beeswarm(dodge.width=.8,cex=2,groupOnX=FALSE)
+    geom_beeswarm(dodge.width=.8,cex=2)
 @
 \begin{center}
 <<showDodgeYBee, fig=TRUE, height=3.5, width=5, echo=FALSE>>=
