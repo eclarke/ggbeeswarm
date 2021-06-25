@@ -14,8 +14,8 @@ BugReports: https://github.com/eclarke/ggbeeswarm/issues
 Encoding: UTF-8
 License: GPL (>=2)
 Depends:
-    R (>= 3.0.0),
-    ggplot2 (>= 2.0)
+    R (>= 3.2),
+    ggplot2 (>= 3.3.0)
 Imports:
     beeswarm,
     vipor
