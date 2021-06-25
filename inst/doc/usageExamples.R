@@ -4,8 +4,8 @@
 ### code chunk number 1: package
 ###################################################
 options(keep.source = TRUE, width = 60)
-packageInfo <- packageDescription("ggbeeswarm")
-library(ggbeeswarm)
+packageInfo <- packageDescription("ggbeeswarm3")
+library(ggbeeswarm3)
 packageKeywords<-"visualization, display, one dimensional, grouped, groups, violin, scatter, points, quasirandom, beeswarm, van der Corput, beeswarm, ggplot, ggplot2"
 
 
@@ -115,14 +115,14 @@ packageKeywords<-"visualization, display, one dimensional, grouped, groups, viol
 ### code chunk number 16: dodgeYBee (eval = FALSE)
 ###################################################
 ##   ggplot(mapping=aes(dat,labs,color=labs2)) +
-##     geom_beeswarm(dodge.width=.8,cex=2,groupOnX=FALSE)
+##     geom_beeswarm(dodge.width=.8,cex=2)
 
 
 ###################################################
 ### code chunk number 17: showDodgeYBee
 ###################################################
   ggplot(mapping=aes(dat,labs,color=labs2)) +
-    geom_beeswarm(dodge.width=.8,cex=2,groupOnX=FALSE)
+    geom_beeswarm(dodge.width=.8,cex=2)
 
 
 ###################################################
