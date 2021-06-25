@@ -3,7 +3,6 @@ title: "Beeswarm-style plots with ggplot2"
 output: 
   html_document: 
     keep_md: yes
-    toc: no
 ---
 
 

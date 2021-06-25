@@ -3,7 +3,6 @@ title: "Beeswarm-style plots with ggplot2"
 output: 
   html_document: 
     keep_md: yes
-    toc: no
 ---
 ```{r setup, echo=FALSE, message=FALSE}
 knitr::opts_chunk$set(
