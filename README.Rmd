@@ -1,8 +1,6 @@
 ---
 title: "Beeswarm-style plots with ggplot2"
-output: 
-  html_document: 
-    keep_md: yes
+output: github_document
 ---
 ```{r setup, echo=FALSE, message=FALSE}
 knitr::opts_chunk$set(
