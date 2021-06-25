@@ -34,7 +34,7 @@ geom_beeswarm <- function(
   stat = 'identity',
   ...,
   method = "swarm",
-  cex = 1,
+  cex = 0.8,
   side = 0L,
   priority = "ascending",
   dodge.width = NULL,
