@@ -5,7 +5,8 @@ Version: 0.7.0.9000
 Date: 2019-08-13
 Authors@R: c(
     person(given="Erik", family="Clarke", role=c("aut", "cre"), email="erikclarke@gmail.com"),
-    person(given="Scott", family="Sherrill-Mix", role=c("aut"), email="sherrillmix@gmail.com"))
+    person(given="Scott", family="Sherrill-Mix", role=c("aut"), email="sherrillmix@gmail.com"),
+    person(given="Charlotte", family="Dawson", role=c("aut"), email="csdaw@outlook.com"))
 Description: Provides two methods of plotting categorical scatter plots such
     that the arrangement of points within a category reflects the density of
     data at that region, and avoids over-plotting.

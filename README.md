@@ -229,4 +229,4 @@ ggplot(dat,aes(x,y)) + geom_beeswarm(size=2,priority='random') + ggtitle('Random
 
 ------------------------------------------------------------------------
 
-Authors: Erik Clarke and Scott Sherrill-Mix
+Authors: Erik Clarke, Scott Sherrill-Mix, and Charlotte Dawson
