@@ -10,7 +10,7 @@
 #' @inheritParams position_quasirandom
 #' @import ggplot2
 #' @seealso
-#'  \code{\link[vipor]{offsetX}} how spacing is determined,
+#'  \code{\link[vipor]{offsetSinglePoint}} how spacing is determined,
 #'  \code{\link[ggplot2]{geom_point}} for regular, unjittered points,
 #'  \code{\link[ggplot2]{geom_jitter}} for jittered points,
 #'  \code{\link{geom_boxplot}} for another way of looking at the conditional

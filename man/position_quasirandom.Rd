@@ -2,7 +2,7 @@
 % Please edit documentation in R/position-quasirandom.R
 \name{position_quasirandom}
 \alias{position_quasirandom}
-\title{Violin point-style plots to show overlapping points. x must be discrete.}
+\title{Arrange points using quasirandom noise to avoid overplotting}
 \usage{
 position_quasirandom(
   method = "quasirandom",
@@ -16,7 +16,8 @@ position_quasirandom(
 }
 \arguments{
 \item{method}{the method used for distributing points
-(quasirandom, pseudorandom, smiley or frowney)}
+(quasirandom, pseudorandom, smiley, frowney, tukey, or tukeyDense).
+See \code{\link[vipor]{offsetSingleGroup}} for the details of each method.}
 
 \item{width}{the maximum amount of spread (default: 0.4)}
 
@@ -34,7 +35,7 @@ will be dodged. This requires that one of the aesthetics is a factor.}
 \item{groupOnX}{Deprecated.}
 }
 \description{
-Violin point-style plots to show overlapping points. x must be discrete.
+Arrange points using quasirandom noise to avoid overplotting
 }
 \seealso{
 \code{\link[vipor]{offsetSingleGroup}}, \code{\link{geom_quasirandom}}

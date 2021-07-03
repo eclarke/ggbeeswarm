@@ -1,8 +1,9 @@
-#' Violin point-style plots to show overlapping points. x must be discrete.
+#' Arrange points using quasirandom noise to avoid overplotting
 #' 
 #' @family position adjustments
 #' @param method the method used for distributing points
-#' (quasirandom, pseudorandom, smiley or frowney)
+#' (quasirandom, pseudorandom, smiley, frowney, tukey, or tukeyDense).
+#' See \code{\link[vipor]{offsetSingleGroup}} for the details of each method.
 #' @param width the maximum amount of spread (default: 0.4)
 #' @param varwidth vary the width by the relative size of each group
 #' @param bandwidth the bandwidth adjustment to use when calculating density

@@ -51,7 +51,8 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 to the paired geom/stat.}
 
 \item{method}{the method used for distributing points
-(quasirandom, pseudorandom, smiley or frowney)}
+(quasirandom, pseudorandom, smiley, frowney, tukey, or tukeyDense).
+See \code{\link[vipor]{offsetSingleGroup}} for the details of each method.}
 
 \item{width}{the maximum amount of spread (default: 0.4)}
 
@@ -102,7 +103,7 @@ to reduce overplotting. Uses the vipor package
   ggplot2::ggplot(distro,aes(variable, value)) + geom_quasirandom(width=0.1)
 }
 \seealso{
-\code{\link[vipor]{offsetX}} how spacing is determined,
+\code{\link[vipor]{offsetSinglePoint}} how spacing is determined,
  \code{\link[ggplot2]{geom_point}} for regular, unjittered points,
  \code{\link[ggplot2]{geom_jitter}} for jittered points,
  \code{\link{geom_boxplot}} for another way of looking at the conditional
