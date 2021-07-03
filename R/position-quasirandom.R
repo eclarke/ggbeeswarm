@@ -21,22 +21,22 @@
 #' @export
 #' @importFrom vipor offsetX
 #' @seealso \code{\link[vipor]{offsetX}}, \code{\link{geom_quasirandom}}
-position_quasirandom <- function (
+position_quasirandom <- function(
+  method = 'quasirandom',
   width = NULL, 
   varwidth = FALSE, 
   bandwidth = .5,
   nbins = NULL,
-  method = 'quasirandom',
-  groupOnX = NULL,
-  dodge.width = 0
-){
+  dodge.width = 0,
+  groupOnX = NULL
+) {
   ggproto(NULL, PositionQuasirandom, 
           width = width, 
           varwidth = varwidth, 
           bandwidth = bandwidth,
           nbins = nbins,
           method = method,
-          groupOnX = groupOnX,
+          # groupOnX = groupOnX, deprecated
           dodge.width = dodge.width
   )
 }
@@ -44,82 +44,87 @@ position_quasirandom <- function (
 PositionQuasirandom <- ggplot2::ggproto("PositionQuasirandom", Position,
                                         required_aes = c('x', 'y'),
                                         setup_params = function(self, data) {
+                                          flipped_aes = has_flipped_aes(data)
+                                          data <- flip_data(data, flipped_aes)
+                                          
+                                          # get the number of points in each x axis group
+                                          # and find the largest group
+                                          max.length <- max(data.frame(table(data$x))$Freq)
+                                          
                                           list(
                                             width = self$width,
                                             varwidth = self$varwidth,
                                             bandwidth = self$bandwidth,
                                             nbins = self$nbins,
                                             method = self$method,
-                                            groupOnX = self$groupOnX,
-                                            dodge.width = self$dodge.width
+                                            # groupOnX = self$groupOnX, deprecated
+                                            dodge.width = self$dodge.width,
+                                            max.length = max.length,
+                                            flipped_aes = flipped_aes
                                           )
                                         },
+                                        
                                         compute_panel = function(data, params, scales) {
-                                          data <- remove_missing(data, vars = c("x", "y"), name = "position_quasirandom")
+                                          data <- flip_data(data, params$flipped_aes)
                                           
-                                          if (nrow(data) == 0) return(data.frame())
-                                          
-                                          if (is.null(params$groupOnX)){
-                                            params$groupOnX <- TRUE
-                                            if (length(unique(data$y)) <= length(unique(data$x))) warning(
-                                              paste(
-                                                'The default behavior of beeswarm has changed in version 0.6.0.',
-                                                'In versions <0.6.0, this plot would have been dodged on the y-axis.',
-                                                'In versions >=0.6.0, groupOnX=FALSE must be explicitly set to group on y-axis.',
-                                                'Please set groupOnX=TRUE/FALSE to avoid this warning and ensure proper axis choice.'
-                                              )
-                                            )
-                                          }
-                                          
-                                          # dodge
-                                          if (!params$groupOnX) {
-                                            data[, c('x', 'y')] <- data[, c('y', 'x')]
-                                            origCols <- colnames(data)
-                                          }
-                                          
+                                          # perform dodging if necessary
                                           data <- ggplot2:::collide(
                                             data,
                                             params$dodge.width,
-                                            "position_dodge",
+                                            "position_quasirandom",
                                             ggplot2:::pos_dodge,
                                             check.width = FALSE
                                           )
                                           
-                                          if (!params$groupOnX) {
-                                            data[, c('x', 'y')] <- data[, c('y', 'x')]
-                                            #remove x/y min/max created by collide
-                                            data <- data[, origCols]
+                                          # ggplot2::resolution needs to be after dodge
+                                          # set width if not specified
+                                          if (is.null(params$width)) {
+                                            params$width <- ggplot2::resolution(
+                                              data$x, zero = FALSE) * 0.4
                                           }
                                           
-                                          #resolution needs to be after the dodge
-                                          if (is.null(params$width)) params$width <- ggplot2::resolution(
-                                            data[, ifelse(params$groupOnX, 'x', 'y')], 
-                                            zero = FALSE
-                                          ) * 0.4
-                                          
-                                          # then quasirandom transform
-                                          trans_x <- NULL
-                                          trans_y <- NULL
-                                          
-                                          trans_xy <- function(xx) {
-                                            new_x <- vipor::offsetX(
-                                              data[, ifelse(params$groupOnX, 'y', 'x')],
-                                              xx,
-                                              width = params$width,
-                                              varwidth = params$varwidth,
-                                              adjust = params$bandwidth,
-                                              method = params$method,
-                                              nbins = params$nbins
-                                            )
-                                            return(new_x + xx)
+                                          # split data.frame into list of data.frames
+                                          if (!is.null(params$dodge.width)) {
+                                            data <- split(data, data$group)
+                                          } else {
+                                            data <- split(data, data$x)
                                           }
                                           
-                                          if (params$width > 0){
-                                            if (params$groupOnX) trans_x <- trans_xy
-                                            else trans_y <- trans_xy
-                                          }
+                                          # perform transformation separately for each data.frame
+                                          data <- lapply(
+                                            data,
+                                            offset_quasirandom,
+                                            method = params$method,
+                                            width = params$width,
+                                            vary.width = params$varwidth,
+                                            adjust = params$bandwidth,
+                                            nbins = params$nbins,
+                                            max.length = params$max.length
+                                          )
                                           
-                                          transform_position(data, trans_x, trans_y)
+                                          # recombine list of data.frame into one
+                                          data <- Reduce(rbind, data)
+                                          
+                                          flip_data(data, params$flipped_aes)
                                         }
 )
+
+offset_quasirandom <- function(
+  data,
+  width = 0.4, 
+  vary.width = FALSE,
+  max.length = NULL,
+  ...
+) {
+  x.offset <- vipor::aveWithArgs(
+    data$y, data$x,
+    FUN = vipor::offsetSingleGroup,
+    maxLength = if (vary.width) {max.length} else {NULL},
+    ...
+  )
+  
+  x.offset <- x.offset * width
+  data$x <- data$x + x.offset
+  data
+}
 

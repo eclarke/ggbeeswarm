@@ -28,27 +28,26 @@
 geom_quasirandom <- function(
   mapping = NULL,
   data = NULL,
+  stat = 'identity',
+  ...,
+  method = 'quasirandom',
   width = NULL,
   varwidth = FALSE,
   bandwidth = .5,
   nbins = NULL,
-  method = 'quasirandom',
-  groupOnX = NULL,
   dodge.width = 0,
-  stat = 'identity',
-  position = "quasirandom",
+  groupOnX = NULL,
   na.rm = FALSE,
   show.legend = NA,
-  inherit.aes = TRUE,
-  ...
+  inherit.aes = TRUE
 ) {
   position <- position_quasirandom(
+    method = method,
     width = width, 
     varwidth = varwidth, 
     bandwidth = bandwidth,
     nbins = nbins,
-    method = method,
-    groupOnX = groupOnX,
+    # groupOnX = groupOnX, deprecated
     dodge.width = dodge.width
   )
   
@@ -56,7 +55,7 @@ geom_quasirandom <- function(
     data = data,
     mapping = mapping,
     stat = stat,
-    geom = ggplot2::GeomPoint,
+    geom = GeomPoint,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
