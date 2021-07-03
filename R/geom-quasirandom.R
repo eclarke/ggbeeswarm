@@ -1,6 +1,7 @@
 #' Points, jittered to reduce overplotting using the vipor package
 #'
-#' The quasirandom geom is a convenient means to offset points within categories to reduce overplotting. Uses the vipor package
+#' The quasirandom geom is a convenient means to offset points within categories 
+#' to reduce overplotting. Uses the vipor package
 #'
 #' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "point")}
@@ -29,20 +30,28 @@ geom_quasirandom <- function(
   data = NULL,
   width = NULL,
   varwidth = FALSE,
-  bandwidth=.5,
-  nbins=NULL,
-  method='quasirandom',
-  groupOnX=NULL,
-  dodge.width=0,
-  stat='identity',
+  bandwidth = .5,
+  nbins = NULL,
+  method = 'quasirandom',
+  groupOnX = NULL,
+  dodge.width = 0,
+  stat = 'identity',
   position = "quasirandom",
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE,
   ...
 ) {
-  position <- position_quasirandom(width = width, varwidth = varwidth, bandwidth=bandwidth,nbins=nbins,method=method,groupOnX=groupOnX,dodge.width=dodge.width)
-
+  position <- position_quasirandom(
+    width = width, 
+    varwidth = varwidth, 
+    bandwidth = bandwidth,
+    nbins = nbins,
+    method = method,
+    groupOnX = groupOnX,
+    dodge.width = dodge.width
+  )
+  
   ggplot2::layer(
     data = data,
     mapping = mapping,
