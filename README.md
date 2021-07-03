@@ -73,7 +73,7 @@ ggplot(iris,aes(Species, Sepal.Length)) + geom_quasirandom()
 
 <img src="README_files/figure-gfm/ggplot2-compare-2.png" width="576" />
 
-### geom\_quasirandom()
+### geom_quasirandom()
 
 Using `geom_quasirandom`:
 
@@ -151,7 +151,7 @@ ggplot(iris, aes(Species, Sepal.Length)) + geom_beeswarm() + ggtitle("Beeswarm")
 
 <img src="README_files/figure-gfm/ggplot2-methods-6.png" width="576" />
 
-### geom\_beeswarm()
+### geom_beeswarm()
 
 Using `geom_beeswarm`:
 
