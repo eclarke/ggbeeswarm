@@ -1,26 +1,20 @@
 #' Violin point-style plots to show overlapping points. x must be discrete.
 #' 
 #' @family position adjustments
+#' @param method the method used for distributing points
+#' (quasirandom, pseudorandom, smiley or frowney)
 #' @param width the maximum amount of spread (default: 0.4)
 #' @param varwidth vary the width by the relative size of each group
 #' @param bandwidth the bandwidth adjustment to use when calculating density
 #' Smaller numbers (< 1) produce a tighter "fit". (default: 0.5)
 #' @param nbins the number of bins used when calculating density
 #' (has little effect with quasirandom/random distribution)
-#' @param method the method used for distributing points
-#' (quasirandom, pseudorandom, smiley or frowney)
-#' @param groupOnX if TRUE then jitter is added to the x axis and if FALSE 
-#' jitter is added to the y axis. Prior to v0.6.0, the default NULL causes the 
-#' function to guess which axis is the categorical one based on the number of 
-#' unique entries in each. This could result in unexpected results when the x 
-#' variable has few unique values and so in v0.6.0 the default was changed to 
-#' always jitter on the x axis unless groupOnX=FALSE. 
-#' Also consider \code{\link[ggplot2]{coord_flip}}.
 #' @param dodge.width Amount by which points from different aesthetic groups 
 #' will be dodged. This requires that one of the aesthetics is a factor.
+#' @param groupOnX Deprecated.
+#' @importFrom vipor offsetSingleGroup
 #' @export
-#' @importFrom vipor offsetX
-#' @seealso \code{\link[vipor]{offsetX}}, \code{\link{geom_quasirandom}}
+#' @seealso \code{\link[vipor]{offsetSingleGroup}}, \code{\link{geom_quasirandom}}
 position_quasirandom <- function(
   method = 'quasirandom',
   width = NULL, 
@@ -30,13 +24,14 @@ position_quasirandom <- function(
   dodge.width = 0,
   groupOnX = NULL
 ) {
+  if (!missing(groupOnX)) warning("The `groupOnX` argument of `position_quasirandom` is deprecated as of ggbeeswarm 0.7.0.9000.")
+  
   ggproto(NULL, PositionQuasirandom, 
           width = width, 
           varwidth = varwidth, 
           bandwidth = bandwidth,
           nbins = nbins,
           method = method,
-          # groupOnX = groupOnX, deprecated
           dodge.width = dodge.width
   )
 }

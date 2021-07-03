@@ -41,13 +41,14 @@ geom_quasirandom <- function(
   show.legend = NA,
   inherit.aes = TRUE
 ) {
+  if (!missing(groupOnX)) warning("The `groupOnX` argument of `geom_quasirandom` is deprecated as of ggbeeswarm 0.7.0.9000.")
+  
   position <- position_quasirandom(
     method = method,
     width = width, 
     varwidth = varwidth, 
     bandwidth = bandwidth,
     nbins = nbins,
-    # groupOnX = groupOnX, deprecated
     dodge.width = dodge.width
   )
   
