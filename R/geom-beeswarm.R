@@ -38,9 +38,10 @@ geom_beeswarm <- function(
   stat = 'identity',
   ...,
   method = "swarm",
-  cex = 0.8,
+  cex = 1,
   side = 0L,
   priority = "ascending",
+  fast = TRUE,
   dodge.width = NULL,
   groupOnX = NULL,
   beeswarmArgs = list(),
@@ -57,6 +58,7 @@ geom_beeswarm <- function(
     cex = cex,
     side = side,
     priority = priority,
+    fast = fast,
     dodge.width = dodge.width
   )
   
