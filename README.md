@@ -73,7 +73,7 @@ ggplot(iris,aes(Species, Sepal.Length)) + geom_quasirandom()
 
 <img src="README_files/figure-gfm/ggplot2-compare-2.png" width="576" />
 
-### geom\_quasirandom()
+### geom_quasirandom()
 
 Using `geom_quasirandom`:
 
@@ -151,7 +151,7 @@ ggplot(iris, aes(Species, Sepal.Length)) + geom_beeswarm() + ggtitle("Beeswarm")
 
 <img src="README_files/figure-gfm/ggplot2-methods-6.png" width="576" />
 
-### geom\_beeswarm()
+### geom_beeswarm()
 
 Using `geom_beeswarm`:
 
@@ -204,25 +204,25 @@ ggplot(sub_mpg, aes(class, displ, color=factor(cyl))) + geom_beeswarm(dodge.widt
 #With different beeswarm point distribution priority
 dat<-data.frame(x=rep(1:3,c(20,40,80)))
 dat$y<-rnorm(nrow(dat),dat$x)
-ggplot(dat,aes(x,y)) + geom_beeswarm(size=2) + ggtitle('Default (ascending)') + scale_x_continuous(expand=expansion(add=c(0.5,.5)))
+ggplot(dat,aes(x,y)) + geom_beeswarm(cex=2) + ggtitle('Default (ascending)') + scale_x_continuous(expand=expansion(add=c(0.5,.5)))
 ```
 
 <img src="README_files/figure-gfm/ggplot2-beeswarm-8.png" width="576" />
 
 ``` r
-ggplot(dat,aes(x,y)) + geom_beeswarm(size=2,priority='descending') + ggtitle('Descending') + scale_x_continuous(expand=expansion(add=c(0.5,.5)))
+ggplot(dat,aes(x,y)) + geom_beeswarm(cex=2,priority='descending') + ggtitle('Descending') + scale_x_continuous(expand=expansion(add=c(0.5,.5)))
 ```
 
 <img src="README_files/figure-gfm/ggplot2-beeswarm-9.png" width="576" />
 
 ``` r
-ggplot(dat,aes(x,y)) + geom_beeswarm(size=2,priority='density') + ggtitle('Density') + scale_x_continuous(expand=expansion(add=c(0.5,.5)))
+ggplot(dat,aes(x,y)) + geom_beeswarm(cex=2,priority='density') + ggtitle('Density') + scale_x_continuous(expand=expansion(add=c(0.5,.5)))
 ```
 
 <img src="README_files/figure-gfm/ggplot2-beeswarm-10.png" width="576" />
 
 ``` r
-ggplot(dat,aes(x,y)) + geom_beeswarm(size=2,priority='random') + ggtitle('Random') + scale_x_continuous(expand=expansion(add=c(0.5,.5)))
+ggplot(dat,aes(x,y)) + geom_beeswarm(cex=2,priority='random') + ggtitle('Random') + scale_x_continuous(expand=expansion(add=c(0.5,.5)))
 ```
 
 <img src="README_files/figure-gfm/ggplot2-beeswarm-11.png" width="576" />
