@@ -3,11 +3,11 @@
 #' @family position adjustments
 #' @param data A data.frame containing plotting data in columns x and y. 
 #' Usually obtained from data processed by ggplot2.
-#' @param xLim.expand x axis limits plus a small expansion using `ggplot2:::expand_range4`
-#' @param yLim.expand y axis limits plus a small expansion using `grDevices::extendrange`
-#' @param yLim y axis limits
-#' @param xRange x axis range
-#' @param yRange y axis range
+#' @param xLim.expand x axis scale limits plus a small expansion using `ggplot2:::expand_range4`
+#' @param yLim.expand y data limits plus a small expansion using `grDevices::extendrange`
+#' @param yLim y axis scale limits
+#' @param xRange x axis scale range
+#' @param yRange y axis scale range
 #' @param method Method for arranging points (see Details below)
 #' @param cex Scaling for adjusting point spacing (see \code{\link[beeswarm]{swarmx}})
 #' @param side Direction to perform jittering: 0: both directions; 
@@ -76,8 +76,8 @@ offset_beeswarm <- function(
       # Note this may cause issues if the user plays around with 
       # ggplot2::theme(plot.margin)
       
-      x.size <- graphics::xinch(0.08, warn.log = FALSE)
-      y.size <- graphics::yinch(0.08, warn.log = FALSE)
+      x.size <- graphics::xinch(0.08, warn.log = FALSE) * cex
+      y.size <- graphics::yinch(0.08, warn.log = FALSE) * cex
     } else {
       # Determine point size as per `ggbeeswarm` CRAN version 0.6.0
       
@@ -110,8 +110,8 @@ offset_beeswarm <- function(
     # Note this may cause issues if the user plays around with 
     # ggplot2::theme(plot.margin)
     
-    x.size <- graphics::xinch(0.08, warn.log = FALSE)
-    y.size <- graphics::yinch(0.08, warn.log = FALSE)
+    x.size <- graphics::xinch(0.08, warn.log = FALSE) * cex
+    y.size <- graphics::yinch(0.08, warn.log = FALSE) * cex
     
     # Hex method specific step
     if (method == "hex") y.size <- y.size * sqrt(3) / 2
@@ -145,9 +145,6 @@ position_beeswarm <- function(
   dodge.width = 0
 ) {
   if (!missing(groupOnX)) warning("The `groupOnX` argument of `position_beeswarm` is deprecated as of ggbeeswarm 0.7.0.9000.")
-  
-  match.arg(method, c("swarm", "swarm2", "compactswarm", 
-                      "square", "hex", "centre", "center"))
   
   if (method == "centre") method <- "center"
   

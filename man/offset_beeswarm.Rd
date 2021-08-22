@@ -22,15 +22,15 @@ offset_beeswarm(
 \item{data}{A data.frame containing plotting data in columns x and y. 
 Usually obtained from data processed by ggplot2.}
 
-\item{xLim.expand}{x axis limits plus a small expansion using `ggplot2:::expand_range4`}
+\item{xLim.expand}{x axis scale limits plus a small expansion using `ggplot2:::expand_range4`}
 
-\item{yLim.expand}{y axis limits plus a small expansion using `grDevices::extendrange`}
+\item{yLim.expand}{y data limits plus a small expansion using `grDevices::extendrange`}
 
-\item{yLim}{y axis limits}
+\item{yLim}{y axis scale limits}
 
-\item{xRange}{x axis range}
+\item{xRange}{x axis scale range}
 
-\item{yRange}{y axis range}
+\item{yRange}{y axis scale range}
 
 \item{method}{Method for arranging points (see Details below)}
 
