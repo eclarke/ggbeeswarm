@@ -203,42 +203,40 @@ ggplot(sub_mpg, aes(class, displ, color=factor(cyl))) + geom_beeswarm(dodge.widt
 #### Alternative methods
 
 ``` r
-tg <- ToothGrowth
-tg$dose <- as.factor(tg$dose)
-ggplot(tg, aes(dose, len)) + geom_beeswarm(cex = 5) + ggtitle('method = "swarm" (default)')
+ggplot(iris,aes(Species, Sepal.Length)) + geom_beeswarm(cex = 2, size = 2) + ggtitle('method = "swarm" (default)')
 ```
 
-<img src="README_files/figure-gfm/unnamed-chunk-3-1.png" width="576" />
+<img src="README_files/figure-gfm/ggplot2-beeswarm-alt-1.png" width="576" />
 
 ``` r
-ggplot(tg, aes(dose, len)) + geom_beeswarm(cex = 5, method = "swarm2") + ggtitle('method = "swarm2"')
+ggplot(iris,aes(Species, Sepal.Length)) + geom_beeswarm(cex = 1.3, size = 2, method = "swarm2") + ggtitle('method = "swarm2"')
 ```
 
-<img src="README_files/figure-gfm/unnamed-chunk-3-2.png" width="576" />
+<img src="README_files/figure-gfm/ggplot2-beeswarm-alt-2.png" width="576" />
 
 ``` r
-ggplot(tg, aes(dose, len)) + geom_beeswarm(cex = 5, method = "compactswarm") + ggtitle('method = "compactswarm"')
+ggplot(iris,aes(Species, Sepal.Length)) + geom_beeswarm(cex = 1.3, size = 2, method = "compactswarm") + ggtitle('method = "compactswarm"')
 ```
 
-<img src="README_files/figure-gfm/unnamed-chunk-3-3.png" width="576" />
+<img src="README_files/figure-gfm/ggplot2-beeswarm-alt-3.png" width="576" />
 
 ``` r
-ggplot(tg, aes(dose, len)) + geom_beeswarm(cex = 5, method = "hex") + ggtitle('method = "hex"')
+ggplot(iris,aes(Species, Sepal.Length)) + geom_beeswarm(cex = 1.3, size = 2, method = "hex") + ggtitle('method = "hex"')
 ```
 
-<img src="README_files/figure-gfm/unnamed-chunk-3-4.png" width="576" />
+<img src="README_files/figure-gfm/ggplot2-beeswarm-alt-4.png" width="576" />
 
 ``` r
-ggplot(tg, aes(dose, len)) + geom_beeswarm(cex = 5, method = "square") + ggtitle('method = "square"')
+ggplot(iris,aes(Species, Sepal.Length)) + geom_beeswarm(cex = 1.3, size = 2, method = "square") + ggtitle('method = "square"')
 ```
 
-<img src="README_files/figure-gfm/unnamed-chunk-3-5.png" width="576" />
+<img src="README_files/figure-gfm/ggplot2-beeswarm-alt-5.png" width="576" />
 
 ``` r
-ggplot(tg, aes(dose, len)) + geom_beeswarm(cex = 5, method = "center") + ggtitle('method = "center"')
+ggplot(iris,aes(Species, Sepal.Length)) + geom_beeswarm(cex = 1.3, size = 2, method = "center") + ggtitle('method = "center"')
 ```
 
-<img src="README_files/figure-gfm/unnamed-chunk-3-6.png" width="576" />
+<img src="README_files/figure-gfm/ggplot2-beeswarm-alt-6.png" width="576" />
 
 #### Different point distribution priority
 
@@ -249,25 +247,25 @@ dat$y<-rnorm(nrow(dat),dat$x)
 ggplot(dat,aes(x,y)) + geom_beeswarm(cex=2) + ggtitle('Default (ascending)') + scale_x_continuous(expand=expansion(add=c(0.5,.5)))
 ```
 
-<img src="README_files/figure-gfm/unnamed-chunk-4-1.png" width="576" />
+<img src="README_files/figure-gfm/ggplot2-priority-1.png" width="576" />
 
 ``` r
 ggplot(dat,aes(x,y)) + geom_beeswarm(cex=2,priority='descending') + ggtitle('Descending') + scale_x_continuous(expand=expansion(add=c(0.5,.5)))
 ```
 
-<img src="README_files/figure-gfm/unnamed-chunk-4-2.png" width="576" />
+<img src="README_files/figure-gfm/ggplot2-priority-2.png" width="576" />
 
 ``` r
 ggplot(dat,aes(x,y)) + geom_beeswarm(cex=2,priority='density') + ggtitle('Density') + scale_x_continuous(expand=expansion(add=c(0.5,.5)))
 ```
 
-<img src="README_files/figure-gfm/unnamed-chunk-4-3.png" width="576" />
+<img src="README_files/figure-gfm/ggplot2-priority-3.png" width="576" />
 
 ``` r
 ggplot(dat,aes(x,y)) + geom_beeswarm(cex=2,priority='random') + ggtitle('Random') + scale_x_continuous(expand=expansion(add=c(0.5,.5)))
 ```
 
-<img src="README_files/figure-gfm/unnamed-chunk-4-4.png" width="576" />
+<img src="README_files/figure-gfm/ggplot2-priority-4.png" width="576" />
 
 ------------------------------------------------------------------------
 
