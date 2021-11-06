@@ -9,7 +9,9 @@
 #' @param xRange x axis scale range
 #' @param yRange y axis scale range
 #' @param method Method for arranging points (see Details below)
-#' @param cex Scaling for adjusting point spacing (see \code{\link[beeswarm]{swarmx}})
+#' @param cex Scaling for adjusting point spacing (see \code{\link[beeswarm]{swarmx}}).
+#' Values between 1 and 2 work best for `"swarm"` and between 1 and 1.4 for all other
+#' methods.
 #' @param side Direction to perform jittering: 0: both directions; 
 #' 1: to the right or upwards; -1: to the left or downwards.
 #' @param priority Method used to perform point layout (see Details below)
@@ -36,7 +38,7 @@
 #' square grid, whereas `"hex"` uses a hexagonal grid. `"centre"`/`"center"` 
 #' uses a square grid to produce a symmetric swarm. The number of break points 
 #' for discretisation is determined by a combination of the available plotting 
-#' area and the `spacing` argument.
+#' area and the `cex` argument.
 #' 
 #' **priority:** controls the order in which points are placed, which generally 
 #' has a noticeable effect on the plot appearance. `"ascending"` gives the 
@@ -70,14 +72,14 @@ offset_beeswarm <- function(
       
       # adjust par based on input data
       graphics::par("usr" = c(xLim.expand, yLim),
-                    "mar" = c(1.9, 1.9 , 0.3, 0.3))
+                    "mar" = c(1.9, 0.3, 1.9, 0.3))
       # For explanation of why "mar" (base R plot margin) is altered
       # see https://github.com/csdaw/ggbeeswarm2/issues/1#issuecomment-888376988
       # Note this may cause issues if the user plays around with 
       # ggplot2::theme(plot.margin)
       
-      x.size <- graphics::xinch(0.08, warn.log = FALSE) * cex
-      y.size <- graphics::yinch(0.08, warn.log = FALSE) * cex
+      x.size <- graphics::xinch(0.08, warn.log = FALSE)
+      y.size <- graphics::yinch(0.08, warn.log = FALSE)
     } else {
       # Determine point size as per `ggbeeswarm` CRAN version 0.6.0
       
@@ -104,7 +106,7 @@ offset_beeswarm <- function(
     
     # adjust par based on input data
     graphics::par("usr" = c(xLim.expand, yLim),
-                  "mar" = c(1.9, 1.9 , 0.3, 0.3))
+                  "mar" = c(1.9, 0.3, 1.9, 0.3))
     # For explanation of why "mar" (base R plot margin) is altered
     # see https://github.com/csdaw/ggbeeswarm2/issues/1#issuecomment-888376988
     # Note this may cause issues if the user plays around with 

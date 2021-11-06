@@ -53,7 +53,9 @@ to the paired geom/stat.}
 
 \item{method}{Method for arranging points (see Details below)}
 
-\item{cex}{Scaling for adjusting point spacing (see \code{\link[beeswarm]{swarmx}})}
+\item{cex}{Scaling for adjusting point spacing (see \code{\link[beeswarm]{swarmx}}).
+Values between 1 and 2 work best for `"swarm"` and between 1 and 1.4 for all other
+methods.}
 
 \item{side}{Direction to perform jittering: 0: both directions; 
 1: to the right or upwards; -1: to the left or downwards.}

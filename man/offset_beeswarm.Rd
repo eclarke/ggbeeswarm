@@ -34,7 +34,9 @@ Usually obtained from data processed by ggplot2.}
 
 \item{method}{Method for arranging points (see Details below)}
 
-\item{cex}{Scaling for adjusting point spacing (see \code{\link[beeswarm]{swarmx}})}
+\item{cex}{Scaling for adjusting point spacing (see \code{\link[beeswarm]{swarmx}}).
+Values between 1 and 2 work best for `"swarm"` and between 1 and 1.4 for all other
+methods.}
 
 \item{side}{Direction to perform jittering: 0: both directions; 
 1: to the right or upwards; -1: to the left or downwards.}
@@ -67,7 +69,7 @@ to create more efficient packing. The `"square"` method places points on a
 square grid, whereas `"hex"` uses a hexagonal grid. `"centre"`/`"center"` 
 uses a square grid to produce a symmetric swarm. The number of break points 
 for discretisation is determined by a combination of the available plotting 
-area and the `spacing` argument.
+area and the `cex` argument.
 
 **priority:** controls the order in which points are placed, which generally 
 has a noticeable effect on the plot appearance. `"ascending"` gives the 
