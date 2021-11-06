@@ -35,8 +35,7 @@ Usually obtained from data processed by ggplot2.}
 \item{method}{Method for arranging points (see Details below)}
 
 \item{cex}{Scaling for adjusting point spacing (see \code{\link[beeswarm]{swarmx}}).
-Values between 1 and 2 work best for `"swarm"` and between 1 and 1.4 for all other
-methods.}
+Values between 1 (default) and 3 tend to work best.}
 
 \item{side}{Direction to perform jittering: 0: both directions; 
 1: to the right or upwards; -1: to the left or downwards.}
@@ -44,7 +43,7 @@ methods.}
 \item{priority}{Method used to perform point layout (see Details below)}
 
 \item{fast}{Use compiled version of swarm algorithm? This option is ignored 
-for all methods expect `"swarm"`, `"swarm2"`, and `"compactswarm"`.}
+for all methods expect `"swarm"` and `"compactswarm"`.}
 }
 \description{
 An internal function to calculate new positions for geom_beeswarm
@@ -53,11 +52,9 @@ An internal function to calculate new positions for geom_beeswarm
 **method:** specifies the algorithm used to avoid overlapping points. The 
 default `"swarm"` method places points in increasing order. If a point would
 overlap with an existing point, it is shifted sideways (along the group axis)
-by a minimal amount sufficient to avoid overlap. The `"swarm2"` method is very
-similar to `"swarm"` but more closely follows the method used in the `beeswarm`
-package.
+by a minimal amount sufficient to avoid overlap.
 
-While the `"swarm"` and `"swarm2"` method places points in a predetermined 
+While the `"swarm"` method places points in a predetermined 
 order, the `"compactswarm"` method uses a greedy strategy to determine which 
 point will be placed next. This often leads to a more tightly-packed layout. 
 The strategy is very simple: on each iteration, a point that can be placed as 

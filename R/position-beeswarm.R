@@ -10,23 +10,20 @@
 #' @param yRange y axis scale range
 #' @param method Method for arranging points (see Details below)
 #' @param cex Scaling for adjusting point spacing (see \code{\link[beeswarm]{swarmx}}).
-#' Values between 1 and 2 work best for `"swarm"` and between 1 and 1.4 for all other
-#' methods.
+#' Values between 1 (default) and 3 tend to work best.
 #' @param side Direction to perform jittering: 0: both directions; 
 #' 1: to the right or upwards; -1: to the left or downwards.
 #' @param priority Method used to perform point layout (see Details below)
 #' @param fast Use compiled version of swarm algorithm? This option is ignored 
-#' for all methods expect `"swarm"`, `"swarm2"`, and `"compactswarm"`.
+#' for all methods expect `"swarm"` and `"compactswarm"`.
 #' 
 #' @details 
 #' **method:** specifies the algorithm used to avoid overlapping points. The 
 #' default `"swarm"` method places points in increasing order. If a point would
 #' overlap with an existing point, it is shifted sideways (along the group axis)
-#' by a minimal amount sufficient to avoid overlap. The `"swarm2"` method is very
-#' similar to `"swarm"` but more closely follows the method used in the `beeswarm`
-#' package.
+#' by a minimal amount sufficient to avoid overlap.
 #' 
-#' While the `"swarm"` and `"swarm2"` method places points in a predetermined 
+#' While the `"swarm"` method places points in a predetermined 
 #' order, the `"compactswarm"` method uses a greedy strategy to determine which 
 #' point will be placed next. This often leads to a more tightly-packed layout. 
 #' The strategy is very simple: on each iteration, a point that can be placed as 
@@ -64,30 +61,15 @@ offset_beeswarm <- function(
   priority = "ascending",
   fast = TRUE
 ) {
-  if (method %in% c("swarm", "swarm2", "compactswarm")) {
+  if (method %in% c("swarm", "compactswarm")) {
     ## SWARM METHODS
     
-    if (method %in% c("swarm2", "compactswarm")) {
-      # Determine point size as per `beeswarm` package
-      
-      # adjust par based on input data
-      graphics::par("usr" = c(xLim.expand, yLim),
-                    "mar" = c(1.9, 0.3, 1.9, 0.3))
-      # For explanation of why "mar" (base R plot margin) is altered
-      # see https://github.com/csdaw/ggbeeswarm2/issues/1#issuecomment-888376988
-      # Note this may cause issues if the user plays around with 
-      # ggplot2::theme(plot.margin)
-      
-      x.size <- graphics::xinch(0.08, warn.log = FALSE)
-      y.size <- graphics::yinch(0.08, warn.log = FALSE)
-    } else {
-      # Determine point size as per `ggbeeswarm` CRAN version 0.6.0
-      
-      # divisor is a magic number to get a reasonable baseline
-      # better option would be to figure out point size in user coords
-      x.size <- xRange / 100
-      y.size <- yRange / 100
-    }
+    # Determine point size as per `ggbeeswarm` CRAN version 0.6.0
+    
+    # divisor is a magic number to get a reasonable baseline
+    # better option would be to figure out point size in user coords
+    x.size <- xRange / 100
+    y.size <- yRange / 100
     
     compact <- method == "compactswarm"
     
@@ -102,18 +84,12 @@ offset_beeswarm <- function(
   } else {
     ## NON-SWARM METHODS
     
-    # Determine point size as per `beeswarm` package
+    # Determine point size as per `ggbeeswarm` CRAN version 0.6.0
     
-    # adjust par based on input data
-    graphics::par("usr" = c(xLim.expand, yLim),
-                  "mar" = c(1.9, 0.3, 1.9, 0.3))
-    # For explanation of why "mar" (base R plot margin) is altered
-    # see https://github.com/csdaw/ggbeeswarm2/issues/1#issuecomment-888376988
-    # Note this may cause issues if the user plays around with 
-    # ggplot2::theme(plot.margin)
-    
-    x.size <- graphics::xinch(0.08, warn.log = FALSE) * cex
-    y.size <- graphics::yinch(0.08, warn.log = FALSE) * cex
+    # divisor is a magic number to get a reasonable baseline
+    # better option would be to figure out point size in user coords
+    x.size <- xRange / 100 * cex
+    y.size <- yRange / 100 * cex
     
     # Hex method specific step
     if (method == "hex") y.size <- y.size * sqrt(3) / 2

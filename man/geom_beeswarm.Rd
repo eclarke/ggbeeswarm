@@ -54,8 +54,7 @@ to the paired geom/stat.}
 \item{method}{Method for arranging points (see Details below)}
 
 \item{cex}{Scaling for adjusting point spacing (see \code{\link[beeswarm]{swarmx}}).
-Values between 1 and 2 work best for `"swarm"` and between 1 and 1.4 for all other
-methods.}
+Values between 1 (default) and 3 tend to work best.}
 
 \item{side}{Direction to perform jittering: 0: both directions; 
 1: to the right or upwards; -1: to the left or downwards.}
@@ -63,7 +62,7 @@ methods.}
 \item{priority}{Method used to perform point layout (see Details below)}
 
 \item{fast}{Use compiled version of swarm algorithm? This option is ignored 
-for all methods expect `"swarm"`, `"swarm2"`, and `"compactswarm"`.}
+for all methods expect `"swarm"` and `"compactswarm"`.}
 
 \item{dodge.width}{Amount by which points from different aesthetic groups 
 will be dodged. This requires that one of the aesthetics is a factor.}
