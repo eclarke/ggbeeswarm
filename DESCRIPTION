@@ -22,4 +22,4 @@ Imports:
     vipor
 Suggests:
     gridExtra
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
