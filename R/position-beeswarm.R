@@ -3,9 +3,7 @@
 #' @family position adjustments
 #' @param data A data.frame containing plotting data in columns x and y. 
 #' Usually obtained from data processed by ggplot2.
-#' @param xLim.expand x axis scale limits plus a small expansion using `ggplot2:::expand_range4`
 #' @param yLim.expand y data limits plus a small expansion using `grDevices::extendrange`
-#' @param yLim y axis scale limits
 #' @param xRange x axis scale range
 #' @param yRange y axis scale range
 #' @param method Method for arranging points (see Details below)
@@ -61,9 +59,7 @@
 #' \code{\link[beeswarm]{swarmx}}
 offset_beeswarm <- function(
   data, 
-  xLim.expand,
   yLim.expand,
-  yLim,
   xRange,
   yRange,
   method = "swarm",
@@ -228,15 +224,9 @@ PositionBeeswarm <- ggplot2::ggproto("PositionBeeswarm", Position,
                                        
                                        # get plot limits
                                        if (params$flipped_aes) {
-                                         xLim.expand <- ggplot2:::expand_range4(c(1, length(scales$y$get_limits())), c(0, 0.6))
-                                         yLim <- scales$x$get_limits()
-                                         
                                          xRange <- get_range(scales$y)
                                          yRange <- get_range(scales$x)
                                        } else {
-                                         xLim.expand <- ggplot2:::expand_range4(c(1, length(scales$x$get_limits())), c(0, 0.6))
-                                         yLim <- scales$y$get_limits()
-                                        
                                          xRange <- get_range(scales$x)
                                          yRange <- get_range(scales$y)
                                        }
@@ -260,9 +250,7 @@ PositionBeeswarm <- ggplot2::ggproto("PositionBeeswarm", Position,
                                        data <- lapply(
                                          data,
                                          offset_beeswarm,
-                                         xLim.expand = xLim.expand, 
                                          yLim.expand = params$yLim.expand,
-                                         yLim = yLim,
                                          xRange = xRange,
                                          yRange = yRange,
                                          method = params$method,

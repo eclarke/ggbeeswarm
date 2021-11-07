@@ -6,9 +6,7 @@
 \usage{
 offset_beeswarm(
   data,
-  xLim.expand,
   yLim.expand,
-  yLim,
   xRange,
   yRange,
   method = "swarm",
@@ -24,11 +22,7 @@ offset_beeswarm(
 \item{data}{A data.frame containing plotting data in columns x and y. 
 Usually obtained from data processed by ggplot2.}
 
-\item{xLim.expand}{x axis scale limits plus a small expansion using `ggplot2:::expand_range4`}
-
 \item{yLim.expand}{y data limits plus a small expansion using `grDevices::extendrange`}
-
-\item{yLim}{y axis scale limits}
 
 \item{xRange}{x axis scale range}
 
