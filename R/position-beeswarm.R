@@ -241,12 +241,6 @@ PositionBeeswarm <- ggplot2::ggproto("PositionBeeswarm", Position,
                                          yRange <- get_range(scales$y)
                                        }
                                        
-                                       # capture current par values
-                                       current.usr <- graphics::par("usr")
-                                       current.mar <- graphics::par("mar")
-                                       # on exit return par("usr") to normal
-                                       on.exit(graphics::par("usr" = current.usr, "mar" = current.mar), add = TRUE)
-                                       
                                        data <- ggplot2:::collide(
                                          data,
                                          params$dodge.width,
