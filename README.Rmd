@@ -118,7 +118,6 @@ ggplot(df, aes(x = x, y = y)) + geom_beeswarm(cex = 2.5, method = "square") + gg
 ggplot(df, aes(x = x, y = y)) + geom_beeswarm(cex = 2.5, method = "center") + ggtitle('method = "center"')
 ```
 
-
 #### Different point distribution priority
 
 ```{r ggplot2-priority}
@@ -129,6 +128,24 @@ ggplot(dat,aes(x,y)) + geom_beeswarm(cex=2) + ggtitle('Default (ascending)') + s
 ggplot(dat,aes(x,y)) + geom_beeswarm(cex=2,priority='descending') + ggtitle('Descending') + scale_x_continuous(expand=expansion(add=c(0.5,.5)))
 ggplot(dat,aes(x,y)) + geom_beeswarm(cex=2,priority='density') + ggtitle('Density') + scale_x_continuous(expand=expansion(add=c(0.5,.5)))
 ggplot(dat,aes(x,y)) + geom_beeswarm(cex=2,priority='random') + ggtitle('Random') + scale_x_continuous(expand=expansion(add=c(0.5,.5)))
+```
+
+#### Corral runaway points
+
+```{r ggplot2-corral}
+set.seed(1995)
+df2 <- data.frame(
+  y = rnorm(1000),
+  id = sample(c("G1", "G2", "G3"), size = 1000, replace = TRUE)
+)
+p <- ggplot(df2, aes(x = id, y = y, colour = id))
+
+# use corral.width to control corral width
+p + geom_beeswarm(cex = 2.5, corral = "none", corral.width = 0.9) + ggtitle('corral = "none" (default)')
+p + geom_beeswarm(cex = 2.5, corral = "gutter", corral.width = 0.9) + ggtitle('corral = "gutter"')
+p + geom_beeswarm(cex = 2.5, corral = "wrap", corral.width = 0.9) + ggtitle('corral = "wrap"')
+p + geom_beeswarm(cex = 2.5, corral = "random", corral.width = 0.9) + ggtitle('corral = "random"')
+p + geom_beeswarm(cex = 2.5, corral = "omit", corral.width = 0.9) + ggtitle('corral = "omit"')
 ```
 
 

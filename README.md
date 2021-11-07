@@ -265,6 +265,48 @@ ggplot(dat,aes(x,y)) + geom_beeswarm(cex=2,priority='random') + ggtitle('Random'
 
 <img src="README_files/figure-gfm/ggplot2-priority-4.png" width="576" />
 
+#### Corral runaway points
+
+``` r
+set.seed(1995)
+df2 <- data.frame(
+  y = rnorm(1000),
+  id = sample(c("G1", "G2", "G3"), size = 1000, replace = TRUE)
+)
+p <- ggplot(df2, aes(x = id, y = y, colour = id))
+
+# use corral.width to control corral width
+p + geom_beeswarm(cex = 2.5, corral = "none", corral.width = 0.9) + ggtitle('corral = "none" (default)')
+```
+
+<img src="README_files/figure-gfm/ggplot2-corral-1.png" width="576" />
+
+``` r
+p + geom_beeswarm(cex = 2.5, corral = "gutter", corral.width = 0.9) + ggtitle('corral = "gutter"')
+```
+
+<img src="README_files/figure-gfm/ggplot2-corral-2.png" width="576" />
+
+``` r
+p + geom_beeswarm(cex = 2.5, corral = "wrap", corral.width = 0.9) + ggtitle('corral = "wrap"')
+```
+
+<img src="README_files/figure-gfm/ggplot2-corral-3.png" width="576" />
+
+``` r
+p + geom_beeswarm(cex = 2.5, corral = "random", corral.width = 0.9) + ggtitle('corral = "random"')
+```
+
+<img src="README_files/figure-gfm/ggplot2-corral-4.png" width="576" />
+
+``` r
+p + geom_beeswarm(cex = 2.5, corral = "omit", corral.width = 0.9) + ggtitle('corral = "omit"')
+```
+
+    ## Warning: Removed 303 rows containing missing values (geom_point).
+
+<img src="README_files/figure-gfm/ggplot2-corral-5.png" width="576" />
+
 ------------------------------------------------------------------------
 
 Authors: Erik Clarke, Scott Sherrill-Mix, and Charlotte Dawson
