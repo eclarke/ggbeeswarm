@@ -15,6 +15,8 @@ geom_beeswarm(
   priority = "ascending",
   fast = TRUE,
   dodge.width = NULL,
+  corral = "none",
+  corral.width = 0.9,
   groupOnX = NULL,
   beeswarmArgs = list(),
   na.rm = FALSE,
@@ -66,6 +68,11 @@ for all methods expect `"swarm"` and `"compactswarm"`.}
 
 \item{dodge.width}{Amount by which points from different aesthetic groups 
 will be dodged. This requires that one of the aesthetics is a factor.}
+
+\item{corral}{`string`. Method used to adjust points that would be placed to
+wide horizontally, default is `"none"`. See details below.}
+
+\item{corral.width}{`numeric`. Width of the corral, default is `0.9`.}
 
 \item{groupOnX}{Deprecated.}
 

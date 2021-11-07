@@ -16,6 +16,9 @@
 #' @param priority Method used to perform point layout (see Details below)
 #' @param fast Use compiled version of swarm algorithm? This option is ignored 
 #' for all methods expect `"swarm"` and `"compactswarm"`.
+#' @param corral `string`. Method used to adjust points that would be placed to
+#' wide horizontally, default is `"none"`. See details below.
+#' @param corral.width `numeric`. Width of the corral, default is `0.9`.
 #' 
 #' @details 
 #' **method:** specifies the algorithm used to avoid overlapping points. The 
@@ -43,6 +46,14 @@
 #' prioritizes points with higher local density. `"random"` places points in a 
 #' random order. `"none"` places points in the order provided.
 #' 
+#' **corral:** By default, swarms from different groups are not prevented from
+#' overlapping, i.e. `"corral = "none"`. Thus, datasets that are very large or 
+#' unevenly distributed may produce ugly overlapping beeswarms. To control 
+#' runaway points one can use the following methods. `"gutter"` collects runaway
+#' points along the boundary between groups. `"wrap"` implement periodic boundaries.
+#' `"random"` places runaway points randomly in the region. `"omit"` omits runaway
+#' points.
+#' 
 #' @keywords internal
 #' @export
 #' @importFrom beeswarm swarmx
@@ -59,7 +70,9 @@ offset_beeswarm <- function(
   cex = 1, 
   side = 0L,
   priority = "ascending",
-  fast = TRUE
+  fast = TRUE,
+  corral = "none",
+  corral.width = 0.2
 ) {
   if (method %in% c("swarm", "compactswarm")) {
     ## SWARM METHODS
@@ -109,6 +122,53 @@ offset_beeswarm <- function(
     x.offset <- x.index * x.size
   }
   
+  ## CORRAL RUNAWAY POINTS
+  if (corral != "none") {
+    corral.low <- (side - 1) * corral.width / 2
+    corral.high <- (side + 1) * corral.width / 2
+    
+    if (corral == "gutter") {
+      x.offset <- sapply(
+        x.offset, 
+        function(zz) pmin(corral.high, pmax(corral.low, zz))
+      )
+    }
+    if (corral == "wrap") {
+      if (side == -1L) {
+        # special case with side=-1: reverse the corral to avoid artefacts at zero
+        x.offset <- sapply(
+          x.offset, 
+          function(zz) corral.high - ((corral.high - zz) %% corral.width)
+        )
+      } else {
+        x.offset <- sapply(
+          x.offset, 
+          function(zz) ((zz - corral.low) %% corral.width) + corral.low
+        )
+      }
+    }
+    if (corral == 'random') {
+      x.offset <- sapply(
+        x.offset, 
+        function(zz) ifelse(
+          zz > corral.high | zz < corral.low, 
+          yes = stats::runif(length(zz), corral.low, corral.high), 
+          no = zz
+        )
+      )
+    }
+    if (corral == 'omit') {
+      x.offset <- sapply(
+        x.offset, 
+        function(zz) ifelse(
+          zz > corral.high | zz < corral.low, 
+          yes = NA, 
+          no = zz
+        )
+      )
+    }
+  }
+  
   data$x <- data$x + x.offset
   return(data)
 }
@@ -120,7 +180,9 @@ position_beeswarm <- function(
   priority = "ascending",
   fast = TRUE,
   groupOnX = NULL, 
-  dodge.width = 0
+  dodge.width = 0,
+  corral = "none",
+  corral.width = 0.2
 ) {
   if (!missing(groupOnX)) warning("The `groupOnX` argument of `position_beeswarm` is deprecated as of ggbeeswarm 0.7.0.9000.")
   
@@ -132,7 +194,9 @@ position_beeswarm <- function(
           side = side,
           priority = priority,
           fast = fast,
-          dodge.width = dodge.width
+          dodge.width = dodge.width,
+          corral = corral,
+          corral.width = corral.width
   )
 }
 
@@ -153,6 +217,8 @@ PositionBeeswarm <- ggplot2::ggproto("PositionBeeswarm", Position,
                                          priority = self$priority,
                                          fast = self$fast,
                                          dodge.width = self$dodge.width,
+                                         corral = self$corral,
+                                         corral.width = self$corral.width,
                                          yLim.expand = yLim.expand,
                                          flipped_aes = flipped_aes 
                                        )
@@ -209,7 +275,9 @@ PositionBeeswarm <- ggplot2::ggproto("PositionBeeswarm", Position,
                                          cex = params$cex,
                                          side = params$side,
                                          priority = params$priority,
-                                         fast = params$fast
+                                         fast = params$fast,
+                                         corral = params$corral,
+                                         corral.width = params$corral.width
                                        )
                                        
                                        # recombine list of data.frames into one

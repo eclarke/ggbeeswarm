@@ -15,7 +15,9 @@ offset_beeswarm(
   cex = 1,
   side = 0L,
   priority = "ascending",
-  fast = TRUE
+  fast = TRUE,
+  corral = "none",
+  corral.width = 0.2
 )
 }
 \arguments{
@@ -44,6 +46,11 @@ Values between 1 (default) and 3 tend to work best.}
 
 \item{fast}{Use compiled version of swarm algorithm? This option is ignored 
 for all methods expect `"swarm"` and `"compactswarm"`.}
+
+\item{corral}{`string`. Method used to adjust points that would be placed to
+wide horizontally, default is `"none"`. See details below.}
+
+\item{corral.width}{`numeric`. Width of the corral, default is `0.9`.}
 }
 \description{
 An internal function to calculate new positions for geom_beeswarm
@@ -73,6 +80,14 @@ has a noticeable effect on the plot appearance. `"ascending"` gives the
 'traditional' beeswarm plot. `"descending"` is the opposite. `"density"` 
 prioritizes points with higher local density. `"random"` places points in a 
 random order. `"none"` places points in the order provided.
+
+**corral:** By default, swarms from different groups are not prevented from
+overlapping, i.e. `"corral = "none"`. Thus, datasets that are very large or 
+unevenly distributed may produce ugly overlapping beeswarms. To control 
+runaway points one can use the following methods. `"gutter"` collects runaway
+points along the boundary between groups. `"wrap"` implement periodic boundaries.
+`"random"` places runaway points randomly in the region. `"omit"` omits runaway
+points.
 }
 \seealso{
 \code{\link{geom_beeswarm}}, \code{\link{position_quasirandom}}, 
