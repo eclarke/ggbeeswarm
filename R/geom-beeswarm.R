@@ -38,10 +38,13 @@ geom_beeswarm <- function(
   stat = 'identity',
   ...,
   method = "swarm",
-  cex = 0.8,
+  cex = 1,
   side = 0L,
   priority = "ascending",
+  fast = TRUE,
   dodge.width = NULL,
+  corral = "none",
+  corral.width = 0.9,
   groupOnX = NULL,
   beeswarmArgs = list(),
   na.rm = FALSE,
@@ -51,13 +54,22 @@ geom_beeswarm <- function(
   
   if (!missing(groupOnX)) warning("The `groupOnX` argument of `geom_beeswarm` is deprecated as of ggbeeswarm 0.7.0.9000.")
   if (!missing(beeswarmArgs)) warning("The `beeswarmArgs` argument of `geom_beeswarm` is deprecated as of ggbeeswarm 0.7.0.9000.")
+  if (!method %in% c("swarm", "compactswarm", "hex", "square", "centre", "center")) {
+    stop(sprintf("The method must be one of: swarm, scompactswarm, hex, square, center, or centre."))
+  }
+  if (!corral %in% c("none", "gutter", "wrap", "random", "omit")) {
+    stop(sprintf("The corral argument must be one of: none, gutter, wrap, random, or omit."))
+  }
   
   position <- position_beeswarm(
     method = method,
     cex = cex,
     side = side,
     priority = priority,
-    dodge.width = dodge.width
+    fast = fast,
+    dodge.width = dodge.width,
+    corral = corral,
+    corral.width = corral.width
   )
   
   layer(

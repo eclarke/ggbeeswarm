@@ -10,10 +10,13 @@ geom_beeswarm(
   stat = "identity",
   ...,
   method = "swarm",
-  cex = 0.8,
+  cex = 1,
   side = 0L,
   priority = "ascending",
+  fast = TRUE,
   dodge.width = NULL,
+  corral = "none",
+  corral.width = 0.9,
   groupOnX = NULL,
   beeswarmArgs = list(),
   na.rm = FALSE,
@@ -50,17 +53,26 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{method}{Method for arranging points (see Details of \code{\link[beeswarm]{beeswarm}})}
+\item{method}{Method for arranging points (see Details below)}
 
-\item{cex}{Scaling for adjusting point spacing (see \code{\link[beeswarm]{swarmx}})}
+\item{cex}{Scaling for adjusting point spacing (see \code{\link[beeswarm]{swarmx}}).
+Values between 1 (default) and 3 tend to work best.}
 
 \item{side}{Direction to perform jittering: 0: both directions; 
 1: to the right or upwards; -1: to the left or downwards.}
 
-\item{priority}{Method used to perform point layout (see \code{\link{swarmx}})}
+\item{priority}{Method used to perform point layout (see Details below)}
+
+\item{fast}{Use compiled version of swarm algorithm? This option is ignored 
+for all methods expect `"swarm"` and `"compactswarm"`.}
 
 \item{dodge.width}{Amount by which points from different aesthetic groups 
 will be dodged. This requires that one of the aesthetics is a factor.}
+
+\item{corral}{`string`. Method used to adjust points that would be placed to
+wide horizontally, default is `"none"`. See details below.}
+
+\item{corral.width}{`numeric`. Width of the corral, default is `0.9`.}
 
 \item{groupOnX}{Deprecated.}
 

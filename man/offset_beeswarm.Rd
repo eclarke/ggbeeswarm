@@ -6,39 +6,82 @@
 \usage{
 offset_beeswarm(
   data,
-  yRange,
-  xRange.expand,
-  yRange.expand,
   yLim.expand,
+  xRange,
+  yRange,
   method = "swarm",
   cex = 1,
   side = 0L,
-  priority = "ascending"
+  priority = "ascending",
+  fast = TRUE,
+  corral = "none",
+  corral.width = 0.2
 )
 }
 \arguments{
 \item{data}{A data.frame containing plotting data in columns x and y. 
 Usually obtained from data processed by ggplot2.}
 
-\item{yRange}{y axis limits}
+\item{yLim.expand}{y data limits plus a small expansion using `grDevices::extendrange`}
 
-\item{xRange.expand}{x axis limits plus small expansion}
+\item{xRange}{x axis scale range}
 
-\item{yRange.expand}{y axis limits plus small expansion}
+\item{yRange}{y axis scale range}
 
-\item{yLim.expand}{y data range plus small expansion}
+\item{method}{Method for arranging points (see Details below)}
 
-\item{method}{Method for arranging points (see Details of \code{\link[beeswarm]{beeswarm}})}
-
-\item{cex}{Scaling for adjusting point spacing (see \code{\link[beeswarm]{swarmx}})}
+\item{cex}{Scaling for adjusting point spacing (see \code{\link[beeswarm]{swarmx}}).
+Values between 1 (default) and 3 tend to work best.}
 
 \item{side}{Direction to perform jittering: 0: both directions; 
 1: to the right or upwards; -1: to the left or downwards.}
 
-\item{priority}{Method used to perform point layout (see \code{\link{swarmx}})}
+\item{priority}{Method used to perform point layout (see Details below)}
+
+\item{fast}{Use compiled version of swarm algorithm? This option is ignored 
+for all methods expect `"swarm"` and `"compactswarm"`.}
+
+\item{corral}{`string`. Method used to adjust points that would be placed to
+wide horizontally, default is `"none"`. See details below.}
+
+\item{corral.width}{`numeric`. Width of the corral, default is `0.9`.}
 }
 \description{
 An internal function to calculate new positions for geom_beeswarm
+}
+\details{
+**method:** specifies the algorithm used to avoid overlapping points. The 
+default `"swarm"` method places points in increasing order. If a point would
+overlap with an existing point, it is shifted sideways (along the group axis)
+by a minimal amount sufficient to avoid overlap.
+
+While the `"swarm"` method places points in a predetermined 
+order, the `"compactswarm"` method uses a greedy strategy to determine which 
+point will be placed next. This often leads to a more tightly-packed layout. 
+The strategy is very simple: on each iteration, a point that can be placed as 
+close as possible to the non-data axis is chosen and placed. If there are two 
+or more equally good points, `priority` is used to break ties.
+
+The other 3 methods first discretise the values along the data axis, in order
+to create more efficient packing. The `"square"` method places points on a 
+square grid, whereas `"hex"` uses a hexagonal grid. `"centre"`/`"center"` 
+uses a square grid to produce a symmetric swarm. The number of break points 
+for discretisation is determined by a combination of the available plotting 
+area and the `cex` argument.
+
+**priority:** controls the order in which points are placed, which generally 
+has a noticeable effect on the plot appearance. `"ascending"` gives the 
+'traditional' beeswarm plot. `"descending"` is the opposite. `"density"` 
+prioritizes points with higher local density. `"random"` places points in a 
+random order. `"none"` places points in the order provided.
+
+**corral:** By default, swarms from different groups are not prevented from
+overlapping, i.e. `"corral = "none"`. Thus, datasets that are very large or 
+unevenly distributed may produce ugly overlapping beeswarms. To control 
+runaway points one can use the following methods. `"gutter"` collects runaway
+points along the boundary between groups. `"wrap"` implement periodic boundaries.
+`"random"` places runaway points randomly in the region. `"omit"` omits runaway
+points.
 }
 \seealso{
 \code{\link{geom_beeswarm}}, \code{\link{position_quasirandom}}, 
