@@ -103,7 +103,7 @@ to reduce overplotting. Uses the vipor package
   ggplot2::ggplot(distro,aes(variable, value)) + geom_quasirandom(width=0.1)
 }
 \seealso{
-\code{\link[vipor]{offsetSinglePoint}} how spacing is determined,
+\code{\link[vipor]{offsetSingleGroup}} how spacing is determined,
  \code{\link[ggplot2]{geom_point}} for regular, unjittered points,
  \code{\link[ggplot2]{geom_jitter}} for jittered points,
  \code{\link{geom_boxplot}} for another way of looking at the conditional

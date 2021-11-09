@@ -10,7 +10,7 @@
 #' @inheritParams position_quasirandom
 #' @import ggplot2
 #' @seealso
-#'  \code{\link[vipor]{offsetSinglePoint}} how spacing is determined,
+#'  \code{\link[vipor]{offsetSingleGroup}} how spacing is determined,
 #'  \code{\link[ggplot2]{geom_point}} for regular, unjittered points,
 #'  \code{\link[ggplot2]{geom_jitter}} for jittered points,
 #'  \code{\link{geom_boxplot}} for another way of looking at the conditional
@@ -42,6 +42,9 @@ geom_quasirandom <- function(
   inherit.aes = TRUE
 ) {
   if (!missing(groupOnX)) warning("The `groupOnX` argument of `geom_quasirandom` is deprecated as of ggbeeswarm 0.7.0.9000.")
+  if (!method %in% c("quasirandom", "pseudorandom", "smiley", "maxout", "frowney", "minout", "tukey", "tukeyDense")) {
+    stop(sprintf("The method must be one of: quasirandom, pseudorandom, smiley, maxout, frowney, minout, tukey, or tukeyDense."))
+  }
   
   position <- position_quasirandom(
     method = method,

@@ -2,7 +2,7 @@
 #' 
 #' @family position adjustments
 #' @param method the method used for distributing points
-#' (quasirandom, pseudorandom, smiley, frowney, tukey, or tukeyDense).
+#' (quasirandom, pseudorandom, smiley, maxout, frowney, minout, tukey, tukeyDense).
 #' See \code{\link[vipor]{offsetSingleGroup}} for the details of each method.
 #' @param width the maximum amount of spread (default: 0.4)
 #' @param varwidth vary the width by the relative size of each group
