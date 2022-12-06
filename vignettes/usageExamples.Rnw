@@ -7,10 +7,10 @@ packageInfo <- packageDescription("ggbeeswarm")
 library(ggbeeswarm)
 packageKeywords<-"visualization, display, one dimensional, grouped, groups, violin, scatter, points, quasirandom, beeswarm, van der Corput, beeswarm, ggplot, ggplot2"
 @
-%\VignetteIndexEntry{vipor package usage examples}
+%\VignetteIndexEntry{ggbeeswarm package usage examples}
 %\VignetteDepends{}
 %\VignetteKeywords{visualization, display, one dimensional, grouped, groups, violin, scatter, points, quasirandom, beeswarm, van der Corput, beeswarm, ggplot, ggplot2}
-%\VignettePackage{vipor}
+%\VignettePackage{ggbeeswarm}
 
 \title{\pkg{\Sexpr{packageInfo$Package}} package usage example (version \Sexpr{packageInfo$Version})}
 \author{\Sexpr{packageInfo$Author}}
