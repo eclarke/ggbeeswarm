@@ -16,7 +16,7 @@ position_quasirandom(
 }
 \arguments{
 \item{method}{the method used for distributing points
-(quasirandom, pseudorandom, smiley, frowney, tukey, or tukeyDense).
+(quasirandom, pseudorandom, smiley, maxout, frowney, minout, tukey, tukeyDense).
 See \code{\link[vipor]{offsetSingleGroup}} for the details of each method.}
 
 \item{width}{the maximum amount of spread (default: 0.4)}

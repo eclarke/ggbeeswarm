@@ -43,7 +43,9 @@ will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{stat}{The statistical transformation to use on the data for this
-layer, as a string.}
+layer, either as a \code{ggproto} \code{Geom} subclass or as a string naming the
+stat stripped of the \code{stat_} prefix (e.g. \code{"count"} rather than
+\code{"stat_count"})}
 
 \item{...}{Other arguments passed on to \code{\link[ggplot2:layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
@@ -51,7 +53,7 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 to the paired geom/stat.}
 
 \item{method}{the method used for distributing points
-(quasirandom, pseudorandom, smiley, frowney, tukey, or tukeyDense).
+(quasirandom, pseudorandom, smiley, maxout, frowney, minout, tukey, tukeyDense).
 See \code{\link[vipor]{offsetSingleGroup}} for the details of each method.}
 
 \item{width}{the maximum amount of spread (default: 0.4)}
@@ -67,23 +69,7 @@ Smaller numbers (< 1) produce a tighter "fit". (default: 0.5)}
 \item{dodge.width}{Amount by which points from different aesthetic groups 
 will be dodged. This requires that one of the aesthetics is a factor.}
 
-<<<<<<< HEAD
-\item{groupOnX}{if TRUE then jitter is added to the x axis and if FALSE jitter is added to the y axis. Prior to v0.6.0, the default NULL causes the function to guess which axis is the categorical one based on the number of unique entries in each. This could result in unexpected results when the x variable has few unique values and so in v0.6.0 the default was changed to always jitter on the x axis unless groupOnX=FALSE. Also consider \code{\link[ggplot2]{coord_flip}}.}
-
-\item{dodge.width}{Amount by which points from different aesthetic groups will be dodged. This requires that one of the aesthetics is a factor.}
-
-\item{stat}{The statistical transformation to use on the data for this
-layer, either as a \code{ggproto} \code{Geom} subclass or as a string naming the
-stat stripped of the \code{stat_} prefix (e.g. \code{"count"} rather than
-\code{"stat_count"})}
-
-\item{position}{Position adjustment, either as a string naming the adjustment
-(e.g. \code{"jitter"} to use \code{position_jitter}), or the result of a call to a
-position adjustment function. Use the latter if you need to change the
-settings of the adjustment.}
-=======
 \item{groupOnX}{Deprecated.}
->>>>>>> 9660440f9a2a2b09c68e9301097af8a440718199
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
