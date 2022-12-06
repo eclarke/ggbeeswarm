@@ -1,6 +1,7 @@
 #' Points, jittered to reduce overplotting using the vipor package
 #'
-#' The quasirandom geom is a convenient means to offset points within categories to reduce overplotting. Uses the vipor package
+#' The quasirandom geom is a convenient means to offset points within categories 
+#' to reduce overplotting. Uses the vipor package
 #'
 #' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "point")}
@@ -9,7 +10,7 @@
 #' @inheritParams position_quasirandom
 #' @import ggplot2
 #' @seealso
-#'  \code{\link[vipor]{offsetX}} how spacing is determined,
+#'  \code{\link[vipor]{offsetSingleGroup}} how spacing is determined,
 #'  \code{\link[ggplot2]{geom_point}} for regular, unjittered points,
 #'  \code{\link[ggplot2]{geom_jitter}} for jittered points,
 #'  \code{\link{geom_boxplot}} for another way of looking at the conditional
@@ -27,27 +28,38 @@
 geom_quasirandom <- function(
   mapping = NULL,
   data = NULL,
+  stat = 'identity',
+  ...,
+  method = 'quasirandom',
   width = NULL,
   varwidth = FALSE,
-  bandwidth=.5,
-  nbins=NULL,
-  method='quasirandom',
-  groupOnX=NULL,
-  dodge.width=0,
-  stat='identity',
-  position = "quasirandom",
+  bandwidth = .5,
+  nbins = NULL,
+  dodge.width = 0,
+  groupOnX = NULL,
   na.rm = FALSE,
   show.legend = NA,
-  inherit.aes = TRUE,
-  ...
+  inherit.aes = TRUE
 ) {
-  position <- position_quasirandom(width = width, varwidth = varwidth, bandwidth=bandwidth,nbins=nbins,method=method,groupOnX=groupOnX,dodge.width=dodge.width)
-
+  if (!missing(groupOnX)) warning("The `groupOnX` argument of `geom_quasirandom` is deprecated as of ggbeeswarm 0.7.0.9000.")
+  if (!method %in% c("quasirandom", "pseudorandom", "smiley", "maxout", "frowney", "minout", "tukey", "tukeyDense")) {
+    stop(sprintf("The method must be one of: quasirandom, pseudorandom, smiley, maxout, frowney, minout, tukey, or tukeyDense."))
+  }
+  
+  position <- position_quasirandom(
+    method = method,
+    width = width, 
+    varwidth = varwidth, 
+    bandwidth = bandwidth,
+    nbins = nbins,
+    dodge.width = dodge.width
+  )
+  
   ggplot2::layer(
     data = data,
     mapping = mapping,
     stat = stat,
-    geom = ggplot2::GeomPoint,
+    geom = GeomPoint,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
