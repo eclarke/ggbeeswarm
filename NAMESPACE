@@ -2,7 +2,7 @@
 
 export(geom_beeswarm)
 export(geom_quasirandom)
-export(offset_beeswarm)
+export(position_beeswarm)
 export(position_quasirandom)
 import(ggplot2)
 importFrom(beeswarm,swarmx)

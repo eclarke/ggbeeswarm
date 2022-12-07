@@ -41,6 +41,7 @@ Arrange points using quasirandom noise to avoid overplotting
 \code{\link[vipor]{offsetSingleGroup}}, \code{\link{geom_quasirandom}}
 
 Other position adjustments: 
-\code{\link{offset_beeswarm}()}
+\code{\link{offset_beeswarm}()},
+\code{\link{position_beeswarm}()}
 }
 \concept{position adjustments}
