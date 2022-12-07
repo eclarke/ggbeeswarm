@@ -1,0 +1,36 @@
+---
+editor_options: 
+  markdown: 
+    wrap: 80
+---
+
+# ggbeeswarm
+
+## v0.7.1
+
+This release incorporates all the incredible work done by @csdaw to refactor the
+various geom and position functions, fix outstanding issues, and remove
+dependencies on deprecated ggplot2 functions like `qplot`.
+
+This version will be on CRAN.
+
+**New features:**
+
+-   Can now use new features from the `beeswarm` package, including compact
+    swarms and 'corralling' points in overlapping groups.
+-   Updated examples and documentation.
+
+**Changes:**
+
+-   The `groupOnX` argument is deprecated. `ggplot2` now has logic to determine
+    when a plot is 'flipped' automatically so this argument is no longer
+    necessary.
+-   The `beeswarmArgs` argument is deprecated as its arguments are now called in
+    `geom_beeswarm` directly.
+-   `position_beeswarm` is once again an exported function.
+-   Examples and documentation no longer use `ggplot2::qplot` as it has been
+    hard- deprecated in `ggplot2`
+
+**Bugfixes:**
+
+Too many to summarize here.
