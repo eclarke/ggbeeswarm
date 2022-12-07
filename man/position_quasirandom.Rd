@@ -11,7 +11,8 @@ position_quasirandom(
   bandwidth = 0.5,
   nbins = NULL,
   dodge.width = 0,
-  groupOnX = NULL
+  groupOnX = NULL,
+  na.rm = FALSE
 )
 }
 \arguments{
@@ -33,6 +34,9 @@ Smaller numbers (< 1) produce a tighter "fit". (default: 0.5)}
 will be dodged. This requires that one of the aesthetics is a factor.}
 
 \item{groupOnX}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} No longer needed.}
+
+\item{na.rm}{if FALSE, the default, missing values are removed with a warning.
+If TRUE, missing values are silently removed.}
 }
 \description{
 Arrange points using quasirandom noise to avoid overplotting

@@ -12,6 +12,8 @@
 #' (has little effect with quasirandom/random distribution)
 #' @param dodge.width Amount by which points from different aesthetic groups 
 #' will be dodged. This requires that one of the aesthetics is a factor.
+#' @param na.rm if FALSE, the default, missing values are removed with a warning.
+#' If TRUE, missing values are silently removed.
 #' @param groupOnX `r lifecycle::badge("deprecated")` No longer needed.
 #' @importFrom vipor offsetSingleGroup
 #' @export
@@ -23,7 +25,8 @@ position_quasirandom <- function(
   bandwidth = .5,
   nbins = NULL,
   dodge.width = 0,
-  groupOnX = NULL
+  groupOnX = NULL,
+  na.rm = FALSE
 ) {
   
   
@@ -40,7 +43,8 @@ position_quasirandom <- function(
           bandwidth = bandwidth,
           nbins = nbins,
           method = method,
-          dodge.width = dodge.width
+          dodge.width = dodge.width,
+          na.rm = na.rm
   )
 }
 
@@ -62,20 +66,22 @@ PositionQuasirandom <- ggplot2::ggproto("PositionQuasirandom", Position,
                                             method = self$method,
                                             # groupOnX = self$groupOnX, deprecated
                                             dodge.width = self$dodge.width,
+                                            na.rm = self$na.rm,
                                             max.length = max.length,
                                             flipped_aes = flipped_aes
                                           )
                                         },
                                         
                                         compute_panel = function(data, params, scales) {
+                                          data <- ggplot2::remove_missing(data, na.rm = params$na.rm)
                                           data <- flip_data(data, params$flipped_aes)
                                           
                                           # perform dodging if necessary
                                           data <- ggplot2:::collide(
                                             data,
                                             params$dodge.width,
-                                            "position_quasirandom",
-                                            ggplot2:::pos_dodge,
+                                            name = "position_quasirandom",
+                                            strategy = ggplot2:::pos_dodge,
                                             check.width = FALSE
                                           )
                                           
@@ -117,8 +123,14 @@ offset_quasirandom <- function(
   width = 0.4, 
   vary.width = FALSE,
   max.length = NULL,
+  na.rm = FALSE,
   ...
 ) {
+  if (any(is.na(data$y))) {
+    if (na.rm) {
+      
+    }
+  }
   x.offset <- vipor::aveWithArgs(
     data$y, data$x,
     FUN = vipor::offsetSingleGroup,

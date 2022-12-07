@@ -57,7 +57,8 @@ geom_quasirandom <- function(
     varwidth = varwidth, 
     bandwidth = bandwidth,
     nbins = nbins,
-    dodge.width = dodge.width
+    dodge.width = dodge.width,
+    na.rm = na.rm
   )
   
   ggplot2::layer(
