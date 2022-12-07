@@ -8,3 +8,4 @@ cran-comments.md
 ^\.travis\.yml$
 ^revdep.*$
 ^LICENSE\.md$
+^CRAN-SUBMISSION$

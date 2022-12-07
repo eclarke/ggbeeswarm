@@ -30,6 +30,9 @@ This version will be on CRAN.
 -   `position_beeswarm` is once again an exported function.
 -   Examples and documentation no longer use `ggplot2::qplot` as it has been
     hard- deprecated in `ggplot2`
+-   The license has been clarified to be GPL-3, not GPL \>= 2.
+-   Minimum R and `ggplot2` versions have changed to 3.5.0 and 3.3.0,
+    respectively.
 
 **Bugfixes:**
 
