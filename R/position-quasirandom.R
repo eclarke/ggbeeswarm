@@ -3,7 +3,7 @@
 #' @family position adjustments
 #' @param method the method used for distributing points
 #' (quasirandom, pseudorandom, smiley, maxout, frowney, minout, tukey, tukeyDense).
-#' See \code{\link[vipor]{offsetSingleGroup}} for the details of each method.
+#' See [vipor::offsetSingleGroup()] for the details of each method.
 #' @param width the maximum amount of spread (default: 0.4)
 #' @param varwidth vary the width by the relative size of each group
 #' @param bandwidth the bandwidth adjustment to use when calculating density
@@ -12,10 +12,10 @@
 #' (has little effect with quasirandom/random distribution)
 #' @param dodge.width Amount by which points from different aesthetic groups 
 #' will be dodged. This requires that one of the aesthetics is a factor.
-#' @param groupOnX Deprecated.
+#' @param groupOnX `r lifecycle::badge("deprecated")` No longer needed.
 #' @importFrom vipor offsetSingleGroup
 #' @export
-#' @seealso \code{\link[vipor]{offsetSingleGroup}}, \code{\link{geom_quasirandom}}
+#' @seealso [vipor::offsetSingleGroup()], [geom_quasirandom()]
 position_quasirandom <- function(
   method = 'quasirandom',
   width = NULL, 
@@ -25,7 +25,14 @@ position_quasirandom <- function(
   dodge.width = 0,
   groupOnX = NULL
 ) {
-  if (!missing(groupOnX)) warning("The `groupOnX` argument of `position_quasirandom` is deprecated as of ggbeeswarm 0.7.0.9000.")
+  
+  
+  if (!missing(groupOnX)) {
+    lifecycle::deprecate_soft(
+      when = "0.7.1", what = "position_quasirandom(groupOnX)", 
+      details='ggplot2 now handles this case automatically.'
+    )
+  }
   
   ggproto(NULL, PositionQuasirandom, 
           width = width, 

@@ -7,7 +7,7 @@
 #' @param xRange x axis scale range
 #' @param yRange y axis scale range
 #' @param method Method for arranging points (see Details below)
-#' @param cex Scaling for adjusting point spacing (see \code{\link[beeswarm]{swarmx}}).
+#' @param cex Scaling for adjusting point spacing (see [beeswarm::swarmx()]).
 #' Values between 1 (default) and 3 tend to work best.
 #' @param side Direction to perform jittering: 0: both directions; 
 #' 1: to the right or upwards; -1: to the left or downwards.
@@ -54,8 +54,8 @@
 #' 
 #' @keywords internal
 #' @importFrom beeswarm swarmx
-#' @seealso \code{\link{geom_beeswarm}}, \code{\link{position_quasirandom}}, 
-#' \code{\link[beeswarm]{swarmx}}
+#' @seealso [geom_beeswarm()], [position_quasirandom()], 
+#' [beeswarm::swarmx()]
 offset_beeswarm <- function(
   data, 
   yLim.expand,
@@ -168,21 +168,24 @@ offset_beeswarm <- function(
   return(data)
 }
 
-#' Arrange points using the \code{\link[beeswarm]} package.
+#' Arrange points using the `\link[beeswarm]` package.
 #' 
 #' @family position adjustments
 #' @param method Method for arranging points (see Details below)
-#' @param cex Scaling for adjusting point spacing (see \code{\link[beeswarm]{swarmx}}).
+#' @param cex Scaling for adjusting point spacing (see [beeswarm::swarmx()]).
 #' Values between 1 (default) and 3 tend to work best.
 #' @param side Direction to perform jittering: 0: both directions; 
 #' 1: to the right or upwards; -1: to the left or downwards.
 #' @param priority Method used to perform point layout (see Details below)
 #' @param fast Use compiled version of swarm algorithm? This option is ignored 
 #' for all methods expect `"swarm"` and `"compactswarm"`.
+#' @param dodge.width Amount by which points from different aesthetic groups 
+#' will be dodged. This requires that one of the aesthetics is a factor.
 #' @param corral `string`. Method used to adjust points that would be placed to
 #' wide horizontally, default is `"none"`. See details below.
 #' @param corral.width `numeric`. Width of the corral, default is `0.9`.
-#' 
+#' @param groupOnX `r lifecycle::badge("deprecated")` No longer needed.
+
 #' @details 
 #' **method:** specifies the algorithm used to avoid overlapping points. The 
 #' default `"swarm"` method places points in increasing order. If a point would
@@ -217,10 +220,11 @@ offset_beeswarm <- function(
 #' `"random"` places runaway points randomly in the region. `"omit"` omits runaway
 #' points.
 #' 
+#' 
 #' @export
 #' @importFrom beeswarm swarmx
-#' @seealso \code{\link{geom_beeswarm}}, \code{\link{position_quasirandom}}, 
-#' \code{\link[beeswarm]{swarmx}}
+#' @seealso [geom_beeswarm()], [position_quasirandom()], 
+#' [beeswarm::swarmx()]
 position_beeswarm <- function(
   method = "swarm",
   cex = 1,
@@ -232,8 +236,13 @@ position_beeswarm <- function(
   corral = "none",
   corral.width = 0.2
 ) {
-  if (!missing(groupOnX)) warning("The `groupOnX` argument of `position_beeswarm` is deprecated as of ggbeeswarm 0.7.0.9000.")
   
+  if (!missing(groupOnX)) {
+    lifecycle::deprecate_soft(
+      when = "0.7.1", what = "position_beeswarm(groupOnX)", 
+      details='ggplot2 now handles this case automatically.'
+    )
+  }  
   if (method == "centre") method <- "center"
   
   ggproto(NULL, PositionBeeswarm, 

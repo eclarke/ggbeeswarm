@@ -10,15 +10,15 @@
 #' @inheritParams offset_beeswarm
 #' @param dodge.width Amount by which points from different aesthetic groups 
 #' will be dodged. This requires that one of the aesthetics is a factor.
-#' @param groupOnX Deprecated.
-#' @param beeswarmArgs Deprecated.
+#' @param groupOnX `r lifecycle::badge("deprecated")` No longer needed.
+#' @param beeswarmArgs `r lifecycle::badge("deprecated")` No longer used.
 #' @import ggplot2
 #' @seealso
-#'  \code{\link{geom_quasirandom}} an alternative method,
-#'  \code{\link[beeswarm]{swarmx}} how spacing is determined,
-#'  \code{\link[ggplot2]{geom_point}} for regular, unjittered points,
-#'  \code{\link[ggplot2]{geom_jitter}} for jittered points,
-#'  \code{\link[ggplot2]{geom_boxplot}} for another way of looking at the conditional
+#'  [geom_quasirandom()] an alternative method,
+#'  [beeswarm::swarmx()] how spacing is determined,
+#'  [ggplot2::geom_point()] for regular, unjittered points,
+#'  [ggplot2::geom_jitter()] for jittered points,
+#'  [ggplot2::geom_boxplot()] for another way of looking at the conditional
 #'     distribution of a variable
 #' @export
 #' @examples
@@ -52,8 +52,19 @@ geom_beeswarm <- function(
   inherit.aes = TRUE
 ) {
   
-  if (!missing(groupOnX)) warning("The `groupOnX` argument of `geom_beeswarm` is deprecated as of ggbeeswarm 0.7.0.9000.")
-  if (!missing(beeswarmArgs)) warning("The `beeswarmArgs` argument of `geom_beeswarm` is deprecated as of ggbeeswarm 0.7.0.9000.")
+  if (!missing(groupOnX)) {
+    lifecycle::deprecate_soft(
+      when = "0.7.1", what = "geom_beeswarm(groupOnX)", 
+      details='ggplot2 now handles this case automatically.'
+    )
+  }
+  
+  if (!missing(beeswarmArgs)) {
+    lifecycle::deprecate_soft(
+      when = "0.7.1", what = "geom_beeswarm(beeswarmArgs)"
+    )
+  }
+
   if (!method %in% c("swarm", "compactswarm", "hex", "square", "centre", "center")) {
     stop(sprintf("The method must be one of: swarm, compactswarm, hex, square, center, or centre."))
   }

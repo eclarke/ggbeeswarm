@@ -6,3 +6,4 @@ packrat/src/
 README.html
 *.Rcheck
 .Rproj.user
+revdep*

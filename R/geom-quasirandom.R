@@ -10,10 +10,10 @@
 #' @inheritParams position_quasirandom
 #' @import ggplot2
 #' @seealso
-#'  \code{\link[vipor]{offsetSingleGroup}} how spacing is determined,
-#'  \code{\link[ggplot2]{geom_point}} for regular, unjittered points,
-#'  \code{\link[ggplot2]{geom_jitter}} for jittered points,
-#'  \code{\link{geom_boxplot}} for another way of looking at the conditional
+#'  [vipor::offsetSingleGroup()] how spacing is determined,
+#'  [ggplot2::geom_point()] for regular, unjittered points,
+#'  [ggplot2::geom_jitter()] for jittered points,
+#'  [geom_boxplot()] for another way of looking at the conditional
 #'     distribution of a variable
 #' @examples
 #'   ggplot2::qplot(class, hwy, data = ggplot2::mpg, geom='quasirandom')
@@ -41,7 +41,12 @@ geom_quasirandom <- function(
   show.legend = NA,
   inherit.aes = TRUE
 ) {
-  if (!missing(groupOnX)) warning("The `groupOnX` argument of `geom_quasirandom` is deprecated as of ggbeeswarm 0.7.0.9000.")
+  if (!missing(groupOnX)) {
+    lifecycle::deprecate_soft(
+      when = "0.7.1", what = "geom_quasirandom(groupOnX)", 
+      details='ggplot2 now handles this case automatically.'
+    )
+  }
   if (!method %in% c("quasirandom", "pseudorandom", "smiley", "maxout", "frowney", "minout", "tukey", "tukeyDense")) {
     stop(sprintf("The method must be one of: quasirandom, pseudorandom, smiley, maxout, frowney, minout, tukey, or tukeyDense."))
   }

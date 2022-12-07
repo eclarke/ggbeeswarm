@@ -17,7 +17,7 @@ position_quasirandom(
 \arguments{
 \item{method}{the method used for distributing points
 (quasirandom, pseudorandom, smiley, maxout, frowney, minout, tukey, tukeyDense).
-See \code{\link[vipor]{offsetSingleGroup}} for the details of each method.}
+See \code{\link[vipor:offsetX]{vipor::offsetSingleGroup()}} for the details of each method.}
 
 \item{width}{the maximum amount of spread (default: 0.4)}
 
@@ -29,16 +29,16 @@ Smaller numbers (< 1) produce a tighter "fit". (default: 0.5)}
 \item{nbins}{the number of bins used when calculating density
 (has little effect with quasirandom/random distribution)}
 
-\item{dodge.width}{Amount by which points from different aesthetic groups 
+\item{dodge.width}{Amount by which points from different aesthetic groups
 will be dodged. This requires that one of the aesthetics is a factor.}
 
-\item{groupOnX}{Deprecated.}
+\item{groupOnX}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} No longer needed.}
 }
 \description{
 Arrange points using quasirandom noise to avoid overplotting
 }
 \seealso{
-\code{\link[vipor]{offsetSingleGroup}}, \code{\link{geom_quasirandom}}
+\code{\link[vipor:offsetX]{vipor::offsetSingleGroup()}}, \code{\link[=geom_quasirandom]{geom_quasirandom()}}
 
 Other position adjustments: 
 \code{\link{offset_beeswarm}()},

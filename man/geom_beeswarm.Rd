@@ -57,28 +57,28 @@ to the paired geom/stat.}
 
 \item{method}{Method for arranging points (see Details below)}
 
-\item{cex}{Scaling for adjusting point spacing (see \code{\link[beeswarm]{swarmx}}).
+\item{cex}{Scaling for adjusting point spacing (see \code{\link[beeswarm:swarmx]{beeswarm::swarmx()}}).
 Values between 1 (default) and 3 tend to work best.}
 
-\item{side}{Direction to perform jittering: 0: both directions; 
+\item{side}{Direction to perform jittering: 0: both directions;
 1: to the right or upwards; -1: to the left or downwards.}
 
 \item{priority}{Method used to perform point layout (see Details below)}
 
-\item{fast}{Use compiled version of swarm algorithm? This option is ignored 
-for all methods expect `"swarm"` and `"compactswarm"`.}
+\item{fast}{Use compiled version of swarm algorithm? This option is ignored
+for all methods expect \code{"swarm"} and \code{"compactswarm"}.}
 
-\item{dodge.width}{Amount by which points from different aesthetic groups 
+\item{dodge.width}{Amount by which points from different aesthetic groups
 will be dodged. This requires that one of the aesthetics is a factor.}
 
-\item{corral}{`string`. Method used to adjust points that would be placed to
-wide horizontally, default is `"none"`. See details below.}
+\item{corral}{\code{string}. Method used to adjust points that would be placed to
+wide horizontally, default is \code{"none"}. See details below.}
 
-\item{corral.width}{`numeric`. Width of the corral, default is `0.9`.}
+\item{corral.width}{\code{numeric}. Width of the corral, default is \code{0.9}.}
 
-\item{groupOnX}{Deprecated.}
+\item{groupOnX}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} No longer needed.}
 
-\item{beeswarmArgs}{Deprecated.}
+\item{beeswarmArgs}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} No longer used.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
@@ -96,7 +96,7 @@ the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
 }
 \description{
 The beeswarm geom is a convenient means to offset points within categories to
- reduce overplotting. Uses the beeswarm package
+reduce overplotting. Uses the beeswarm package
 }
 \section{Aesthetics}{
 
@@ -116,10 +116,10 @@ The beeswarm geom is a convenient means to offset points within categories to
     geom_beeswarm(priority='density',size=2.5)
 }
 \seealso{
-\code{\link{geom_quasirandom}} an alternative method,
- \code{\link[beeswarm]{swarmx}} how spacing is determined,
- \code{\link[ggplot2]{geom_point}} for regular, unjittered points,
- \code{\link[ggplot2]{geom_jitter}} for jittered points,
- \code{\link[ggplot2]{geom_boxplot}} for another way of looking at the conditional
-    distribution of a variable
+\code{\link[=geom_quasirandom]{geom_quasirandom()}} an alternative method,
+\code{\link[beeswarm:swarmx]{beeswarm::swarmx()}} how spacing is determined,
+\code{\link[ggplot2:geom_point]{ggplot2::geom_point()}} for regular, unjittered points,
+\code{\link[ggplot2:geom_jitter]{ggplot2::geom_jitter()}} for jittered points,
+\code{\link[ggplot2:geom_boxplot]{ggplot2::geom_boxplot()}} for another way of looking at the conditional
+distribution of a variable
 }

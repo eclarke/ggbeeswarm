@@ -6,3 +6,4 @@
 ^\.Rprofile$
 cran-comments.md
 ^\.travis\.yml$
+^revdep.*$

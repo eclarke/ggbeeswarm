@@ -54,7 +54,7 @@ to the paired geom/stat.}
 
 \item{method}{the method used for distributing points
 (quasirandom, pseudorandom, smiley, maxout, frowney, minout, tukey, tukeyDense).
-See \code{\link[vipor]{offsetSingleGroup}} for the details of each method.}
+See \code{\link[vipor:offsetX]{vipor::offsetSingleGroup()}} for the details of each method.}
 
 \item{width}{the maximum amount of spread (default: 0.4)}
 
@@ -66,10 +66,10 @@ Smaller numbers (< 1) produce a tighter "fit". (default: 0.5)}
 \item{nbins}{the number of bins used when calculating density
 (has little effect with quasirandom/random distribution)}
 
-\item{dodge.width}{Amount by which points from different aesthetic groups 
+\item{dodge.width}{Amount by which points from different aesthetic groups
 will be dodged. This requires that one of the aesthetics is a factor.}
 
-\item{groupOnX}{Deprecated.}
+\item{groupOnX}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} No longer needed.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
@@ -86,7 +86,7 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
 }
 \description{
-The quasirandom geom is a convenient means to offset points within categories 
+The quasirandom geom is a convenient means to offset points within categories
 to reduce overplotting. Uses the vipor package
 }
 \section{Aesthetics}{
@@ -105,9 +105,9 @@ to reduce overplotting. Uses the vipor package
   ggplot2::ggplot(distro,aes(variable, value)) + geom_quasirandom(width=0.1)
 }
 \seealso{
-\code{\link[vipor]{offsetSingleGroup}} how spacing is determined,
- \code{\link[ggplot2]{geom_point}} for regular, unjittered points,
- \code{\link[ggplot2]{geom_jitter}} for jittered points,
- \code{\link{geom_boxplot}} for another way of looking at the conditional
-    distribution of a variable
+\code{\link[vipor:offsetX]{vipor::offsetSingleGroup()}} how spacing is determined,
+\code{\link[ggplot2:geom_point]{ggplot2::geom_point()}} for regular, unjittered points,
+\code{\link[ggplot2:geom_jitter]{ggplot2::geom_jitter()}} for jittered points,
+\code{\link[=geom_boxplot]{geom_boxplot()}} for another way of looking at the conditional
+distribution of a variable
 }

@@ -5,7 +5,7 @@
 \alias{ggbeeswarm}
 \title{ggbeeswarm extends ggplot2 with violin point/beeswarm plots}
 \description{
-This package allows plotting of several groups of one dimensional data as a violin point/beeswarm plot by arranging data points to resemble the underlying distribution. The development version of this package is on \url{http://github.com/eclarke/ggbeeswarm}.
+This package allows plotting of several groups of one dimensional data as a violin point/beeswarm plot in ggplot2 by arranging data points to resemble the underlying distribution. The development version of this package is on \url{https://github.com/eclarke/ggbeeswarm}.
 }
 \examples{
 
@@ -20,8 +20,8 @@ This package allows plotting of several groups of one dimensional data as a viol
 
 }
 \seealso{
-\code{\link{position_quasirandom}}
+\code{\link[=position_quasirandom]{position_quasirandom()}}
 }
 \author{
-Erik Clarke, \email{ecl@mail.med.upenn.edu}
+Erik Clarke, \email{erikclarke@gmail.com}
 }
