@@ -13,7 +13,7 @@ Description: Provides two methods of plotting categorical scatter plots such
 URL: https://github.com/eclarke/ggbeeswarm
 BugReports: https://github.com/eclarke/ggbeeswarm/issues
 Encoding: UTF-8
-License: GPL (>=2)
+License: GPL (>= 2) + file LICENSE
 Depends:
     R (>= 3.5.0),
     ggplot2 (>= 3.3.0)
