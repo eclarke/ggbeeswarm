@@ -73,7 +73,7 @@ PositionQuasirandom <- ggplot2::ggproto("PositionQuasirandom", Position,
                                         },
                                         
                                         compute_panel = function(data, params, scales) {
-                                          data <- ggplot2::remove_missing(data, na.rm = params$na.rm)
+                                          data <- ggplot2::remove_missing(data, na.rm = as.logical(params$na.rm))
                                           data <- flip_data(data, params$flipped_aes)
                                           
                                           # perform dodging if necessary
