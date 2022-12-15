@@ -8,7 +8,7 @@
 #'
 #' @inheritParams ggplot2::geom_point
 #' @inheritParams offset_beeswarm
-#' @param dodge.width Amount by which points from different aesthetic groups 
+#' @param dodge.width Amount by which points from different aesthetic groups
 #' will be dodged. This requires that one of the aesthetics is a factor.
 #' @param groupOnX `r lifecycle::badge("deprecated")` No longer needed.
 #' @param beeswarmArgs `r lifecycle::badge("deprecated")` No longer used.
@@ -22,43 +22,40 @@
 #'     distribution of a variable
 #' @export
 #' @examples
-#' 
-#'   ggplot2::qplot(class, hwy, data = ggplot2::mpg, geom='beeswarm')
-#'   # Generate fake data
-#'   distro <- data.frame(
-#'     'variable'=rep(c('runif','rnorm'),each=100),
-#'     'value'=c(runif(100, min=-3, max=3), rnorm(100))
-#'   )
-#'   ggplot2::qplot(variable, value, data = distro, geom='beeswarm')
-#'   ggplot2::ggplot(distro,aes(variable, value)) +
-#'     geom_beeswarm(priority='density',size=2.5)
-geom_beeswarm <- function(
-  mapping = NULL,
-  data = NULL,
-  stat = 'identity',
-  ...,
-  method = "swarm",
-  cex = 1,
-  side = 0L,
-  priority = "ascending",
-  fast = TRUE,
-  dodge.width = NULL,
-  corral = "none",
-  corral.width = 0.9,
-  groupOnX = NULL,
-  beeswarmArgs = list(),
-  na.rm = FALSE,
-  show.legend = NA,
-  inherit.aes = TRUE
-) {
-  
+#'
+#' ggplot2::qplot(class, hwy, data = ggplot2::mpg, geom = "beeswarm")
+#' # Generate fake data
+#' distro <- data.frame(
+#'   "variable" = rep(c("runif", "rnorm"), each = 100),
+#'   "value" = c(runif(100, min = -3, max = 3), rnorm(100))
+#' )
+#' ggplot2::qplot(variable, value, data = distro, geom = "beeswarm")
+#' ggplot2::ggplot(distro, aes(variable, value)) +
+#'   geom_beeswarm(priority = "density", size = 2.5)
+geom_beeswarm <- function(mapping = NULL,
+                          data = NULL,
+                          stat = "identity",
+                          ...,
+                          method = "swarm",
+                          cex = 1,
+                          side = 0L,
+                          priority = "ascending",
+                          fast = TRUE,
+                          dodge.width = NULL,
+                          corral = "none",
+                          corral.width = 0.9,
+                          groupOnX = NULL,
+                          beeswarmArgs = list(),
+                          na.rm = FALSE,
+                          show.legend = NA,
+                          inherit.aes = TRUE) {
   if (!missing(groupOnX)) {
     lifecycle::deprecate_soft(
-      when = "0.7.1", what = "geom_beeswarm(groupOnX)", 
-      details='ggplot2 now handles this case automatically.'
+      when = "0.7.1", what = "geom_beeswarm(groupOnX)",
+      details = "ggplot2 now handles this case automatically."
     )
   }
-  
+
   if (!missing(beeswarmArgs)) {
     lifecycle::deprecate_soft(
       when = "0.7.1", what = "geom_beeswarm(beeswarmArgs)"
@@ -71,7 +68,7 @@ geom_beeswarm <- function(
   if (!corral %in% c("none", "gutter", "wrap", "random", "omit")) {
     stop(sprintf("The corral argument must be one of: none, gutter, wrap, random, or omit."))
   }
-  
+
   position <- position_beeswarm(
     method = method,
     cex = cex,
@@ -82,7 +79,7 @@ geom_beeswarm <- function(
     corral = corral,
     corral.width = corral.width
   )
-  
+
   layer(
     data = data,
     mapping = mapping,
