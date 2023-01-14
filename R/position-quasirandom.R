@@ -24,7 +24,7 @@ position_quasirandom <- function(
   varwidth = FALSE, 
   bandwidth = .5,
   nbins = NULL,
-  dodge.width = 0,
+  dodge.width = NULL,
   groupOnX = NULL,
   na.rm = FALSE
 ) {
