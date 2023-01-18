@@ -10,7 +10,7 @@ position_quasirandom(
   varwidth = FALSE,
   bandwidth = 0.5,
   nbins = NULL,
-  dodge.width = 0,
+  dodge.width = NULL,
   groupOnX = NULL,
   na.rm = FALSE
 )

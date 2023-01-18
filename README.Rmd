@@ -63,7 +63,7 @@ Using `geom_quasirandom`:
 ggplot(mpg,aes(class, hwy)) + geom_quasirandom()
 
 # With categorical y-axis
-ggplot(mpg,aes(hwy, class)) + geom_quasirandom(groupOnX=FALSE)
+ggplot(mpg,aes(hwy, class)) + geom_quasirandom()
 
 # Some groups may have only a few points. Use `varwidth=TRUE` to adjust width dynamically.
 ggplot(mpg,aes(class, hwy)) + geom_quasirandom(varwidth = TRUE)
