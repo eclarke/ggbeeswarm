@@ -1,0 +1,16 @@
+{
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "features": {
+      "ghcr.io/rocker-org/devcontainer-features/r-apt:latest": {
+          "vscodeRSupport": "lsp",
+          "installDevTools": true,
+          "installRMarkdown": true
+      },
+      "ghcr.io/rocker-org/devcontainer-features/apt-packages:1": {
+          "packages": "r-cran-ggplot2"
+      }
+  },
+  "overrideFeatureInstallOrder": [
+      "ghcr.io/rocker-org/devcontainer-features/r-apt"
+  ]
+}
