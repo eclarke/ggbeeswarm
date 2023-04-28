@@ -34,7 +34,7 @@ Smaller numbers (< 1) produce a tighter "fit". (default: 0.5)}
 \item{dodge.width}{Amount by which points from different aesthetic groups
 will be dodged. This requires that one of the aesthetics is a factor.}
 
-\item{orientation}{Normally the orientation is determined by which axis is grouped or distinct.
+\item{orientation}{The orientation (i.e., which axis to group on) is inferred from the data.
 This can be overridden by setting \code{orientation} to either \code{"x"} or \code{"y"}.}
 
 \item{groupOnX}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}} See \code{orientation}.}

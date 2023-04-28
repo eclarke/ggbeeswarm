@@ -14,7 +14,7 @@
 #' will be dodged. This requires that one of the aesthetics is a factor.
 #' @param na.rm if FALSE, the default, missing values are removed with a warning.
 #' If TRUE, missing values are silently removed.
-#' @param orientation Normally the orientation is determined by which axis is grouped or distinct. 
+#' @param orientation The orientation (i.e., which axis to group on) is inferred from the data.
 #' This can be overridden by setting `orientation` to either `"x"` or `"y"`.
 #' @param groupOnX `r lifecycle::badge("superseded")` See `orientation`.
 #' @importFrom vipor offsetSingleGroup
@@ -36,7 +36,7 @@ position_quasirandom <- function(
   if (!missing(groupOnX)) {
     lifecycle::deprecate_soft(
       when = "0.7.1", what = "position_quasirandom(groupOnX)", 
-      details='Orientation is now guessed from the data. To override, specify orientation="x" or "y".'
+      details='The axis to group on is now guessed from the data. To override, specify orientation="x" or "y".'
     )
     if (groupOnX) {
       orientation = "x"

@@ -72,7 +72,7 @@ will be dodged. This requires that one of the aesthetics is a factor.}
 
 \item{groupOnX}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}} See \code{orientation}.}
 
-\item{orientation}{Normally the orientation is determined by which axis is grouped or distinct.
+\item{orientation}{The orientation (i.e., which axis to group on) is inferred from the data.
 This can be overridden by setting \code{orientation} to either \code{"x"} or \code{"y"}.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
