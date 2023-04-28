@@ -16,6 +16,7 @@ geom_quasirandom(
   nbins = NULL,
   dodge.width = NULL,
   groupOnX = NULL,
+  orientation = NULL,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -69,7 +70,10 @@ Smaller numbers (< 1) produce a tighter "fit". (default: 0.5)}
 \item{dodge.width}{Amount by which points from different aesthetic groups
 will be dodged. This requires that one of the aesthetics is a factor.}
 
-\item{groupOnX}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} No longer needed.}
+\item{groupOnX}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}} See \code{orientation}.}
+
+\item{orientation}{Normally the orientation is determined by which axis is grouped or distinct.
+This can be overridden by setting \code{orientation} to either \code{"x"} or \code{"y"}.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}

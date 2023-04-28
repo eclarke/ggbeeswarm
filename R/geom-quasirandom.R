@@ -37,19 +37,11 @@ geom_quasirandom <- function(
   nbins = NULL,
   dodge.width = NULL,
   groupOnX = NULL,
+  orientation = NULL,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
 ) {
-  if (!missing(groupOnX)) {
-    lifecycle::deprecate_soft(
-      when = "0.7.1", what = "geom_quasirandom(groupOnX)", 
-      details='ggplot2 now handles this case automatically.'
-    )
-  }
-  if (!method %in% c("quasirandom", "pseudorandom", "smiley", "maxout", "frowney", "minout", "tukey", "tukeyDense")) {
-    stop(sprintf("The method must be one of: quasirandom, pseudorandom, smiley, maxout, frowney, minout, tukey, or tukeyDense."))
-  }
   
   position <- position_quasirandom(
     method = method,
@@ -58,6 +50,7 @@ geom_quasirandom <- function(
     bandwidth = bandwidth,
     nbins = nbins,
     dodge.width = dodge.width,
+    orientation = orientation,
     na.rm = na.rm
   )
   

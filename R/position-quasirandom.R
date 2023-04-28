@@ -14,7 +14,9 @@
 #' will be dodged. This requires that one of the aesthetics is a factor.
 #' @param na.rm if FALSE, the default, missing values are removed with a warning.
 #' If TRUE, missing values are silently removed.
-#' @param groupOnX `r lifecycle::badge("deprecated")` No longer needed.
+#' @param orientation Normally the orientation is determined by which axis is grouped or distinct. 
+#' This can be overridden by setting `orientation` to either `"x"` or `"y"`.
+#' @param groupOnX `r lifecycle::badge("superseded")` See `orientation`.
 #' @importFrom vipor offsetSingleGroup
 #' @export
 #' @seealso [vipor::offsetSingleGroup()], [geom_quasirandom()]
@@ -25,6 +27,7 @@ position_quasirandom <- function(
   bandwidth = .5,
   nbins = NULL,
   dodge.width = 0,
+  orientation = NULL,
   groupOnX = NULL,
   na.rm = FALSE
 ) {
@@ -33,9 +36,23 @@ position_quasirandom <- function(
   if (!missing(groupOnX)) {
     lifecycle::deprecate_soft(
       when = "0.7.1", what = "position_quasirandom(groupOnX)", 
-      details='ggplot2 now handles this case automatically.'
+      details='Orientation is now guessed from the data. To override, specify orientation="x" or "y".'
     )
+    if (groupOnX) {
+      orientation = "x"
+    } else {
+      orientation = "y"
+    }
   }
+  
+  if (!method %in% c("quasirandom", "pseudorandom", "smiley", "maxout", "frowney", "minout", "tukey", "tukeyDense")) {
+    cli::cli_abort("{.fn method} must be one of: quasirandom, pseudorandom, smiley, maxout, frowney, minout, tukey, or tukeyDense.")
+  }
+  
+  if (!is.null(orientation) && !(orientation %in% c("x", "y"))) {
+    cli::cli_abort("{.fn orientation} must be 'x', 'y', or NULL.")
+  }
+  
   
   ggproto(NULL, PositionQuasirandom, 
           width = width, 
@@ -44,38 +61,61 @@ position_quasirandom <- function(
           nbins = nbins,
           method = method,
           dodge.width = dodge.width,
-          na.rm = na.rm
+          na.rm = na.rm,
+          orientation = orientation
   )
 }
 
 PositionQuasirandom <- ggplot2::ggproto("PositionQuasirandom", Position,
                                         required_aes = c('x', 'y'),
                                         setup_params = function(self, data) {
-                                          flipped_aes = has_flipped_aes(data)
-                                          data <- flip_data(data, flipped_aes)
                                           
-                                          # get the number of points in each x axis group
-                                          # and find the largest group
-                                          max.length <- max(data.frame(table(data$x))$Freq)
-                                          
-                                          list(
+                                          params <- list(
                                             width = self$width,
                                             varwidth = self$varwidth,
                                             bandwidth = self$bandwidth,
                                             nbins = self$nbins,
                                             method = self$method,
-                                            # groupOnX = self$groupOnX, deprecated
                                             dodge.width = self$dodge.width,
                                             na.rm = self$na.rm,
-                                            max.length = max.length,
-                                            flipped_aes = flipped_aes
+                                            orientation = self$orientation
                                           )
+                                          
+                                          if (!is.null(params$orientation)) {
+                                            flipped_aes <- has_flipped_aes(data, params, ambiguous = TRUE)                                                                                      
+                                          } else {
+                                            flipped_aes <- has_flipped_aes(data, group_has_equal = TRUE)
+                                            if (flipped_aes) {
+                                              cli::cli_inform("Orientation inferred to be along y-axis; override with `position_quasirandom(orientation = 'x')`")
+                                            }
+                                          }
+
+                                          params$flipped_aes <- flipped_aes
+                                          
+                                          data <- flip_data(data, params$flipped_aes)
+                                          
+                                          # get the number of points in each x axis group
+                                          # and find the largest group
+                                          params$max_length <- max(data.frame(table(data$x))$Freq)
+                                          
+                                          params
+                                        },
+                                        
+                                        setup_data = function(self, data, params) {
+                                          data <- flip_data(data, params$flipped_aes)
+#                                          data$x <- data$x %||% 0
+                                          data <- remove_missing(
+                                            data,
+                                            na.rm = params$na.rm,
+                                            vars = "y",
+                                            name = "position_quasirandom"
+                                          )
+                                          flip_data(data, params$flipped_aes)
                                         },
                                         
                                         compute_panel = function(data, params, scales) {
-                                          data <- ggplot2::remove_missing(data, na.rm = as.logical(params$na.rm))
                                           data <- flip_data(data, params$flipped_aes)
-                                          
+
                                           # perform dodging if necessary
                                           data <- ggplot2:::collide(
                                             data,
@@ -123,14 +163,14 @@ offset_quasirandom <- function(
   width = 0.4, 
   vary.width = FALSE,
   max.length = NULL,
-  na.rm = FALSE,
+  # na.rm = FALSE,
   ...
 ) {
-  if (any(is.na(data$y))) {
-    if (na.rm) {
-      
-    }
-  }
+  # if (any(is.na(data$y))) {
+  #   if (na.rm) {
+  #     
+  #   }
+  # }
   x.offset <- vipor::aveWithArgs(
     data$y, data$x,
     FUN = vipor::offsetSingleGroup,

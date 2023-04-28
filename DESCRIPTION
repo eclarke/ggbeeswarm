@@ -1,8 +1,8 @@
 Package: ggbeeswarm
 Type: Package
 Title: Categorical Scatter (Violin Point) Plots
-Version: 0.7.1.9000
-Date: 2022-12-05
+Version: 0.7.2.9000
+Date: 2023-04-28
 Authors@R: c(
     person(given="Erik", family="Clarke", role=c("aut", "cre"), email="erikclarke@gmail.com"),
     person(given="Scott", family="Sherrill-Mix", role=c("aut"), email="sherrillmix@gmail.com"),
@@ -20,7 +20,8 @@ Depends:
 Imports:
     beeswarm,
     lifecycle,
-    vipor
+    vipor,
+    cli
 Suggests:
     gridExtra
 RoxygenNote: 7.2.2
