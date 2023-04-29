@@ -91,7 +91,6 @@ offset_beeswarm <- function(
     )$x
   } else {
     ## NON-SWARM METHODS
-    
     # Determine point size as per `ggbeeswarm` CRAN version 0.6.0
     
     # divisor is a magic number to get a reasonable baseline
@@ -101,14 +100,19 @@ offset_beeswarm <- function(
     
     # Hex method specific step
     if (method == "hex") y.size <- y.size * sqrt(3) / 2
-    
+
     # Determine positions along the y axis
     breaks <- seq(yLim.expand[1], yLim.expand[2] + y.size, by = y.size)
     
     mids <- (utils::head(breaks, -1) + utils::tail(breaks, -1)) / 2
-    y.index <- sapply(data$y, cut, breaks = breaks, labels = FALSE)
+
+    # include.lowest = T to account for cases where all y values are the same,
+    # which otherwise would result in NAs. Fixes issue #85.
+    y.index <- sapply(data$y, cut, breaks = breaks, include.lowest=T, labels = FALSE)
+    y.pos <- sapply(y.index, function(a) mids[a])          
     
-    y.pos <- sapply(y.index, function(a) mids[a])
+    
+
     if (any(data$y != y.pos)) {
       cli::cli_warn(c(
         "In `position_beeswarm`, method `{method}` discretizes the data axis (a.k.a the continuous or non-grouped axis).",
@@ -121,6 +125,7 @@ offset_beeswarm <- function(
     x.index <- determine_pos(y.index, method, side)
     
     x.offset <- x.index * x.size
+
   }
   
   ## CORRAL RUNAWAY POINTS
