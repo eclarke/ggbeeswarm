@@ -11,7 +11,8 @@
 #' @param nbins the number of bins used when calculating density
 #' (has little effect with quasirandom/random distribution)
 #' @param dodge.width Amount by which points from different aesthetic groups 
-#' will be dodged. This requires that one of the aesthetics is a factor.
+#' will be dodged. This requires that one of the aesthetics is a factor. 
+#' To disable dodging between groups, set this to NULL.
 #' @param na.rm if FALSE, the default, missing values are removed with a warning.
 #' If TRUE, missing values are silently removed.
 #' @param orientation The orientation (i.e., which axis to group on) is inferred from the data.
@@ -91,19 +92,34 @@ PositionQuasirandom <- ggplot2::ggproto("PositionQuasirandom", Position,
                                           }
 
                                           params$flipped_aes <- flipped_aes
-                                          
                                           data <- flip_data(data, params$flipped_aes)
                                           
                                           # get the number of points in each x axis group
                                           # and find the largest group
                                           params$max_length <- max(data.frame(table(data$x))$Freq)
                                           
+                                          # check that the number of groups < number of data points
+                                          if (!anyDuplicated(data$group)) {
+                                            if (!is.null(params$dodge.width)) {
+                                              # Warn if dodge.width was set to something besides default
+                                              if (params$dodge.width != 0) {
+                                                cli::cli_warn(c(
+                                                  "Each point belongs to its own aesthetic group; resetting dodge.width to NULL to enable position adjustment.",
+                                                  "Disable this message by setting `dodge.width=NULL` or by specifying a different group aesthetic."
+                                                ))
+                                              }
+                                              params$dodge.width = NULL
+                                            }
+
+
+                                          }
+                                          
                                           params
                                         },
                                         
                                         setup_data = function(self, data, params) {
+
                                           data <- flip_data(data, params$flipped_aes)
-#                                          data$x <- data$x %||% 0
                                           data <- remove_missing(
                                             data,
                                             na.rm = params$na.rm,
@@ -131,7 +147,7 @@ PositionQuasirandom <- ggplot2::ggproto("PositionQuasirandom", Position,
                                             params$width <- ggplot2::resolution(
                                               data$x, zero = FALSE) * 0.4
                                           }
-                                          
+
                                           # split data.frame into list of data.frames
                                           if (!is.null(params$dodge.width)) {
                                             data <- split(data, data$group)

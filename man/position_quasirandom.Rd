@@ -32,7 +32,8 @@ Smaller numbers (< 1) produce a tighter "fit". (default: 0.5)}
 (has little effect with quasirandom/random distribution)}
 
 \item{dodge.width}{Amount by which points from different aesthetic groups
-will be dodged. This requires that one of the aesthetics is a factor.}
+will be dodged. This requires that one of the aesthetics is a factor.
+To disable dodging between groups, set this to NULL.}
 
 \item{orientation}{The orientation (i.e., which axis to group on) is inferred from the data.
 This can be overridden by setting \code{orientation} to either \code{"x"} or \code{"y"}.}
