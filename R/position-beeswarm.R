@@ -109,6 +109,12 @@ offset_beeswarm <- function(
     y.index <- sapply(data$y, cut, breaks = breaks, labels = FALSE)
     
     y.pos <- sapply(y.index, function(a) mids[a])
+    if (any(data$y != y.pos)) {
+      cli::cli_warn(c(
+        "In `position_beeswarm`, method `{method}` discretizes the data axis (a.k.a the continuous or non-grouped axis).",
+        "This may result in changes to the position of the points along that axis, proportional to the value of `cex`."
+      ), .frequency = "once", .frequency_id = "beeswarm_method_data_axis_warn")
+    }
     data$y <- y.pos
     
     # Determine positions along the x axis
