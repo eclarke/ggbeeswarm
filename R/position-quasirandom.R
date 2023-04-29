@@ -103,10 +103,10 @@ PositionQuasirandom <- ggplot2::ggproto("PositionQuasirandom", Position,
                                             if (!is.null(params$dodge.width)) {
                                               # Warn if dodge.width was set to something besides default
                                               if (params$dodge.width != 0) {
-                                                cli::cli_warn(c(
-                                                  "Each point belongs to its own aesthetic group; resetting dodge.width to NULL to enable position adjustment.",
-                                                  "Disable this message by setting `dodge.width=NULL` or by specifying a different group aesthetic."
-                                                ))
+                                                cli::cli_inform(
+                                                  "Each group consists of only one observation; resetting dodge.width to NULL.",
+                                                  "Disable this message by explicitly setting `dodge.width=NULL`, or by adjusting the group aesthetic."
+                                                )
                                               }
                                               params$dodge.width = NULL
                                             }
