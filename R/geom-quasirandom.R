@@ -1,6 +1,6 @@
 #' Points, jittered to reduce overplotting using the vipor package
 #'
-#' The quasirandom geom is a convenient means to offset points within categories
+#' The quasirandom geom is a convenient means to offset points within categories 
 #' to reduce overplotting. Uses the vipor package
 #'
 #' @section Aesthetics:
@@ -26,30 +26,24 @@
 #' ggplot2::ggplot(distro, aes(variable, value)) +
 #'   geom_quasirandom(width = 0.1)
 #' @export
-geom_quasirandom <- function(mapping = NULL,
-                             data = NULL,
-                             stat = "identity",
-                             ...,
-                             method = "quasirandom",
-                             width = NULL,
-                             varwidth = FALSE,
-                             bandwidth = .5,
-                             nbins = NULL,
-                             dodge.width = 0,
-                             groupOnX = NULL,
-                             na.rm = FALSE,
-                             show.legend = NA,
-                             inherit.aes = TRUE) {
-  if (!missing(groupOnX)) {
-    lifecycle::deprecate_soft(
-      when = "0.7.1", what = "geom_quasirandom(groupOnX)",
-      details = "ggplot2 now handles this case automatically."
-    )
-  }
-  if (!method %in% c("quasirandom", "pseudorandom", "smiley", "maxout", "frowney", "minout", "tukey", "tukeyDense")) {
-    stop(sprintf("The method must be one of: quasirandom, pseudorandom, smiley, maxout, frowney, minout, tukey, or tukeyDense."))
-  }
-
+geom_quasirandom <- function(
+  mapping = NULL,
+  data = NULL,
+  stat = 'identity',
+  ...,
+  method = 'quasirandom',
+  width = NULL,
+  varwidth = FALSE,
+  bandwidth = .5,
+  nbins = NULL,
+  dodge.width = NULL,
+  groupOnX = NULL,
+  orientation = NULL,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+) {
+  
   position <- position_quasirandom(
     method = method,
     width = width,
@@ -57,6 +51,7 @@ geom_quasirandom <- function(mapping = NULL,
     bandwidth = bandwidth,
     nbins = nbins,
     dodge.width = dodge.width,
+    orientation = orientation,
     na.rm = na.rm
   )
 

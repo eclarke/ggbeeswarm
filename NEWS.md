@@ -6,6 +6,13 @@ editor_options:
 
 # ggbeeswarm
 
+## Development version
+
+**Bugfixes:**
+
+- `position_quasirandom()` default `dodge.width` is now `NULL` instead of 0 (#79)
+- A few stray references to the deprecated `groupOnX` argument are removed.
+
 ## v0.7.1
 
 This release incorporates all the incredible work done by @csdaw to refactor the

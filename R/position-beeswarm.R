@@ -104,15 +104,26 @@ offset_beeswarm <- function(data,
     breaks <- seq(yLim.expand[1], yLim.expand[2] + y.size, by = y.size)
 
     mids <- (utils::head(breaks, -1) + utils::tail(breaks, -1)) / 2
-    y.index <- sapply(data$y, cut, breaks = breaks, labels = FALSE)
 
-    y.pos <- sapply(y.index, function(a) mids[a])
+    # include.lowest = T to account for cases where all y values are the same,
+    # which otherwise would result in NAs. Fixes issue #85.
+    y.index <- sapply(data$y, cut, breaks = breaks, include.lowest=T, labels = FALSE)
+    y.pos <- sapply(y.index, function(a) mids[a])          
+    
+    if (any(data$y != y.pos)) {
+      cli::cli_warn(c(
+        "In `position_beeswarm`, method `{method}` discretizes the data axis (a.k.a the continuous or non-grouped axis).",
+        "This may result in changes to the position of the points along that axis, proportional to the value of `cex`."
+      ), .frequency = "once", .frequency_id = "beeswarm_method_data_axis_warn")
+    }
+    
     data$y <- y.pos
 
     # Determine positions along the x axis
     x.index <- determine_pos(y.index, method, side)
 
     x.offset <- x.index * x.size
+
   }
 
   ## CORRAL RUNAWAY POINTS

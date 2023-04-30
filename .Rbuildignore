@@ -9,3 +9,6 @@ cran-comments.md
 ^revdep.*$
 ^LICENSE\.md$
 ^CRAN-SUBMISSION$
+^\.github$
+^\.devcontainer
+^repro.*\.R$
