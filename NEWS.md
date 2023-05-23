@@ -11,6 +11,8 @@ editor_options:
 **Bugfixes:**
 
 - `position_quasirandom()` default `dodge.width` is now `NULL` instead of 0 (#79)
+- `geom_beeswarm()` now works with values of 0 on log scales, i.e. infinite
+  values (#87)
 - A few stray references to the deprecated `groupOnX` argument are removed.
 
 ## v0.7.1

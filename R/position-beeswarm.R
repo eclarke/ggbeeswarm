@@ -81,9 +81,32 @@ offset_beeswarm <- function(
 
     compact <- method == "compactswarm"
 
+    # Use this value for y when no values are infinite
+    y.value <- data$y
+
+    mask.infinite <- is.infinite(data$y)
+    if (any(mask.infinite)) {
+      mask.na <- is.na(data$y)
+      mask.infinite.pos <- mask.infinite & data$y > 0
+      mask.infinite.neg <- mask.infinite & data$y < 0
+      if (all(mask.infinite | mask.na)) {
+        # set the infinity values to 1 and -1 (or NA for NA values)
+        data$y.inf <- sign(data$y)
+      } else {
+        range.non.inf <- range(data$y[!mask.na & !mask.infinite])
+        # if the range of non-infinite values is 0, make the shift nonzero
+        shift.outside <- max(diff(range.non.inf), 100)
+        # Place the infinite values far outside of the range of the data
+        data$y.inf <- data$y
+        data$y.inf[mask.infinite.pos] <- range.non.inf[2] + shift.outside
+        data$y.inf[mask.infinite.neg] <- range.non.inf[1] - shift.outside
+      }
+      # Use this value for y when some values are infinite
+      y.value <- data$y.inf
+    }
     x.offset <- beeswarm::swarmx(
       x = rep(0, length(data$y)),
-      y = data$y,
+      y = y.value,
       xsize = x.size,
       ysize = y.size,
       cex = cex, side = side, priority = priority,
