@@ -196,6 +196,18 @@ offset_quasirandom <- function(
   
   x.offset <- x.offset * width
   data$x <- data$x + x.offset
+
+  if ('xend' %in% colnames(data) && 'yend' %in% colnames(data)) {
+      x.offset <- vipor::aveWithArgs(
+        data$yend, data$xend,
+        FUN = vipor::offsetSingleGroup,
+        maxLength = if (vary.width) {max.length} else {NULL},
+        ...
+      )
+
+      x.offset <- x.offset * width
+      data$xend <- data$xend + x.offset
+  }
   data
 }
 
