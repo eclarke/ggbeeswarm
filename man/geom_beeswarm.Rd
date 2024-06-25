@@ -18,6 +18,7 @@ geom_beeswarm(
   corral = "none",
   corral.width = 0.9,
   groupOnX = NULL,
+  orientation = NULL,
   beeswarmArgs = list(),
   na.rm = FALSE,
   show.legend = NA,
@@ -76,7 +77,10 @@ wide horizontally, default is \code{"none"}. See details below.}
 
 \item{corral.width}{\code{numeric}. Width of the corral, default is \code{0.9}.}
 
-\item{groupOnX}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} No longer needed.}
+\item{groupOnX}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}} See \code{orientation}.}
+
+\item{orientation}{The orientation (i.e., which axis to group on) is inferred from the data.
+This can be overridden by setting \code{orientation} to either \code{"x"} or \code{"y"}.}
 
 \item{beeswarmArgs}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} No longer used.}
 

@@ -10,6 +10,7 @@ position_beeswarm(
   side = 0L,
   priority = "ascending",
   fast = TRUE,
+  orientation = NULL,
   groupOnX = NULL,
   dodge.width = 0,
   corral = "none",
@@ -30,7 +31,10 @@ Values between 1 (default) and 3 tend to work best.}
 \item{fast}{Use compiled version of swarm algorithm? This option is ignored
 for all methods expect \code{"swarm"} and \code{"compactswarm"}.}
 
-\item{groupOnX}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} No longer needed.}
+\item{orientation}{The orientation (i.e., which axis to group on) is inferred from the data.
+This can be overridden by setting \code{orientation} to either \code{"x"} or \code{"y"}.}
+
+\item{groupOnX}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}} See \code{orientation}.}
 
 \item{dodge.width}{Amount by which points from different aesthetic groups
 will be dodged. This requires that one of the aesthetics is a factor.}
