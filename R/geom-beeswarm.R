@@ -46,6 +46,7 @@ geom_beeswarm <- function(
   corral = "none",
   corral.width = 0.9,
   groupOnX = NULL,
+  orientation = NULL,
   beeswarmArgs = list(),
   na.rm = FALSE,
   show.legend = NA,
@@ -55,10 +56,15 @@ geom_beeswarm <- function(
   if (!missing(groupOnX)) {
     lifecycle::deprecate_soft(
       when = "0.7.1", what = "geom_beeswarm(groupOnX)", 
-      details='ggplot2 now handles this case automatically.'
+      details='The axis to group on is now guessed from the data. To override, specify orientation="x" or "y".'
     )
+    if (groupOnX) {
+      orientation = "x"
+    } else {
+      orientation = "y"
+    }
   }
-  
+    
   if (!missing(beeswarmArgs)) {
     lifecycle::deprecate_soft(
       when = "0.7.1", what = "geom_beeswarm(beeswarmArgs)"
@@ -79,6 +85,7 @@ geom_beeswarm <- function(
     priority = priority,
     fast = fast,
     dodge.width = dodge.width,
+    orientation = orientation,
     corral = corral,
     corral.width = corral.width
   )

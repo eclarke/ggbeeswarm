@@ -195,7 +195,9 @@ offset_beeswarm <- function(
 #' @param corral `string`. Method used to adjust points that would be placed to
 #' wide horizontally, default is `"none"`. See details below.
 #' @param corral.width `numeric`. Width of the corral, default is `0.9`.
-#' @param groupOnX `r lifecycle::badge("deprecated")` No longer needed.
+#' @param orientation The orientation (i.e., which axis to group on) is inferred from the data.
+#' This can be overridden by setting `orientation` to either `"x"` or `"y"`.
+#' @param groupOnX `r lifecycle::badge("superseded")` See `orientation`.
 
 #' @details 
 #' **method:** specifies the algorithm used to avoid overlapping points. The 
@@ -242,7 +244,8 @@ position_beeswarm <- function(
   side = 0L,
   priority = "ascending",
   fast = TRUE,
-  groupOnX = NULL, 
+  orientation = NULL,
+  groupOnX = NULL,
   dodge.width = 0,
   corral = "none",
   corral.width = 0.2
@@ -251,9 +254,17 @@ position_beeswarm <- function(
   if (!missing(groupOnX)) {
     lifecycle::deprecate_soft(
       when = "0.7.1", what = "position_beeswarm(groupOnX)", 
-      details='ggplot2 now handles this case automatically.'
+      details='The axis to group on is now guessed from the data. To override, specify orientation="x" or "y".'
     )
-  }  
+    if (groupOnX) {
+      orientation = "x"
+    } else {
+      orientation = "y"
+    }
+  }
+  if (!is.null(orientation) && !(orientation %in% c("x", "y"))) {
+    cli::cli_abort("{.fn orientation} must be 'x', 'y', or NULL.")
+  }
   if (method == "centre") method <- "center"
   
   ggproto(NULL, PositionBeeswarm, 
@@ -262,6 +273,7 @@ position_beeswarm <- function(
           side = side,
           priority = priority,
           fast = fast,
+          orientation = orientation,
           dodge.width = dodge.width,
           corral = corral,
           corral.width = corral.width
@@ -271,14 +283,7 @@ position_beeswarm <- function(
 PositionBeeswarm <- ggplot2::ggproto("PositionBeeswarm", Position, 
                                      required_aes = c('x', 'y'),
                                      setup_params = function(self, data) {
-                                       flipped_aes <- has_flipped_aes(data)
-                                       data <- flip_data(data, flipped_aes)
-                                       
-                                       # get y range of data and extend it a little
-                                       yLim.expand <- grDevices::extendrange(data$y, f = 0.01)
-                                       
-                                       list(
-                                         # groupOnX = self$groupOnX, deprecated
+                                       params <- list(
                                          method = self$method,
                                          cex = self$cex,
                                          side = self$side,
@@ -287,9 +292,21 @@ PositionBeeswarm <- ggplot2::ggproto("PositionBeeswarm", Position,
                                          dodge.width = self$dodge.width,
                                          corral = self$corral,
                                          corral.width = self$corral.width,
-                                         yLim.expand = yLim.expand,
-                                         flipped_aes = flipped_aes 
+                                         orientation = self$orientation
                                        )
+                                       if (!is.null(params$orientation)) {
+                                         flipped_aes <- has_flipped_aes(data, params, ambiguous = TRUE)                                                                                      
+                                       } else {
+                                         flipped_aes <- has_flipped_aes(data, group_has_equal = TRUE)
+                                         if (flipped_aes) {
+                                           cli::cli_inform("Orientation inferred to be along y-axis; override with `position_beeswarm(orientation = 'x')`")
+                                         }
+                                       }
+                                       params$flipped_aes <- flipped_aes
+                                       data <- flip_data(data, params$flipped_aes)
+                                       # get y range of data and extend it a little
+                                       params$yLim.expand <- grDevices::extendrange(data$y, f = 0.01)
+                                       params
                                      },
                                      compute_panel = function(data, params, scales) {
                                        data <- flip_data(data, params$flipped_aes)
