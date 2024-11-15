@@ -10,7 +10,9 @@
 #' @inheritParams offset_beeswarm
 #' @param dodge.width Amount by which points from different aesthetic groups 
 #' will be dodged. This requires that one of the aesthetics is a factor.
-#' @param groupOnX `r lifecycle::badge("deprecated")` No longer needed.
+#' @param orientation The orientation (i.e., which axis to group on) is inferred from the data.
+#' This can be overridden by setting `orientation` to either `"x"` or `"y"`.
+#' @param groupOnX `r lifecycle::badge("superseded")` See `orientation`.
 #' @param beeswarmArgs `r lifecycle::badge("deprecated")` No longer used.
 #' @import ggplot2
 #' @seealso
@@ -46,6 +48,7 @@ geom_beeswarm <- function(
   corral = "none",
   corral.width = 0.9,
   groupOnX = NULL,
+  orientation = NULL,
   beeswarmArgs = list(),
   na.rm = FALSE,
   show.legend = NA,
@@ -55,10 +58,15 @@ geom_beeswarm <- function(
   if (!missing(groupOnX)) {
     lifecycle::deprecate_soft(
       when = "0.7.1", what = "geom_beeswarm(groupOnX)", 
-      details='ggplot2 now handles this case automatically.'
+      details='The axis to group on is now guessed from the data. To override, specify orientation="x" or "y".'
     )
+    if (groupOnX) {
+      orientation = "x"
+    } else {
+      orientation = "y"
+    }
   }
-  
+    
   if (!missing(beeswarmArgs)) {
     lifecycle::deprecate_soft(
       when = "0.7.1", what = "geom_beeswarm(beeswarmArgs)"
@@ -79,6 +87,7 @@ geom_beeswarm <- function(
     priority = priority,
     fast = fast,
     dodge.width = dodge.width,
+    orientation = orientation,
     corral = corral,
     corral.width = corral.width
   )
