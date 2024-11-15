@@ -7,3 +7,4 @@ README.html
 *.Rcheck
 .Rproj.user
 revdep*
+.DS_Store
