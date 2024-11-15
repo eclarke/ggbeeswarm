@@ -1,20 +1,20 @@
 #' Arrange points using quasirandom noise to avoid overplotting
 #' 
 #' @family position adjustments
-#' @param method the method used for distributing points
-#' (quasirandom, pseudorandom, smiley, maxout, frowney, minout, tukey, tukeyDense).
+#' @param method Method used for distributing points.
+#' Options are `"quasirandom"` (default), `"pseudorandom"`, `"smiley"`, `"maxout"`, `"frowney"`, `"minout"`, `"tukey"`, `"tukeyDense"`.
 #' See [vipor::offsetSingleGroup()] for the details of each method.
-#' @param width the maximum amount of spread (default: 0.4)
-#' @param varwidth vary the width by the relative size of each group
+#' @param width Maximum amount of spread (default: 0.4)
+#' @param varwidth Vary the width by the relative size of each group. (default: `FALSE`)
 #' @param bandwidth the bandwidth adjustment to use when calculating density
 #' Smaller numbers (< 1) produce a tighter "fit". (default: 0.5)
 #' @param nbins the number of bins used when calculating density
 #' (has little effect with quasirandom/random distribution)
 #' @param dodge.width Amount by which points from different aesthetic groups 
 #' will be dodged. This requires that one of the aesthetics is a factor. 
-#' To disable dodging between groups, set this to NULL.
-#' @param na.rm if FALSE, the default, missing values are removed with a warning.
-#' If TRUE, missing values are silently removed.
+#' To disable dodging between groups, set this to NULL. (default: 0)
+#' @param na.rm if `FALSE` (default), missing values are removed with a warning.
+#' If `TRUE`, missing values are silently removed.
 #' @param orientation The orientation (i.e., which axis to group on) is inferred from the data.
 #' This can be overridden by setting `orientation` to either `"x"` or `"y"`.
 #' @param groupOnX `r lifecycle::badge("superseded")` See `orientation`.

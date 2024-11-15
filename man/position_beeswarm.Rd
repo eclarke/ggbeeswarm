@@ -18,7 +18,9 @@ position_beeswarm(
 )
 }
 \arguments{
-\item{method}{Method for arranging points (see Details below)}
+\item{method}{Method for arranging points.
+Options are \code{"swarm"} (default), \code{"compactswarm"}, \code{"square"}, \code{"hex"}, and \code{"center"}.
+See Details below.}
 
 \item{cex}{Scaling for adjusting point spacing (see \code{\link[beeswarm:swarmx]{beeswarm::swarmx()}}).
 Values between 1 (default) and 3 tend to work best.}
@@ -26,10 +28,12 @@ Values between 1 (default) and 3 tend to work best.}
 \item{side}{Direction to perform jittering: 0: both directions;
 1: to the right or upwards; -1: to the left or downwards.}
 
-\item{priority}{Method used to perform point layout (see Details below)}
+\item{priority}{Method used to perform point layout.
+Options are \code{"ascending"} (default), \code{"descending"}, \code{"density"}, \code{"random"}, or \code{"none"}.
+See Details below.}
 
-\item{fast}{Use compiled version of swarm algorithm? This option is ignored
-for all methods expect \code{"swarm"} and \code{"compactswarm"}.}
+\item{fast}{If \code{TRUE} (default), use compiled version of swarm algorithm.
+This option is ignored for all methods except \code{"swarm"} and \code{"compactswarm"}.}
 
 \item{orientation}{The orientation (i.e., which axis to group on) is inferred from the data.
 This can be overridden by setting \code{orientation} to either \code{"x"} or \code{"y"}.}
@@ -39,10 +43,11 @@ This can be overridden by setting \code{orientation} to either \code{"x"} or \co
 \item{dodge.width}{Amount by which points from different aesthetic groups
 will be dodged. This requires that one of the aesthetics is a factor.}
 
-\item{corral}{\code{string}. Method used to adjust points that would be placed to
-wide horizontally, default is \code{"none"}. See details below.}
+\item{corral}{Method used to adjust points that would be placed too wide
+horizontally. Options are \code{"none"} (default), \code{"gutter"}, \code{"wrap"}, \code{"random"}, and \code{"omit"}.
+See Details below.}
 
-\item{corral.width}{\code{numeric}. Width of the corral, default is \code{0.9}.}
+\item{corral.width}{Width of the corral, if not \code{"none"}. Default is \code{0.9}.}
 }
 \description{
 Arrange points using the \verb{\link[beeswarm]} package.

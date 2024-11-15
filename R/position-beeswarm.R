@@ -182,19 +182,24 @@ offset_beeswarm <- function(
 #' Arrange points using the `\link[beeswarm]` package.
 #' 
 #' @family position adjustments
-#' @param method Method for arranging points (see Details below)
+#' @param method Method for arranging points. 
+#' Options are `"swarm"` (default), `"compactswarm"`, `"square"`, `"hex"`, and `"center"`.
+#' See Details below.
 #' @param cex Scaling for adjusting point spacing (see [beeswarm::swarmx()]).
 #' Values between 1 (default) and 3 tend to work best.
 #' @param side Direction to perform jittering: 0: both directions; 
 #' 1: to the right or upwards; -1: to the left or downwards.
-#' @param priority Method used to perform point layout (see Details below)
-#' @param fast Use compiled version of swarm algorithm? This option is ignored 
-#' for all methods expect `"swarm"` and `"compactswarm"`.
+#' @param priority Method used to perform point layout.
+#' Options are `"ascending"` (default), `"descending"`, `"density"`, `"random"`, or `"none"`. 
+#' See Details below.
+#' @param fast If `TRUE` (default), use compiled version of swarm algorithm. 
+#' This option is ignored for all methods except `"swarm"` and `"compactswarm"`.
 #' @param dodge.width Amount by which points from different aesthetic groups 
 #' will be dodged. This requires that one of the aesthetics is a factor.
-#' @param corral `string`. Method used to adjust points that would be placed to
-#' wide horizontally, default is `"none"`. See details below.
-#' @param corral.width `numeric`. Width of the corral, default is `0.9`.
+#' @param corral Method used to adjust points that would be placed too wide 
+#' horizontally. Options are `"none"` (default), `"gutter"`, `"wrap"`, `"random"`, and `"omit"`. 
+#' See Details below.
+#' @param corral.width Width of the corral, if not `"none"`. Default is `0.9`.
 #' @param orientation The orientation (i.e., which axis to group on) is inferred from the data.
 #' This can be overridden by setting `orientation` to either `"x"` or `"y"`.
 #' @param groupOnX `r lifecycle::badge("superseded")` See `orientation`.

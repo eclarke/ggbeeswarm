@@ -2,6 +2,7 @@
 % Please edit documentation in R/ggbeeswarm-package.R
 \docType{package}
 \name{ggbeeswarm}
+\alias{ggbeeswarm-package}
 \alias{ggbeeswarm}
 \title{ggbeeswarm extends ggplot2 with violin point/beeswarm plots}
 \description{
@@ -20,7 +21,7 @@ This package allows plotting of several groups of one dimensional data as a viol
 
 }
 \seealso{
-\code{\link[=position_quasirandom]{position_quasirandom()}}
+\code{\link[=position_quasirandom]{position_quasirandom()}}, \code{\link[=position_beeswarm]{position_beeswarm()}}
 }
 \author{
 Erik Clarke, \email{erikclarke@gmail.com}

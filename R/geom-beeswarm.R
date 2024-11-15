@@ -7,13 +7,9 @@
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "point")}
 #'
 #' @inheritParams ggplot2::geom_point
-#' @inheritParams offset_beeswarm
-#' @param dodge.width Amount by which points from different aesthetic groups 
-#' will be dodged. This requires that one of the aesthetics is a factor.
-#' @param orientation The orientation (i.e., which axis to group on) is inferred from the data.
-#' This can be overridden by setting `orientation` to either `"x"` or `"y"`.
-#' @param groupOnX `r lifecycle::badge("superseded")` See `orientation`.
+#' @inheritParams position_beeswarm
 #' @param beeswarmArgs `r lifecycle::badge("deprecated")` No longer used.
+#' @inherit position_beeswarm details
 #' @import ggplot2
 #' @seealso
 #'  [geom_quasirandom()] an alternative method,

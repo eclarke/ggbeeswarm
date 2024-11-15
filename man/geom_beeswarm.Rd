@@ -46,17 +46,50 @@ the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
-\item{stat}{The statistical transformation to use on the data for this
-layer, either as a \code{ggproto} \code{Geom} subclass or as a string naming the
-stat stripped of the \code{stat_} prefix (e.g. \code{"count"} rather than
-\code{"stat_count"})}
+\item{stat}{The statistical transformation to use on the data for this layer.
+When using a \verb{geom_*()} function to construct a layer, the \code{stat}
+argument can be used the override the default coupling between geoms and
+stats. The \code{stat} argument accepts the following:
+\itemize{
+\item A \code{Stat} ggproto subclass, for example \code{StatCount}.
+\item A string naming the stat. To give the stat as a string, strip the
+function name of the \code{stat_} prefix. For example, to use \code{stat_count()},
+give the stat as \code{"count"}.
+\item For more information and other ways to specify the stat, see the
+\link[ggplot2:layer_stats]{layer stat} documentation.
+}}
 
-\item{...}{Other arguments passed on to \code{\link[ggplot2:layer]{layer()}}. These are
-often aesthetics, used to set an aesthetic to a fixed value, like
-\code{colour = "red"} or \code{size = 3}. They may also be parameters
-to the paired geom/stat.}
+\item{...}{Other arguments passed on to \code{\link[ggplot2:layer]{layer()}}'s \code{params} argument. These
+arguments broadly fall into one of 4 categories below. Notably, further
+arguments to the \code{position} argument, or aesthetics that are required
+can \emph{not} be passed through \code{...}. Unknown arguments that are not part
+of the 4 categories below are ignored.
+\itemize{
+\item Static aesthetics that are not mapped to a scale, but are at a fixed
+value and apply to the layer as a whole. For example, \code{colour = "red"}
+or \code{linewidth = 3}. The geom's documentation has an \strong{Aesthetics}
+section that lists the available options. The 'required' aesthetics
+cannot be passed on to the \code{params}. Please note that while passing
+unmapped aesthetics as vectors is technically possible, the order and
+required length is not guaranteed to be parallel to the input data.
+\item When constructing a layer using
+a \verb{stat_*()} function, the \code{...} argument can be used to pass on
+parameters to the \code{geom} part of the layer. An example of this is
+\code{stat_density(geom = "area", outline.type = "both")}. The geom's
+documentation lists which parameters it can accept.
+\item Inversely, when constructing a layer using a
+\verb{geom_*()} function, the \code{...} argument can be used to pass on parameters
+to the \code{stat} part of the layer. An example of this is
+\code{geom_area(stat = "density", adjust = 0.5)}. The stat's documentation
+lists which parameters it can accept.
+\item The \code{key_glyph} argument of \code{\link[ggplot2:layer]{layer()}} may also be passed on through
+\code{...}. This can be one of the functions described as
+\link[ggplot2:draw_key]{key glyphs}, to change the display of the layer in the legend.
+}}
 
-\item{method}{Method for arranging points (see Details below)}
+\item{method}{Method for arranging points.
+Options are \code{"swarm"} (default), \code{"compactswarm"}, \code{"square"}, \code{"hex"}, and \code{"center"}.
+See Details below.}
 
 \item{cex}{Scaling for adjusting point spacing (see \code{\link[beeswarm:swarmx]{beeswarm::swarmx()}}).
 Values between 1 (default) and 3 tend to work best.}
@@ -64,18 +97,21 @@ Values between 1 (default) and 3 tend to work best.}
 \item{side}{Direction to perform jittering: 0: both directions;
 1: to the right or upwards; -1: to the left or downwards.}
 
-\item{priority}{Method used to perform point layout (see Details below)}
+\item{priority}{Method used to perform point layout.
+Options are \code{"ascending"} (default), \code{"descending"}, \code{"density"}, \code{"random"}, or \code{"none"}.
+See Details below.}
 
-\item{fast}{Use compiled version of swarm algorithm? This option is ignored
-for all methods expect \code{"swarm"} and \code{"compactswarm"}.}
+\item{fast}{If \code{TRUE} (default), use compiled version of swarm algorithm.
+This option is ignored for all methods except \code{"swarm"} and \code{"compactswarm"}.}
 
 \item{dodge.width}{Amount by which points from different aesthetic groups
 will be dodged. This requires that one of the aesthetics is a factor.}
 
-\item{corral}{\code{string}. Method used to adjust points that would be placed to
-wide horizontally, default is \code{"none"}. See details below.}
+\item{corral}{Method used to adjust points that would be placed too wide
+horizontally. Options are \code{"none"} (default), \code{"gutter"}, \code{"wrap"}, \code{"random"}, and \code{"omit"}.
+See Details below.}
 
-\item{corral.width}{\code{numeric}. Width of the corral, default is \code{0.9}.}
+\item{corral.width}{Width of the corral, if not \code{"none"}. Default is \code{0.9}.}
 
 \item{groupOnX}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}} See \code{orientation}.}
 
@@ -101,6 +137,40 @@ the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
 \description{
 The beeswarm geom is a convenient means to offset points within categories to
 reduce overplotting. Uses the beeswarm package
+}
+\details{
+\strong{method:} specifies the algorithm used to avoid overlapping points. The
+default \code{"swarm"} method places points in increasing order. If a point would
+overlap with an existing point, it is shifted sideways (along the group axis)
+by a minimal amount sufficient to avoid overlap.
+
+While the \code{"swarm"} method places points in a predetermined
+order, the \code{"compactswarm"} method uses a greedy strategy to determine which
+point will be placed next. This often leads to a more tightly-packed layout.
+The strategy is very simple: on each iteration, a point that can be placed as
+close as possible to the non-data axis is chosen and placed. If there are two
+or more equally good points, \code{priority} is used to break ties.
+
+The other 3 methods first discretise the values along the data axis, in order
+to create more efficient packing. The \code{"square"} method places points on a
+square grid, whereas \code{"hex"} uses a hexagonal grid. \code{"centre"}/\code{"center"}
+uses a square grid to produce a symmetric swarm. The number of break points
+for discretisation is determined by a combination of the available plotting
+area and the \code{cex} argument.
+
+\strong{priority:} controls the order in which points are placed, which generally
+has a noticeable effect on the plot appearance. \code{"ascending"} gives the
+'traditional' beeswarm plot. \code{"descending"} is the opposite. \code{"density"}
+prioritizes points with higher local density. \code{"random"} places points in a
+random order. \code{"none"} places points in the order provided.
+
+\strong{corral:} By default, swarms from different groups are not prevented from
+overlapping, i.e. \verb{"corral = "none"}. Thus, datasets that are very large or
+unevenly distributed may produce ugly overlapping beeswarms. To control
+runaway points one can use the following methods. \code{"gutter"} collects runaway
+points along the boundary between groups. \code{"wrap"} implement periodic boundaries.
+\code{"random"} places runaway points randomly in the region. \code{"omit"} omits runaway
+points.
 }
 \section{Aesthetics}{
 
