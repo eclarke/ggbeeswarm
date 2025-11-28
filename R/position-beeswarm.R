@@ -124,7 +124,7 @@ offset_beeswarm <- function(
       cli::cli_warn(c(
         "In `position_beeswarm`, method `{method}` discretizes the data axis (a.k.a the continuous or non-grouped axis).",
         "This may result in changes to the position of the points along that axis, proportional to the value of `cex`.",
-        "To prevent this behavior, set `preserve.data.axis`=TRUE."
+        "To prevent this behavior, set `preserve.data.axis=TRUE`."
       ), .frequency = "once", .frequency_id = "beeswarm_method_data_axis_warn")
     }
     if (!preserve.data.axis) {
@@ -277,10 +277,10 @@ position_beeswarm <- function(
       when = "0.7.1", what = "position_beeswarm(groupOnX)", 
       details='The axis to group on is now guessed from the data. To override, specify orientation="x" or "y".'
     )
-    if (groupOnX) {
-      orientation = "x"
-    } else {
+    if (is.null(groupOnX) || !groupOnX) {
       orientation = "y"
+    } else {
+      orientation = "x"
     }
   }
   if (!is.null(orientation) && !(orientation %in% c("x", "y"))) {

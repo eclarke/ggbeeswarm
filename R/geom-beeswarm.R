@@ -41,24 +41,24 @@ geom_beeswarm <- function(
   dodge.width = NULL,
   corral = "none",
   corral.width = 0.9,
-  preserve.data.axis = FALSE,
   groupOnX = NULL,
   orientation = NULL,
   beeswarmArgs = list(),
   na.rm = FALSE,
   show.legend = NA,
-  inherit.aes = TRUE
+  inherit.aes = TRUE,
+  preserve.data.axis = FALSE
 ) {
   
   if (!missing(groupOnX)) {
     lifecycle::deprecate_soft(
-      when = "0.7.1", what = "geom_beeswarm(groupOnX)", 
+      when = "0.7.1", what = "position_beeswarm(groupOnX)", 
       details='The axis to group on is now guessed from the data. To override, specify orientation="x" or "y".'
     )
-    if (groupOnX) {
-      orientation = "x"
-    } else {
+    if (is.null(groupOnX) || !groupOnX) {
       orientation = "y"
+    } else {
+      orientation = "x"
     }
   }
     
