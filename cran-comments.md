@@ -2,7 +2,7 @@
 * Ubuntu 20.04.1 LTS, R-release
 * Ubuntu 20.04.1 LTS, R-devel
 * Windows Server 2022, R-devel, 64 bit
-* macOS 12.6, R-release 4.2.2
+* macOS 15.6.1, R-release 4.4.0
 
 ## R CMD check results
 There were no ERRORs, WARNINGs or NOTEs.

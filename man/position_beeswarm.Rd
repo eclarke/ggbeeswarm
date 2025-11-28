@@ -14,7 +14,8 @@ position_beeswarm(
   groupOnX = NULL,
   dodge.width = 0,
   corral = "none",
-  corral.width = 0.2
+  corral.width = 0.2,
+  preserve.data.axis = FALSE
 )
 }
 \arguments{
@@ -48,6 +49,8 @@ horizontally. Options are \code{"none"} (default), \code{"gutter"}, \code{"wrap"
 See Details below.}
 
 \item{corral.width}{Width of the corral, if not \code{"none"}. Default is \code{0.9}.}
+
+\item{preserve.data.axis}{If TRUE, prevent \code{method} from modifying the data axis (default FALSE). See Details for more info.}
 }
 \description{
 Arrange points using the \verb{\link[beeswarm]} package.
@@ -85,6 +88,11 @@ runaway points one can use the following methods. \code{"gutter"} collects runaw
 points along the boundary between groups. \code{"wrap"} implement periodic boundaries.
 \code{"random"} places runaway points randomly in the region. \code{"omit"} omits runaway
 points.
+
+#' \strong{preserve.data.axis:} In some cases, the underlying method may
+attempt to change the position of points along the ungrouped, or data, axis,
+in order to keep them from overlapping. To prevent this, set this
+option to TRUE.
 }
 \seealso{
 \code{\link[=geom_beeswarm]{geom_beeswarm()}}, \code{\link[=position_quasirandom]{position_quasirandom()}},

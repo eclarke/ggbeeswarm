@@ -17,6 +17,7 @@
 #' @param corral `string`. Method used to adjust points that would be placed to
 #' wide horizontally, default is `"none"`. See details below.
 #' @param corral.width `numeric`. Width of the corral, default is `0.9`.
+#' @param preserve.data.axis If TRUE, prevent `method` from modifying the data axis (default FALSE). See Details for more info.
 #' 
 #' @details 
 #' **method:** specifies the algorithm used to avoid overlapping points. The 
@@ -52,6 +53,11 @@
 #' `"random"` places runaway points randomly in the region. `"omit"` omits runaway
 #' points.
 #' 
+#' **preserve.data.axis:** In some cases, the underlying method may 
+#' attempt to change the position of points along the ungrouped, or data, axis, 
+#' in order to keep them from overlapping. To prevent this, set this 
+#' option to TRUE.
+#' 
 #' @keywords internal
 #' @importFrom beeswarm swarmx
 #' @seealso [geom_beeswarm()], [position_quasirandom()], 
@@ -67,7 +73,8 @@ offset_beeswarm <- function(
   priority = "ascending",
   fast = TRUE,
   corral = "none",
-  corral.width = 0.2
+  corral.width = 0.2,
+  preserve.data.axis = FALSE
 ) {
   if (method %in% c("swarm", "compactswarm")) {
     ## SWARM METHODS
@@ -113,14 +120,17 @@ offset_beeswarm <- function(
     
     
 
-    if (any(data$y != y.pos)) {
+    if (any(data$y != y.pos) && !preserve.data.axis) {
       cli::cli_warn(c(
         "In `position_beeswarm`, method `{method}` discretizes the data axis (a.k.a the continuous or non-grouped axis).",
-        "This may result in changes to the position of the points along that axis, proportional to the value of `cex`."
+        "This may result in changes to the position of the points along that axis, proportional to the value of `cex`.",
+        "To prevent this behavior, set `preserve.data.axis`=TRUE."
       ), .frequency = "once", .frequency_id = "beeswarm_method_data_axis_warn")
     }
-    data$y <- y.pos
-    
+    if (!preserve.data.axis) {
+      data$y <- y.pos
+    }
+
     # Determine positions along the x axis
     x.index <- determine_pos(y.index, method, side)
     
@@ -200,6 +210,7 @@ offset_beeswarm <- function(
 #' horizontally. Options are `"none"` (default), `"gutter"`, `"wrap"`, `"random"`, and `"omit"`. 
 #' See Details below.
 #' @param corral.width Width of the corral, if not `"none"`. Default is `0.9`.
+#' @param preserve.data.axis If TRUE, prevent `method` from modifying the data axis (default FALSE). See Details for more info.
 #' @param orientation The orientation (i.e., which axis to group on) is inferred from the data.
 #' This can be overridden by setting `orientation` to either `"x"` or `"y"`.
 #' @param groupOnX `r lifecycle::badge("superseded")` See `orientation`.
@@ -238,6 +249,10 @@ offset_beeswarm <- function(
 #' `"random"` places runaway points randomly in the region. `"omit"` omits runaway
 #' points.
 #' 
+#' #' **preserve.data.axis:** In some cases, the underlying method may 
+#' attempt to change the position of points along the ungrouped, or data, axis, 
+#' in order to keep them from overlapping. To prevent this, set this 
+#' option to TRUE.
 #' 
 #' @export
 #' @importFrom beeswarm swarmx
@@ -253,7 +268,8 @@ position_beeswarm <- function(
   groupOnX = NULL,
   dodge.width = 0,
   corral = "none",
-  corral.width = 0.2
+  corral.width = 0.2,
+  preserve.data.axis = FALSE
 ) {
   
   if (!missing(groupOnX)) {
@@ -281,7 +297,8 @@ position_beeswarm <- function(
           orientation = orientation,
           dodge.width = dodge.width,
           corral = corral,
-          corral.width = corral.width
+          corral.width = corral.width,
+          preserve.data.axis = preserve.data.axis
   )
 }
 
@@ -297,7 +314,8 @@ PositionBeeswarm <- ggplot2::ggproto("PositionBeeswarm", Position,
                                          dodge.width = self$dodge.width,
                                          corral = self$corral,
                                          corral.width = self$corral.width,
-                                         orientation = self$orientation
+                                         orientation = self$orientation,
+                                         preserve.data.axis = self$preserve.data.axis
                                        )
                                        if (!is.null(params$orientation)) {
                                          flipped_aes <- has_flipped_aes(data, params, ambiguous = TRUE)                                                                                      
@@ -353,7 +371,8 @@ PositionBeeswarm <- ggplot2::ggproto("PositionBeeswarm", Position,
                                          priority = params$priority,
                                          fast = params$fast,
                                          corral = params$corral,
-                                         corral.width = params$corral.width
+                                         corral.width = params$corral.width,
+                                         preserve.data.axis = params$preserve.data.axis
                                        )
                                        
                                        # recombine list of data.frames into one

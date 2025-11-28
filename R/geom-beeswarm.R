@@ -43,6 +43,7 @@ geom_beeswarm <- function(
   dodge.width = NULL,
   corral = "none",
   corral.width = 0.9,
+  preserve.data.axis = FALSE,
   groupOnX = NULL,
   orientation = NULL,
   beeswarmArgs = list(),
@@ -85,7 +86,8 @@ geom_beeswarm <- function(
     dodge.width = dodge.width,
     orientation = orientation,
     corral = corral,
-    corral.width = corral.width
+    corral.width = corral.width,
+    preserve.data.axis = preserve.data.axis
   )
   
   layer(

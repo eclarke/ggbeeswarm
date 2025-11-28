@@ -15,7 +15,8 @@ offset_beeswarm(
   priority = "ascending",
   fast = TRUE,
   corral = "none",
-  corral.width = 0.2
+  corral.width = 0.2,
+  preserve.data.axis = FALSE
 )
 }
 \arguments{
@@ -45,6 +46,8 @@ for all methods expect \code{"swarm"} and \code{"compactswarm"}.}
 wide horizontally, default is \code{"none"}. See details below.}
 
 \item{corral.width}{\code{numeric}. Width of the corral, default is \code{0.9}.}
+
+\item{preserve.data.axis}{If TRUE, prevent \code{method} from modifying the data axis (default FALSE). See Details for more info.}
 }
 \description{
 An internal function to calculate new positions for geom_beeswarm
@@ -82,6 +85,11 @@ runaway points one can use the following methods. \code{"gutter"} collects runaw
 points along the boundary between groups. \code{"wrap"} implement periodic boundaries.
 \code{"random"} places runaway points randomly in the region. \code{"omit"} omits runaway
 points.
+
+\strong{preserve.data.axis:} In some cases, the underlying method may
+attempt to change the position of points along the ungrouped, or data, axis,
+in order to keep them from overlapping. To prevent this, set this
+option to TRUE.
 }
 \seealso{
 \code{\link[=geom_beeswarm]{geom_beeswarm()}}, \code{\link[=position_quasirandom]{position_quasirandom()}},
