@@ -41,13 +41,13 @@ geom_beeswarm <- function(
   dodge.width = NULL,
   corral = "none",
   corral.width = 0.9,
+  preserve.data.axis = FALSE,
   groupOnX = NULL,
   orientation = NULL,
   beeswarmArgs = list(),
   na.rm = FALSE,
   show.legend = NA,
-  inherit.aes = TRUE,
-  preserve.data.axis = FALSE
+  inherit.aes = TRUE
 ) {
   
   if (!missing(groupOnX)) {
