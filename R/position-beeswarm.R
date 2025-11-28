@@ -302,84 +302,85 @@ position_beeswarm <- function(
   )
 }
 
-PositionBeeswarm <- ggplot2::ggproto("PositionBeeswarm", Position, 
-                                     required_aes = c('x', 'y'),
-                                     setup_params = function(self, data) {
-                                       params <- list(
-                                         method = self$method,
-                                         cex = self$cex,
-                                         side = self$side,
-                                         priority = self$priority,
-                                         fast = self$fast,
-                                         dodge.width = self$dodge.width,
-                                         corral = self$corral,
-                                         corral.width = self$corral.width,
-                                         orientation = self$orientation,
-                                         preserve.data.axis = self$preserve.data.axis
-                                       )
-                                       if (!is.null(params$orientation)) {
-                                         flipped_aes <- has_flipped_aes(data, params, ambiguous = TRUE)                                                                                      
-                                       } else {
-                                         flipped_aes <- has_flipped_aes(data, group_has_equal = TRUE)
-                                         if (flipped_aes) {
-                                           cli::cli_inform("Orientation inferred to be along y-axis; override with `position_beeswarm(orientation = 'x')`")
-                                         }
-                                       }
-                                       params$flipped_aes <- flipped_aes
-                                       data <- flip_data(data, params$flipped_aes)
-                                       # get y range of data and extend it a little
-                                       params$yLim.expand <- grDevices::extendrange(data$y, f = 0.01)
-                                       params
-                                     },
-                                     compute_panel = function(data, params, scales) {
-                                       data <- flip_data(data, params$flipped_aes)
-                                       
-                                       # get plot limits
-                                       if (params$flipped_aes) {
-                                         xRange <- get_range(scales$y)
-                                         yRange <- get_range(scales$x)
-                                       } else {
-                                         xRange <- get_range(scales$x)
-                                         yRange <- get_range(scales$y)
-                                       }
-                                       
-                                       data <- ggplot2:::collide(
-                                         data,
-                                         params$dodge.width,
-                                         name = "position_beeswarm",
-                                         strategy = ggplot2:::pos_dodge,
-                                         check.width = FALSE
-                                       )
-                                       
-                                       # split data.frame into list of data.frames
-                                       if(!is.null(params$dodge.width)) {
-                                         data <- split(data, data$group)
-                                       } else {
-                                         data <- split(data, data$x)
-                                       }
-                                       
-                                       # perform swarming separately for each data.frame
-                                       data <- lapply(
-                                         data,
-                                         offset_beeswarm,
-                                         yLim.expand = params$yLim.expand,
-                                         xRange = xRange,
-                                         yRange = yRange,
-                                         method = params$method,
-                                         cex = params$cex,
-                                         side = params$side,
-                                         priority = params$priority,
-                                         fast = params$fast,
-                                         corral = params$corral,
-                                         corral.width = params$corral.width,
-                                         preserve.data.axis = params$preserve.data.axis
-                                       )
-                                       
-                                       # recombine list of data.frames into one
-                                       data <- Reduce(rbind, data)
-                                       
-                                       flip_data(data, params$flipped_aes)
-                                     }
+PositionBeeswarm <- ggplot2::ggproto(
+  "PositionBeeswarm", Position, 
+  required_aes = c('x', 'y'),
+  setup_params = function(self, data) {
+    params <- list(
+      method = self$method,
+      cex = self$cex,
+      side = self$side,
+      priority = self$priority,
+      fast = self$fast,
+      dodge.width = self$dodge.width,
+      corral = self$corral,
+      corral.width = self$corral.width,
+      orientation = self$orientation,
+      preserve.data.axis = self$preserve.data.axis
+    )
+    if (!is.null(params$orientation)) {
+      flipped_aes <- has_flipped_aes(data, params, ambiguous = TRUE)                                                                                      
+    } else {
+      flipped_aes <- has_flipped_aes(data, group_has_equal = TRUE)
+      if (flipped_aes) {
+        cli::cli_inform("Orientation inferred to be along y-axis; override with `position_beeswarm(orientation = 'x')`")
+      }
+    }
+    params$flipped_aes <- flipped_aes
+    data <- flip_data(data, params$flipped_aes)
+    # get y range of data and extend it a little
+    params$yLim.expand <- grDevices::extendrange(data$y, f = 0.01)
+    params
+  },
+  compute_panel = function(data, params, scales) {
+    data <- flip_data(data, params$flipped_aes)
+    
+    # get plot limits
+    if (params$flipped_aes) {
+      xRange <- get_range(scales$y)
+      yRange <- get_range(scales$x)
+    } else {
+      xRange <- get_range(scales$x)
+      yRange <- get_range(scales$y)
+    }
+    
+    data <- ggplot2:::collide(
+      data,
+      params$dodge.width,
+      name = "position_beeswarm",
+      strategy = ggplot2:::pos_dodge,
+      check.width = FALSE
+    )
+    
+    # split data.frame into list of data.frames
+    if(!is.null(params$dodge.width)) {
+      data <- split(data, data$group)
+    } else {
+      data <- split(data, data$x)
+    }
+    
+    # perform swarming separately for each data.frame
+    data <- lapply(
+      data,
+      offset_beeswarm,
+      yLim.expand = params$yLim.expand,
+      xRange = xRange,
+      yRange = yRange,
+      method = params$method,
+      cex = params$cex,
+      side = params$side,
+      priority = params$priority,
+      fast = params$fast,
+      corral = params$corral,
+      corral.width = params$corral.width,
+      preserve.data.axis = params$preserve.data.axis
+    )
+    
+    # recombine list of data.frames into one
+    data <- Reduce(rbind, data)
+    
+    flip_data(data, params$flipped_aes)
+  }
 )
 
 get_range <- function(scales) {
