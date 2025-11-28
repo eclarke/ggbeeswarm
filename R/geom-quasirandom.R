@@ -13,7 +13,7 @@
 #'  [vipor::offsetSingleGroup()] how spacing is determined,
 #'  [ggplot2::geom_point()] for regular, unjittered points,
 #'  [ggplot2::geom_jitter()] for jittered points,
-#'  [geom_boxplot()] for another way of looking at the conditional
+#'  [ggplot2::geom_boxplot()] for another way of looking at the conditional
 #'     distribution of a variable
 #' @examples
 #'   ggplot2::qplot(class, hwy, data = ggplot2::mpg, geom='quasirandom')

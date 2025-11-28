@@ -144,6 +144,6 @@ to reduce overplotting. Uses the vipor package
 \code{\link[vipor:offsetX]{vipor::offsetSingleGroup()}} how spacing is determined,
 \code{\link[ggplot2:geom_point]{ggplot2::geom_point()}} for regular, unjittered points,
 \code{\link[ggplot2:geom_jitter]{ggplot2::geom_jitter()}} for jittered points,
-\code{\link[=geom_boxplot]{geom_boxplot()}} for another way of looking at the conditional
+\code{\link[ggplot2:geom_boxplot]{ggplot2::geom_boxplot()}} for another way of looking at the conditional
 distribution of a variable
 }
